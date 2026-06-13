@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  /* Primary Aqua palette */
+  --color-aqua: #00BCD4;
+  --color-aqua-dark: #0097A7;
+  --color-aqua-light: #E0F7FA;
+  --color-aqua-accent: #00E5FF;
+  --color-aqua-border: #B2EBF2;
+
+  /* Background */
+  --color-bg: #F5FEFF;
+  --color-bg-white: #FFFFFF;
+
+  /* Text */
+  --color-text-primary: #1A1A2E;
+  --color-text-secondary: #546E7A;
+
+  /* Semantic */
+  --color-success: #4CAF50;
+  --color-success-light: #E8F5E9;
+  --color-warning: #FF9800;
+  --color-warning-light: #FFF3E0;
+  --color-danger: #F44336;
+  --color-danger-light: #FFEBEE;
+
+  /* Shadows */
+  --shadow-aqua: 0 4px 20px rgba(0, 188, 212, 0.15);
+  --shadow-aqua-lg: 0 8px 25px rgba(0, 188, 212, 0.2);
+  --shadow-aqua-xl: 0 12px 35px rgba(0, 188, 212, 0.25);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #F5FEFF;
+  color: #1A1A2E;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Premium scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5FEFF;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #B2EBF2;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00BCD4;
+}
+
+/* Focus rings */
+*:focus-visible {
+  outline: 2px solid #00BCD4;
+  outline-offset: 2px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(0, 188, 212, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(0, 188, 212, 0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes count-up {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #E0F7FA 25%, #B2EBF2 50%, #E0F7FA 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Skeleton loading */
+.skeleton {
+  background: linear-gradient(90deg, #E0F7FA 25%, #B2EBF2 50%, #E0F7FA 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* Hide scrollbar for horizontal scroll */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
