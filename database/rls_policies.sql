@@ -106,6 +106,30 @@ CREATE POLICY "Products: store owner delete"
   );
 
 -- ==================
+-- HELPER FUNCTIONS TO PREVENT RLS INFINITE RECURSION
+-- ==================================================
+
+CREATE OR REPLACE FUNCTION public.is_delivery_partner_for_order(order_uuid UUID, user_uuid UUID)
+RETURNS BOOLEAN AS $$
+BEGIN
+  RETURN EXISTS (
+    SELECT 1 FROM public.delivery_assignments da
+    WHERE da.order_id = order_uuid AND da.partner_id = user_uuid
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
+
+CREATE OR REPLACE FUNCTION public.is_store_owner_for_order(order_uuid UUID, user_uuid UUID)
+RETURNS BOOLEAN AS $$
+BEGIN
+  RETURN EXISTS (
+    SELECT 1 FROM public.orders o
+    JOIN public.stores s ON s.id = o.store_id
+    WHERE o.id = order_uuid AND s.owner_id = user_uuid
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
+
 -- ORDERS
 -- ==================
 
@@ -127,10 +151,7 @@ CREATE POLICY "Orders: store owner read"
 CREATE POLICY "Orders: delivery partner read"
   ON orders FOR SELECT
   USING (
-    EXISTS (
-      SELECT 1 FROM delivery_assignments
-      WHERE delivery_assignments.order_id = id AND delivery_assignments.partner_id = auth.uid()
-    )
+    public.is_delivery_partner_for_order(id, auth.uid())
   );
 
 -- Customers can place orders
@@ -163,11 +184,7 @@ CREATE POLICY "Order Items: customer read"
 CREATE POLICY "Order Items: store owner read"
   ON order_items FOR SELECT
   USING (
-    EXISTS (
-      SELECT 1 FROM orders o
-      JOIN stores s ON s.id = o.store_id
-      WHERE o.id = order_id AND s.owner_id = auth.uid()
-    )
+    public.is_store_owner_for_order(order_id, auth.uid())
   );
 
 -- Customers can insert order items
@@ -192,12 +209,11 @@ CREATE POLICY "Delivery: partner read"
 CREATE POLICY "Delivery: store owner read"
   ON delivery_assignments FOR SELECT
   USING (
-    EXISTS (
-      SELECT 1 FROM orders o
-      JOIN stores s ON s.id = o.store_id
-      WHERE o.id = order_id AND s.owner_id = auth.uid()
-    )
+    public.is_store_owner_for_order(order_id, auth.uid())
   );
+
+
+
 
 -- Delivery partners can update their own assignment status
 CREATE POLICY "Delivery: partner update"

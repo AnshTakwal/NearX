@@ -1,14 +1,16 @@
 import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, ShoppingBag, ShoppingCart, User } from 'lucide-react';
+import { useCart } from '../../hooks/useCart';
 
 export default function BottomNav() {
   const location = useLocation();
+  const { itemCount } = useCart();
 
   const navItems = [
     { icon: Home, label: 'Home', path: '/home' },
     { icon: ShoppingBag, label: 'Products', path: '/products' },
-    { icon: ShoppingCart, label: 'Cart', path: '/cart', badge: 2 },
+    { icon: ShoppingCart, label: 'Cart', path: '/cart', badge: itemCount },
     { icon: User, label: 'Profile', path: '/profile' }
   ];
 
@@ -22,8 +24,8 @@ export default function BottomNav() {
           <Link key={item.path} to={item.path} className={`flex flex-col items-center gap-1 relative ${isActive ? 'text-[#00BCD4]' : 'text-slate-400 hover:text-slate-600'}`}>
             <div className="relative">
               <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
-              {item.badge && (
-                <span className="absolute -top-1 -right-2 bg-[#EF4444] text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
+              {item.badge > 0 && (
+                <span className="absolute -top-1 -right-2 bg-[#EF4444] text-white text-[10px] w-4.5 h-4.5 flex items-center justify-center rounded-full font-black border border-white">
                   {item.badge}
                 </span>
               )}

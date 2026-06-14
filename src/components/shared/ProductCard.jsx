@@ -1,58 +1,97 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ShoppingCart } from 'lucide-react';
 import SafetyBadge from './SafetyBadge';
 import DiscountBadge from './DiscountBadge';
+import { useCart } from '../../hooks/useCart';
+import { toast } from '../shared/Toast';
 
 export default function ProductCard({ product }) {
-  const { id, name, brand, mrp, daysToExpiry, image } = product;
+  const { id, name, brand, mrp, sale_price, expiry_date, discount_percent, image_url, stock } = product;
+  const { addToCart } = useCart();
 
-  // Calculate discount logic
-  let discount = 10;
-  if (daysToExpiry < 7) discount = 60;
-  else if (daysToExpiry <= 15) discount = 40;
-  else if (daysToExpiry <= 30) discount = 25;
+  // Calculate days left
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const expiry = new Date(expiry_date);
+  expiry.setHours(0, 0, 0, 0);
+  const diffTime = expiry.getTime() - today.getTime();
+  const daysLeft = Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
 
-  const salePrice = Math.round(mrp - (mrp * discount) / 100);
+  const formattedMrp = (mrp / 100).toFixed(0);
+  const formattedSalePrice = (sale_price / 100).toFixed(0);
+
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (stock <= 0) {
+      toast.error('Item is out of stock!');
+      return;
+    }
+    const success = addToCart(product, 1);
+    if (success) {
+      toast.success(`${name} added to cart!`);
+    }
+  };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 hover:shadow-md transition-shadow group flex flex-col relative overflow-hidden">
-      <div className="absolute top-4 right-4 z-10">
-        <DiscountBadge discount={discount} />
-      </div>
-      
-      <div className="w-full h-48 bg-slate-50 rounded-xl mb-4 overflow-hidden relative">
-        <img 
-          src={image} 
-          alt={name} 
-          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-          onError={(e) => { 
-            e.target.src = "https://images.unsplash.com/photo-1542838132-92c53300491e?w=300&h=300&fit=crop" 
-          }}
-        />
-      </div>
+    <Link 
+      to={`/product/${id}`} 
+      className="bg-white rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-1.5 border border-slate-100/85 p-3.5 transition-all duration-300 group flex flex-col relative overflow-hidden h-full min-h-[310px] justify-between"
+    >
+      <div>
+        {/* Discount Badge */}
+        <div className="absolute top-3 right-3 z-10">
+          <DiscountBadge discount={discount_percent} />
+        </div>
+        
+        {/* Product Image */}
+        <div className="w-full h-36 bg-slate-50/50 rounded-2xl mb-3 overflow-hidden relative border border-slate-100/60 flex items-center justify-center">
+          {image_url && image_url.length > 2 ? (
+            <img 
+              src={image_url} 
+              alt={name} 
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-555"
+              onError={(e) => { 
+                e.target.src = "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&h=400&fit=crop";
+              }}
+            />
+          ) : (
+            <div className="text-3xl select-none">📦</div>
+          )}
+          {stock <= 0 && (
+            <div className="absolute inset-0 bg-slate-900/65 backdrop-blur-[2px] flex items-center justify-center text-white font-bold rounded-2xl text-xs uppercase tracking-wider">
+              Out of Stock
+            </div>
+          )}
+        </div>
 
-      <div className="flex-1 flex flex-col">
-        <div className="flex justify-between items-start mb-1">
+        {/* Product Information */}
+        <div className="space-y-1.5">
+          <p className="text-[10px] text-slate-400 font-extrabold tracking-wider uppercase">{brand || 'Generic'}</p>
+          <h3 className="text-[14px] font-bold text-[#1A1A2E] leading-snug line-clamp-2 group-hover:text-[#00BCD4] transition-colors">{name}</h3>
+          
           <div>
-            <p className="text-[14px] text-slate-500 font-medium">{brand}</p>
-            <h3 className="text-[16px] font-semibold text-[#1A1A2E] leading-tight line-clamp-2">{name}</h3>
+            <SafetyBadge days={daysLeft} />
           </div>
         </div>
-
-        <div className="mt-3 mb-4">
-          <SafetyBadge days={daysToExpiry} />
-        </div>
-
-        <div className="mt-auto flex items-end justify-between">
-          <div>
-            <p className="text-[14px] text-slate-400 line-through">₹{mrp}</p>
-            <p className="text-[20px] font-bold text-[#00BCD4]">₹{salePrice}</p>
-          </div>
-          <button className="bg-[#E0F7FA] text-[#0097A7] hover:bg-[#00BCD4] hover:text-white px-4 py-2 rounded-xl font-medium transition-colors">
-            Add
-          </button>
-        </div>
       </div>
-    </div>
+
+      {/* Pricing and Action */}
+      <div className="pt-2 border-t border-slate-100/60 mt-3 space-y-2">
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-[18px] font-black text-[#1A1A2E]">₹{formattedSalePrice}</span>
+          <span className="text-[11px] text-slate-400 line-through">₹{formattedMrp}</span>
+        </div>
+        <button 
+          onClick={handleAddToCart}
+          disabled={stock <= 0}
+          className="w-full bg-[#E0F7FA] text-[#0097A7] hover:bg-[#00BCD4] hover:text-white py-2.5 rounded-xl font-extrabold text-[12px] transition-all duration-300 flex items-center justify-center gap-1.5 shadow-sm active:scale-95 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed"
+        >
+          <ShoppingCart size={14} />
+          <span>Add to Cart</span>
+        </button>
+      </div>
+    </Link>
   );
 }

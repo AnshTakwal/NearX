@@ -15,13 +15,13 @@ export async function placeOrder(cartItems, addressId, customerId) {
 
     const storeId = cartItems[0].store_id;
     const subtotal = cartItems.reduce(
-      (sum, item) => sum + item.sale_price * item.quantity,
+      (sum, item) => sum + item.sale_price * (item.quantity || item.cartQty || 1),
       0
     );
     const deliveryFee = 4000; // 4000 paise = ₹40
     const total = subtotal + deliveryFee;
     const savings = cartItems.reduce(
-      (sum, item) => sum + (item.mrp - item.sale_price) * item.quantity,
+      (sum, item) => sum + ((item.mrp || item.sale_price) - item.sale_price) * (item.quantity || item.cartQty || 1),
       0
     );
 
@@ -38,7 +38,7 @@ export async function placeOrder(cartItems, addressId, customerId) {
           delivery_fee: deliveryFee,
           total,
           savings,
-          payment_status: 'pending', // Set to pending by default
+          payment_status: 'pending',
           payment_id: null,
         },
       ])
@@ -52,9 +52,9 @@ export async function placeOrder(cartItems, addressId, customerId) {
       order_id: order.id,
       product_id: item.id,
       product_name: item.name,
-      quantity: item.quantity,
+      quantity: item.quantity || item.cartQty || 1,
       unit_price: item.sale_price,
-      total_price: item.sale_price * item.quantity,
+      total_price: item.sale_price * (item.quantity || item.cartQty || 1),
     }));
 
     const { error: itemsError } = await supabase
@@ -67,7 +67,7 @@ export async function placeOrder(cartItems, addressId, customerId) {
     for (const item of cartItems) {
       const { data: success, error: stockError } = await supabase.rpc(
         'decrement_stock',
-        { p_product_id: item.id, p_quantity: item.quantity }
+        { p_product_id: item.id, p_quantity: item.quantity || item.cartQty || 1 }
       );
       if (stockError) {
         console.warn('Stock decrement failed for product:', item.id, stockError);

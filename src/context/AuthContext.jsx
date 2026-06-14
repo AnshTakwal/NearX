@@ -141,6 +141,7 @@ export function AuthProvider({ children }) {
           options: {
             data: {
               full_name: userData.fullName,
+              phone: userData.phone || null,
               role,
             },
           },
@@ -148,29 +149,34 @@ export function AuthProvider({ children }) {
         if (error) throw error;
         if (!data.user) throw new Error('Registration failed. Please try again.');
 
-        // Upsert profile (trigger may have already created it)
-        const { error: profileErr } = await supabase.from('profiles').upsert({
-          id: data.user.id,
-          full_name: userData.fullName,
-          phone: userData.phone || null,
-          role,
-        });
-        if (profileErr && profileErr.code !== '23505') throw profileErr;
+        // If the user session is immediately available (email confirmation disabled)
+        if (data.session) {
+          // Use update instead of upsert to avoid requiring INSERT RLS policy on profiles,
+          // since the database trigger handle_new_user already inserts the profile row.
+          const { error: profileErr } = await supabase
+            .from('profiles')
+            .update({
+              full_name: userData.fullName,
+              phone: userData.phone || null,
+            })
+            .eq('id', data.user.id);
+          if (profileErr) console.warn('Profile details sync warning:', profileErr);
 
-        // Create store record for store owners
-        if (role === 'store_owner' && userData.storeName) {
-          const { error: storeErr } = await supabase.from('stores').insert([
-            {
-              owner_id: data.user.id,
-              name: userData.storeName,
-              address: userData.storeAddress || 'TBD',
-              city: userData.city || 'Delhi',
-              pincode: userData.pincode || '110001',
-              lat: userData.lat || 28.6139,
-              lng: userData.lng || 77.209,
-            },
-          ]);
-          if (storeErr) console.warn('Store creation warning:', storeErr);
+          // Create store record for store owners
+          if (role === 'store_owner' && userData.storeName) {
+            const { error: storeErr } = await supabase.from('stores').insert([
+              {
+                owner_id: data.user.id,
+                name: userData.storeName,
+                address: userData.storeAddress || 'TBD',
+                city: userData.city || 'Delhi',
+                pincode: userData.pincode || '110001',
+                lat: userData.lat || 28.6139,
+                lng: userData.lng || 77.209,
+              },
+            ]);
+            if (storeErr) console.warn('Store creation warning:', storeErr);
+          }
         }
 
         toast.success('Account created! Please check your email to confirm.');
@@ -196,6 +202,12 @@ export function AuthProvider({ children }) {
     }
   }, [navigate]);
 
+  const refreshProfile = useCallback(async () => {
+    if (user?.id) {
+      await fetchProfile(user.id);
+    }
+  }, [user, fetchProfile]);
+
   const value = {
     user,
     profile,
@@ -204,6 +216,7 @@ export function AuthProvider({ children }) {
     login,
     register,
     logout,
+    refreshProfile,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

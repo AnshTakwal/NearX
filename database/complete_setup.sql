@@ -253,18 +253,20 @@ CREATE TRIGGER trg_delivery_updated    BEFORE UPDATE ON delivery_assignments FOR
 CREATE OR REPLACE FUNCTION handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO profiles (id, full_name, role)
+  INSERT INTO public.profiles (id, full_name, role, phone)
   VALUES (
     NEW.id,
     COALESCE(NEW.raw_user_meta_data->>'full_name', 'User'),
-    COALESCE((NEW.raw_user_meta_data->>'role')::user_role, 'customer')
+    COALESCE((NEW.raw_user_meta_data->>'role')::public.user_role, 'customer'::public.user_role),
+    NEW.raw_user_meta_data->>'phone'
   )
   ON CONFLICT (id) DO UPDATE
     SET full_name = EXCLUDED.full_name,
-        role      = EXCLUDED.role;
+        role      = EXCLUDED.role,
+        phone     = EXCLUDED.phone;
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
 CREATE TRIGGER on_auth_user_created
@@ -312,6 +314,28 @@ BEGIN
     EXECUTE format('DROP POLICY IF EXISTS %I ON %I', r.policyname, r.tablename);
   END LOOP;
 END $$;
+
+-- Helper functions for RLS to prevent recursion
+CREATE OR REPLACE FUNCTION public.is_delivery_partner_for_order(order_uuid UUID, user_uuid UUID)
+RETURNS BOOLEAN AS $$
+BEGIN
+  RETURN EXISTS (
+    SELECT 1 FROM public.delivery_assignments da
+    WHERE da.order_id = order_uuid AND da.partner_id = user_uuid
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
+
+CREATE OR REPLACE FUNCTION public.is_store_owner_for_order(order_uuid UUID, user_uuid UUID)
+RETURNS BOOLEAN AS $$
+BEGIN
+  RETURN EXISTS (
+    SELECT 1 FROM public.orders o
+    JOIN public.stores s ON s.id = o.store_id
+    WHERE o.id = order_uuid AND s.owner_id = user_uuid
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- ---- PROFILES ----
 -- Anyone can read profiles (needed for order -> customer name joins)
@@ -402,11 +426,7 @@ CREATE POLICY "Orders: store owner read"
 CREATE POLICY "Orders: delivery partner read"
   ON orders FOR SELECT
   USING (
-    EXISTS (
-      SELECT 1 FROM delivery_assignments
-      WHERE delivery_assignments.order_id = id
-        AND delivery_assignments.partner_id = auth.uid()
-    )
+    public.is_delivery_partner_for_order(id, auth.uid())
   );
 
 -- Customers can place orders
@@ -433,21 +453,14 @@ CREATE POLICY "Order Items: customer read"
 CREATE POLICY "Order Items: store owner read"
   ON order_items FOR SELECT
   USING (
-    EXISTS (
-      SELECT 1 FROM orders o
-      JOIN stores s ON s.id = o.store_id
-      WHERE o.id = order_id AND s.owner_id = auth.uid()
-    )
+    public.is_store_owner_for_order(order_id, auth.uid())
   );
 
 -- Delivery partners can read items for their assigned orders
 CREATE POLICY "Order Items: delivery partner read"
   ON order_items FOR SELECT
   USING (
-    EXISTS (
-      SELECT 1 FROM delivery_assignments da
-      WHERE da.order_id = order_id AND da.partner_id = auth.uid()
-    )
+    public.is_delivery_partner_for_order(order_id, auth.uid())
   );
 
 -- Customers can insert items when placing an order
@@ -467,11 +480,7 @@ CREATE POLICY "Delivery: partner read"
 CREATE POLICY "Delivery: store owner read"
   ON delivery_assignments FOR SELECT
   USING (
-    EXISTS (
-      SELECT 1 FROM orders o
-      JOIN stores s ON s.id = o.store_id
-      WHERE o.id = order_id AND s.owner_id = auth.uid()
-    )
+    public.is_store_owner_for_order(order_id, auth.uid())
   );
 
 -- Delivery partners can update their assignment (mark picked_up / delivered)
@@ -482,12 +491,11 @@ CREATE POLICY "Delivery: partner update"
 CREATE POLICY "Delivery: store owner insert"
   ON delivery_assignments FOR INSERT
   WITH CHECK (
-    EXISTS (
-      SELECT 1 FROM orders o
-      JOIN stores s ON s.id = o.store_id
-      WHERE o.id = order_id AND s.owner_id = auth.uid()
-    )
+    public.is_store_owner_for_order(order_id, auth.uid())
   );
+
+
+
 
 
 -- ---- REVIEWS ----
