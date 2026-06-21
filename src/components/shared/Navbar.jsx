@@ -57,6 +57,28 @@ export default function Navbar() {
                   </Link>
                 </>
               )}
+              {profile?.role === 'store_owner' && (
+                <div className="flex items-center gap-4 mr-2">
+                  <Link to="/store/dashboard" className="text-sm font-bold text-slate-600 hover:text-[#00BCD4] transition-colors">
+                    Dashboard
+                  </Link>
+                  <Link to="/store/products" className="text-sm font-bold text-slate-600 hover:text-[#00BCD4] transition-colors">
+                    Inventory
+                  </Link>
+                  <Link to="/store/orders" className="text-sm font-bold text-slate-600 hover:text-[#00BCD4] transition-colors">
+                    Orders
+                  </Link>
+                </div>
+              )}
+              {profile?.role === 'delivery_partner' && (
+                <div className="flex items-center gap-4 mr-2">
+                  <Link to="/delivery/dashboard" className="text-sm font-bold text-slate-600 hover:text-[#00BCD4] transition-colors">
+                    Dashboard
+                  </Link>
+                </div>
+              )}
+
+
               <button onClick={handleLogout} className="flex items-center gap-2 text-slate-550 hover:text-[#EF4444] transition-colors font-bold text-sm cursor-pointer active:scale-95 ml-2">
                 <LogOut size={18} />
                 <span className="hidden md:inline">Logout</span>

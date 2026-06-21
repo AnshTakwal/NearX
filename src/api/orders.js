@@ -102,6 +102,12 @@ export async function getOrderById(id) {
           quantity,
           unit_price,
           total_price
+        ),
+        delivery_assignments (
+          id,
+          status,
+          partner_id,
+          profiles:partner_id (full_name, phone)
         )
       `)
       .eq('id', id)
@@ -148,7 +154,13 @@ export async function getStoreOrders(storeId) {
       .select(`
         *,
         profiles!orders_customer_id_fkey (full_name, phone),
-        order_items (id, product_name, quantity, unit_price, total_price)
+        order_items (id, product_name, quantity, unit_price, total_price),
+        delivery_assignments (
+          id,
+          status,
+          partner_id,
+          profiles:partner_id (full_name, phone)
+        )
       `)
       .eq('store_id', storeId)
       .order('created_at', { ascending: false });
@@ -263,3 +275,68 @@ export async function updateDeliveryStatus(assignmentId, status) {
     throw err;
   }
 }
+
+/**
+ * Get available orders that do not have a delivery assignment.
+ */
+export async function getAvailableDeliveryOrders() {
+  try {
+    // 1. Fetch all delivery assignments to exclude them
+    const { data: assignments, error: assignError } = await supabase
+      .from('delivery_assignments')
+      .select('order_id');
+      
+    if (assignError) throw assignError;
+    const assignedIds = assignments.map(a => a.order_id);
+
+    // 2. Fetch orders with status 'placed', 'accepted', or 'packed' that are not in the assignedIds list
+    let query = supabase
+      .from('orders')
+      .select(`
+        *,
+        stores (id, name, address, city, phone),
+        addresses (label, address_line, city, pincode),
+        profiles!orders_customer_id_fkey (full_name, phone)
+      `)
+      .in('status', ['placed', 'accepted', 'packed']);
+
+    if (assignedIds.length > 0) {
+      query = query.not('id', 'in', `(${assignedIds.join(',')})`);
+    }
+
+    const { data, error } = await query.order('created_at', { ascending: false });
+    if (error) throw error;
+    return data ?? [];
+  } catch (err) {
+    console.error('getAvailableDeliveryOrders error:', err);
+    throw err;
+  }
+}
+
+/**
+ * Accept a delivery request by creating a delivery assignment.
+ */
+export async function acceptDeliveryRequest(orderId, partnerId) {
+  try {
+    // Create delivery assignment
+    const { data, error } = await supabase
+      .from('delivery_assignments')
+      .insert([
+        {
+          order_id: orderId,
+          partner_id: partnerId,
+          status: 'assigned',
+          earnings: 4000 // ₹40.00
+        }
+      ])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  } catch (err) {
+    console.error('acceptDeliveryRequest error:', err);
+    throw err;
+  }
+}
+

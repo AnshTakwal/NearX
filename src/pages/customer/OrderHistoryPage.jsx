@@ -24,8 +24,9 @@ export default function OrderHistoryPage() {
   }
 
   return (
-    <div className="bg-[#FAFEFF] min-h-screen px-6 md:px-16 lg:px-24 py-8 pb-24 md:pb-8">
-      <h1 className="text-3xl font-bold text-[#1A1A2E] mb-8">My Orders</h1>
+    <div className="bg-[#FAFEFF] min-h-screen py-8 pb-24 md:pb-8 text-[#1A1A2E] w-full flex flex-col items-center">
+      <div className="max-w-[1440px] w-full px-4 md:px-8 lg:px-10">
+        <h1 className="text-3xl font-bold text-[#1A1A2E] mb-8">My Orders</h1>
 
       {orders.length === 0 ? (
         <div className="bg-white p-8 rounded-3xl text-center border border-slate-100">
@@ -78,6 +79,7 @@ export default function OrderHistoryPage() {
           })}
         </div>
       )}
+      </div>
     </div>
   );
 }

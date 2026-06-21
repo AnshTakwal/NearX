@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { MapPin, Navigation, Phone, CheckCircle2, Package, Loader2 } from 'lucide-react';
+import { MapPin, Navigation, Phone, CheckCircle2, Package, Loader2, ArrowRight, X } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
-import { getActiveDeliveryOrder, updateDeliveryStatus, getDeliveryHistory } from '../../api/orders';
+import { getActiveDeliveryOrder, updateDeliveryStatus, getDeliveryHistory, getAvailableDeliveryOrders, acceptDeliveryRequest } from '../../api/orders';
 import { supabase } from '../../lib/supabase';
 import { toast } from '../../components/shared/Toast';
 import MapViewer from '../../components/shared/MapViewer';
@@ -9,6 +9,14 @@ import MapViewer from '../../components/shared/MapViewer';
 export default function DeliveryDashboard() {
   const { user, profile } = useAuth();
   const [activeOrder, setActiveOrder] = useState(null);
+  const [availableOrders, setAvailableOrders] = useState([]);
+  const [rejectedOrders, setRejectedOrders] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('rejected_deliveries') || '[]');
+    } catch (e) {
+      return [];
+    }
+  });
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
@@ -22,6 +30,11 @@ export default function DeliveryDashboard() {
         
         const hist = await getDeliveryHistory(user.id);
         setHistory(hist);
+
+        if (!active) {
+          const avail = await getAvailableDeliveryOrders();
+          setAvailableOrders(avail);
+        }
       } catch (err) {
         toast.error("Failed to load delivery data");
       } finally {
@@ -30,6 +43,7 @@ export default function DeliveryDashboard() {
     }
     load();
   }, [user]);
+
 
   // Listen for new assignments
   useEffect(() => {
@@ -64,6 +78,52 @@ export default function DeliveryDashboard() {
     return () => supabase.removeChannel(channel);
   }, [user, activeOrder]);
 
+  // Listen for new available orders (orders being placed/updated)
+  useEffect(() => {
+    if (!user || activeOrder) return;
+
+    const channel = supabase
+      .channel('available-delivery-orders')
+      .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: 'orders'
+      }, async () => {
+        try {
+          const avail = await getAvailableDeliveryOrders();
+          setAvailableOrders(avail);
+        } catch (e) {
+          console.error(e);
+        }
+      })
+      .subscribe();
+
+    return () => supabase.removeChannel(channel);
+  }, [user, activeOrder]);
+
+  const handleAccept = async (orderId) => {
+    setUpdating(true);
+    try {
+      await acceptDeliveryRequest(orderId, user.id);
+      toast.success("Delivery accepted!");
+      
+      const active = await getActiveDeliveryOrder(user.id);
+      setActiveOrder(active);
+      setAvailableOrders([]);
+    } catch (err) {
+      toast.error("Failed to accept delivery");
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  const handleReject = (orderId) => {
+    const updatedRejections = [...rejectedOrders, orderId];
+    setRejectedOrders(updatedRejections);
+    localStorage.setItem('rejected_deliveries', JSON.stringify(updatedRejections));
+    toast.info("Delivery request hidden.");
+  };
+
   const handleUpdateStatus = async (newStatus) => {
     if (!activeOrder) return;
     setUpdating(true);
@@ -74,6 +134,10 @@ export default function DeliveryDashboard() {
         toast.success("Delivery completed successfully!");
         setHistory([{ ...activeOrder, status: 'delivered', delivered_at: new Date().toISOString() }, ...history]);
         setActiveOrder(null);
+        
+        // Reload available orders now that we are free
+        const avail = await getAvailableDeliveryOrders();
+        setAvailableOrders(avail);
       } else {
         toast.success(`Status updated to ${newStatus.replace('_', ' ')}`);
         setActiveOrder({ ...activeOrder, status: newStatus });
@@ -84,6 +148,7 @@ export default function DeliveryDashboard() {
       setUpdating(false);
     }
   };
+
 
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center bg-[#FAFEFF]"><Loader2 className="animate-spin text-[#00BCD4] w-10 h-10" /></div>;
@@ -122,12 +187,68 @@ export default function DeliveryDashboard() {
           <h2 className="text-xl font-bold text-[#1A1A2E] mb-4">Current Delivery</h2>
           
           {!activeOrder ? (
-            <div className="bg-white rounded-3xl p-10 text-center shadow-sm border border-slate-100">
-              <Package size={48} className="text-slate-300 mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-[#1A1A2E] mb-2">No active deliveries</h3>
-              <p className="text-slate-500">Stay online. New orders will appear here automatically.</p>
+            <div className="space-y-6">
+              <div className="bg-white rounded-3xl p-8 text-center shadow-sm border border-slate-100 mb-6">
+                <Package size={40} className="text-slate-300 mx-auto mb-3" />
+                <h3 className="text-lg font-bold text-[#1A1A2E] mb-1">No active deliveries</h3>
+                <p className="text-slate-500 text-sm">Stay online. Accepted orders will show up here.</p>
+              </div>
+
+              {/* Available requests list */}
+              <div>
+                <h2 className="text-xl font-bold text-[#1A1A2E] mb-4">Available Delivery Requests</h2>
+                {availableOrders.filter(o => !rejectedOrders.includes(o.id)).length === 0 ? (
+                  <div className="bg-white rounded-3xl p-8 text-center shadow-sm border border-slate-100">
+                    <p className="text-slate-400 text-sm">No new delivery requests in your area right now.</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 gap-4">
+                    {availableOrders.filter(o => !rejectedOrders.includes(o.id)).map((ord) => (
+                      <div key={ord.id} className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col md:flex-row justify-between gap-6 relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-1.5 h-full bg-[#00BCD4]"></div>
+                        <div className="flex-1 space-y-4">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-slate-400 font-mono">ORDER #{ord.id.split('-')[0]}</span>
+                            <span className="text-sm font-bold text-[#00BCD4]">Payout: ₹40.00</span>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                            <div>
+                              <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Pickup</p>
+                              <p className="font-semibold text-slate-700">{ord.stores?.name}</p>
+                              <p className="text-xs text-slate-500">{ord.stores?.address}, {ord.stores?.city}</p>
+                            </div>
+                            <div>
+                              <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Deliver To</p>
+                              <p className="font-semibold text-slate-700">{ord.profiles?.full_name}</p>
+                              <p className="text-xs text-slate-500">{ord.addresses?.address_line || 'TBD'}, {ord.addresses?.city || 'Delhi'}</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex sm:flex-row md:flex-col justify-end items-center gap-2 border-t md:border-t-0 pt-4 md:pt-0 shrink-0">
+                          <button
+                            onClick={() => handleReject(ord.id)}
+                            className="w-full md:w-32 bg-slate-100 hover:bg-slate-200 text-slate-600 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-1.5"
+                          >
+                            <X size={16} /> Ignore
+                          </button>
+                          <button
+                            onClick={() => handleAccept(ord.id)}
+                            disabled={updating}
+                            className="w-full md:w-32 bg-[#00BCD4] hover:bg-[#0097A7] text-white py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm shadow-cyan-100"
+                          >
+                            Accept <ArrowRight size={16} />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           ) : (
+
             <div className="bg-white rounded-3xl shadow-sm border border-[#00BCD4] overflow-hidden relative">
               <div className="absolute top-0 left-0 w-full h-1 bg-[#00BCD4]"></div>
               

@@ -175,8 +175,8 @@ export default function CustomerProfile() {
   if (!profile) return null;
 
   return (
-    <div className="bg-[#FAFEFF] min-h-screen px-6 md:px-16 lg:px-24 py-8 pb-24 md:pb-8 text-[#1A1A2E]">
-      <div className="max-w-6xl mx-auto">
+    <div className="bg-[#FAFEFF] min-h-screen py-8 pb-24 md:pb-8 text-[#1A1A2E] w-full flex flex-col items-center">
+      <div className="max-w-[1440px] w-full px-4 md:px-8 lg:px-10">
         <h1 className="text-3xl font-extrabold tracking-tight mb-8">My Account</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -233,28 +233,30 @@ export default function CustomerProfile() {
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">New Password</label>
                   <div className="relative">
-                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 z-10" size={16} />
                     <input
                       type="password"
                       required
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
                       placeholder="Min. 6 characters"
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all"
+                      style={{ paddingLeft: '2.5rem' }}
+                      className="w-full pr-4 h-12 rounded-xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all bg-white"
                     />
                   </div>
                 </div>
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">Confirm Password</label>
                   <div className="relative">
-                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 z-10" size={16} />
                     <input
                       type="password"
                       required
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="Repeat new password"
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all"
+                      style={{ paddingLeft: '2.5rem' }}
+                      className="w-full pr-4 h-12 rounded-xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all bg-white"
                     />
                   </div>
                 </div>
@@ -262,7 +264,7 @@ export default function CustomerProfile() {
                 <button
                   type="submit"
                   disabled={updatingPassword}
-                  className="w-full bg-[#00BCD4] hover:bg-[#0097A7] text-white py-3 rounded-xl font-bold transition-all shadow-sm active:scale-95 flex items-center justify-center gap-2 text-sm disabled:opacity-60"
+                  className="w-full bg-[#00BCD4] hover:bg-[#0097A7] text-white h-12 rounded-xl font-bold transition-all shadow-sm active:scale-95 flex items-center justify-center gap-2 text-sm disabled:opacity-60"
                 >
                   {updatingPassword ? (
                     <><Loader2 size={16} className="animate-spin" /> Updating...</>
@@ -285,13 +287,14 @@ export default function CustomerProfile() {
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Display Name</label>
                   <div className="relative">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10" size={18} />
                     <input
                       type="text"
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full pl-12 pr-4 py-3 rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all"
+                      style={{ paddingLeft: '3rem' }}
+                      className="w-full pr-4 h-12 rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all bg-white"
                       placeholder="Your Name"
                     />
                   </div>
@@ -299,12 +302,13 @@ export default function CustomerProfile() {
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Phone Number</label>
                   <div className="relative">
-                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10" size={18} />
                     <input
                       type="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full pl-12 pr-4 py-3 rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all"
+                      style={{ paddingLeft: '3rem' }}
+                      className="w-full pr-4 h-12 rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all bg-white"
                       placeholder="+91 98765 43210"
                     />
                   </div>
@@ -314,7 +318,7 @@ export default function CustomerProfile() {
                   <button
                     type="submit"
                     disabled={updatingProfile}
-                    className="bg-[#00BCD4] hover:bg-[#0097A7] text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-sm active:scale-95 flex items-center gap-2 text-sm disabled:opacity-60"
+                    className="bg-[#00BCD4] hover:bg-[#0097A7] text-white px-6 h-12 rounded-2xl font-bold transition-all shadow-sm active:scale-95 flex items-center gap-2 text-sm disabled:opacity-60"
                   >
                     {updatingProfile ? (
                       <><Loader2 size={16} className="animate-spin" /> Saving...</>

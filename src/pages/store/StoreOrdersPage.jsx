@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Loader2 } from 'lucide-react';
+import { Search, Loader2, AlertTriangle } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { getStoreByOwner } from '../../api/stores';
 import { getStoreOrders, updateOrderStatus } from '../../api/orders';
@@ -33,38 +33,45 @@ export default function StoreOrdersPage() {
     load();
   }, [user]);
 
-  // Realtime subscription for new orders
+  // Realtime subscription for orders & delivery updates
   useEffect(() => {
     if (!store) return;
-    
-    const channel = supabase
-      .channel(`store-orders-${store.id}`)
+
+    const loadOrders = async () => {
+      try {
+        const data = await getStoreOrders(store.id);
+        setOrders(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    const ordersChannel = supabase
+      .channel(`store-orders-changes-${store.id}`)
       .on('postgres_changes', {
-        event: 'INSERT',
+        event: '*',
         schema: 'public',
         table: 'orders',
         filter: `store_id=eq.${store.id}`
-      }, async (payload) => {
-        // Fetch full order to get joined data (profiles, items)
-        try {
-          const { data } = await supabase
-            .from('orders')
-            .select(`
-              *,
-              profiles!orders_customer_id_fkey (full_name, phone),
-              order_items (id, product_name, quantity, unit_price, total_price)
-            `)
-            .eq('id', payload.new.id)
-            .single();
-            
-          if (data) {
-            setOrders(prev => [data, ...prev]);
-            toast.success(`New Order Received: ${data.id.split('-')[0]}`);
-            if (Notification.permission === 'granted') {
-              new Notification("New Order Received!", { body: `Order #${data.id.split('-')[0]} for ₹${data.total/100}` });
-            }
+      }, (payload) => {
+        if (payload.eventType === 'INSERT') {
+          toast.success(`New Order Received!`);
+          if (Notification.permission === 'granted') {
+            new Notification("New Order Received!");
           }
-        } catch(e) { console.error(e) }
+        }
+        loadOrders();
+      })
+      .subscribe();
+
+    const assignmentsChannel = supabase
+      .channel(`store-assignments-changes-${store.id}`)
+      .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: 'delivery_assignments'
+      }, () => {
+        loadOrders();
       })
       .subscribe();
 
@@ -74,7 +81,8 @@ export default function StoreOrdersPage() {
     }
 
     return () => {
-      supabase.removeChannel(channel);
+      supabase.removeChannel(ordersChannel);
+      supabase.removeChannel(assignmentsChannel);
     };
   }, [store]);
 
@@ -94,6 +102,27 @@ export default function StoreOrdersPage() {
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-[#00BCD4] w-10 h-10" /></div>;
   }
+
+  if (!store) {
+    return (
+      <div className="bg-[#FAFEFF] min-h-screen px-6 md:px-16 lg:px-24 py-12 flex items-center justify-center">
+        <div className="bg-white rounded-[2.5rem] shadow-xl p-8 max-w-md w-full border border-slate-100 text-center relative overflow-hidden">
+          <div className="absolute top-[-20%] left-[-20%] w-[400px] h-[400px] bg-[#00BCD4]/5 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="relative z-10 flex flex-col items-center">
+            <div className="w-16 h-16 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-500 mb-6">
+              <AlertTriangle size={32} />
+            </div>
+            <h2 className="text-2xl font-bold text-[#1A1A2E] mb-2">Setup Required</h2>
+            <p className="text-slate-500 text-sm mb-6">You need to set up your store profile before you can view orders.</p>
+            <a href="/store/dashboard" className="w-full bg-[#00BCD4] hover:bg-[#0097A7] text-white h-12 rounded-2xl font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-md">
+              Go to Dashboard Setup
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
 
   const statuses = ['All', 'placed', 'accepted', 'packed', 'out_for_delivery', 'delivered', 'cancelled'];
   
@@ -135,7 +164,7 @@ export default function StoreOrdersPage() {
         {filteredOrders.map((order) => (
           <div key={order.id} className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             
-            <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="flex-1 grid grid-cols-1 sm:grid-cols-4 gap-6">
               <div>
                 <p className="text-sm text-slate-500 mb-1">Order ID / Date</p>
                 <p className="font-bold text-[#1A1A2E] font-mono">{order.id.split('-')[0]}</p>
@@ -152,6 +181,18 @@ export default function StoreOrdersPage() {
                 <p className="text-sm text-slate-500 mb-1">Order Details</p>
                 <p className="font-semibold text-[#1A1A2E]">₹{(order.total / 100).toFixed(2)}</p>
                 <p className="text-sm text-slate-600">{order.order_items?.length} items</p>
+              </div>
+
+              <div>
+                <p className="text-sm text-slate-500 mb-1">Delivery Partner</p>
+                {order.delivery_assignments?.[0] ? (
+                  <>
+                    <p className="font-semibold text-[#1A1A2E]">{order.delivery_assignments[0].profiles?.full_name}</p>
+                    <p className="text-sm text-slate-600">{order.delivery_assignments[0].profiles?.phone || 'N/A'}</p>
+                  </>
+                ) : (
+                  <p className="text-sm text-slate-400 italic">Not assigned yet</p>
+                )}
               </div>
             </div>
 

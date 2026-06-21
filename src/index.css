@@ -12,7 +12,7 @@
   --color-aqua-border: #B2EBF2;
 
   /* Background */
-  --color-bg: #F5FEFF;
+  --color-bg: #F1F5F9;
   --color-bg-white: #FFFFFF;
 
   /* Text */
@@ -41,7 +41,7 @@
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background-color: #F5FEFF;
+  background-color: #F1F5F9;
   color: #1A1A2E;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

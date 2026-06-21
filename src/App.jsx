@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { AuthContext } from './context/AuthContext';
 import ProtectedRoute from './components/shared/ProtectedRoute';
@@ -33,10 +33,12 @@ import BottomNav from './components/shared/BottomNav';
 
 function AppShell() {
   const { profile } = useContext(AuthContext);
+  const location = useLocation();
+  const hideNavbar = ['/login', '/register'].includes(location.pathname);
 
   return (
     <div className="min-h-screen bg-[#FAFEFF] text-[#1A1A2E] font-sans pb-20 md:pb-0">
-      <Navbar />
+      {!hideNavbar && <Navbar />}
       <ToastContainer />
       <Routes>
         {/* Public */}

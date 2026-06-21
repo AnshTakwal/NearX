@@ -65,10 +65,11 @@ export default function ProductDetailPage() {
   const salePrice = product.sale_price;
 
   return (
-    <div className="bg-[#FAFEFF] min-h-screen px-6 md:px-16 lg:px-24 py-8 pb-24 md:pb-8">
-      <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-slate-500 hover:text-[#1A1A2E] mb-8 font-medium transition-colors w-fit">
-        <ArrowLeft size={20} /> Back
-      </button>
+    <div className="bg-[#FAFEFF] min-h-screen py-8 pb-24 md:pb-8 text-[#1A1A2E] w-full flex flex-col items-center">
+      <div className="max-w-[1440px] w-full px-4 md:px-8 lg:px-10">
+        <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-slate-500 hover:text-[#1A1A2E] mb-8 font-medium transition-colors w-fit">
+          <ArrowLeft size={20} /> Back
+        </button>
 
       <div className="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-slate-100">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
@@ -147,6 +148,7 @@ export default function ProductDetailPage() {
             </p>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

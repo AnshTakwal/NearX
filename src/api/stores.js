@@ -131,3 +131,23 @@ export async function getStoreAnalytics(storeId) {
     throw err;
   }
 }
+
+/**
+ * Create a new store profile.
+ */
+export async function createStore(storeData) {
+  try {
+    const { data, error } = await supabase
+      .from('stores')
+      .insert([storeData])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  } catch (err) {
+    console.error('createStore error:', err);
+    throw err;
+  }
+}
+

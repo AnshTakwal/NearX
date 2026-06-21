@@ -68,8 +68,9 @@ export default function CartPage() {
   }
 
   return (
-    <div className="bg-[#FAFEFF] min-h-screen px-6 md:px-16 lg:px-24 py-8 pb-32 md:pb-8">
-      <h1 className="text-3xl font-bold text-[#1A1A2E] mb-8">Your Cart</h1>
+    <div className="bg-[#FAFEFF] min-h-screen py-8 pb-32 md:pb-8 text-[#1A1A2E] w-full flex flex-col items-center">
+      <div className="max-w-[1440px] w-full px-4 md:px-8 lg:px-10">
+        <h1 className="text-3xl font-bold text-[#1A1A2E] mb-8">Your Cart</h1>
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Cart Items */}
@@ -150,6 +151,7 @@ export default function CartPage() {
             </button>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

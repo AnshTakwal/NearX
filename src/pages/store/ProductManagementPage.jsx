@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Plus, Edit2, Trash2, X, Loader2, Upload } from 'lucide-react';
+import { Search, Plus, Edit2, Trash2, X, Loader2, Upload, AlertTriangle } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { getStoreByOwner } from '../../api/stores';
 import { getProductsByStore, addProduct, updateProduct, deleteProduct, calcDiscountFromExpiry } from '../../api/products';
@@ -140,6 +140,27 @@ export default function ProductManagementPage() {
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-[#00BCD4] w-10 h-10" /></div>;
   }
+
+  if (!store) {
+    return (
+      <div className="bg-[#FAFEFF] min-h-screen px-6 md:px-16 lg:px-24 py-12 flex items-center justify-center">
+        <div className="bg-white rounded-[2.5rem] shadow-xl p-8 max-w-md w-full border border-slate-100 text-center relative overflow-hidden">
+          <div className="absolute top-[-20%] left-[-20%] w-[400px] h-[400px] bg-[#00BCD4]/5 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="relative z-10 flex flex-col items-center">
+            <div className="w-16 h-16 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-500 mb-6">
+              <AlertTriangle size={32} />
+            </div>
+            <h2 className="text-2xl font-bold text-[#1A1A2E] mb-2">Setup Required</h2>
+            <p className="text-slate-500 text-sm mb-6">You need to set up your store profile before you can manage products.</p>
+            <a href="/store/dashboard" className="w-full bg-[#00BCD4] hover:bg-[#0097A7] text-white h-12 rounded-2xl font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-md">
+              Go to Dashboard Setup
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
 
   const filteredProducts = products.filter(p => 
     p.name.toLowerCase().includes(search.toLowerCase()) || 

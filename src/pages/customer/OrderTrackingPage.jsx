@@ -24,11 +24,11 @@ export default function OrderTrackingPage() {
     load();
   }, [id]);
 
-  // Realtime subscription for order status
+  // Realtime subscription for order status & delivery assignments
   useEffect(() => {
     if (!id) return;
     
-    const channel = supabase
+    const orderChannel = supabase
       .channel(`order-track-${id}`)
       .on('postgres_changes', {
         event: 'UPDATE',
@@ -41,8 +41,25 @@ export default function OrderTrackingPage() {
       })
       .subscribe();
 
+    const assignmentChannel = supabase
+      .channel(`order-assignment-track-${id}`)
+      .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: 'delivery_assignments',
+        filter: `order_id=eq.${id}`
+      }, async () => {
+        try {
+          const data = await getOrderById(id);
+          setOrder(data);
+          toast.success("Delivery partner updated!");
+        } catch(e){}
+      })
+      .subscribe();
+
     return () => {
-      supabase.removeChannel(channel);
+      supabase.removeChannel(orderChannel);
+      supabase.removeChannel(assignmentChannel);
     };
   }, [id]);
 
@@ -76,18 +93,21 @@ export default function OrderTrackingPage() {
 
   if (order.status === 'cancelled') {
     return (
-      <div className="bg-[#FAFEFF] min-h-screen px-6 md:px-16 lg:px-24 py-8 text-center">
-         <h1 className="text-3xl font-bold text-red-500 mb-4">Order Cancelled</h1>
-         <Link to="/orders" className="text-[#00BCD4] hover:underline">Back to Orders</Link>
+      <div className="bg-[#FAFEFF] min-h-screen py-8 text-center w-full flex flex-col items-center justify-center">
+        <div className="max-w-[1440px] w-full px-4 md:px-8 lg:px-10">
+          <h1 className="text-3xl font-bold text-red-500 mb-4">Order Cancelled</h1>
+          <Link to="/orders" className="text-[#00BCD4] hover:underline">Back to Orders</Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-[#FAFEFF] min-h-screen px-6 md:px-16 lg:px-24 py-8 pb-24 md:pb-8">
-      <Link to="/orders" className="flex items-center gap-2 text-slate-500 hover:text-[#1A1A2E] mb-8 font-medium w-fit">
-        <ArrowLeft size={20} /> Back to Orders
-      </Link>
+    <div className="bg-[#FAFEFF] min-h-screen py-8 pb-24 md:pb-8 text-[#1A1A2E] w-full flex flex-col items-center">
+      <div className="max-w-[1440px] w-full px-4 md:px-8 lg:px-10">
+        <Link to="/orders" className="flex items-center gap-2 text-slate-500 hover:text-[#1A1A2E] mb-8 font-medium w-fit">
+          <ArrowLeft size={20} /> Back to Orders
+        </Link>
 
       <div className="max-w-2xl mx-auto">
         <div className="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100 mb-6">
@@ -125,6 +145,25 @@ export default function OrderTrackingPage() {
           </div>
         </div>
 
+        {/* Delivery Partner Info */}
+        {order.delivery_assignments?.[0] && (
+          <div className="bg-white p-6 rounded-3xl shadow-sm border border-[#00BCD4] flex flex-col sm:flex-row items-center gap-4 mb-6">
+            <div className="w-12 h-12 rounded-full bg-[#E0F7FA] flex items-center justify-center text-[#00BCD4] shrink-0 font-black">
+              🚴
+            </div>
+            <div className="flex-1 text-center sm:text-left">
+               <h3 className="text-xs text-[#00BCD4] font-bold uppercase tracking-wider">Delivery Partner Assigned</h3>
+               <p className="font-bold text-[#1A1A2E] text-lg">{order.delivery_assignments[0].profiles?.full_name}</p>
+               <p className="text-sm text-slate-500">Phone: {order.delivery_assignments[0].profiles?.phone || 'N/A'}</p>
+            </div>
+            {order.delivery_assignments[0].profiles?.phone && (
+               <a href={`tel:${order.delivery_assignments[0].profiles.phone}`} className="bg-[#00BCD4] text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-[#0097A7] transition-all flex items-center gap-2 text-sm shadow-sm shadow-cyan-100">
+                 <Phone size={16} /> Call Partner
+               </a>
+            )}
+          </div>
+        )}
+
         {/* Store Info since we don't have delivery partner data attached simply here yet */}
         <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col sm:flex-row items-center gap-4">
           <div className="flex-1 text-center sm:text-left">
@@ -138,6 +177,7 @@ export default function OrderTrackingPage() {
              </a>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

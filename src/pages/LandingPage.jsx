@@ -8,7 +8,7 @@ export default function LandingPage() {
   return (
     <div className="bg-[#FAFEFF] min-h-screen overflow-x-hidden text-[#1A1A2E]">
       {/* Hero Section */}
-      <section className="relative w-full max-w-7xl mx-auto px-6 md:px-16 lg:px-24 py-16 lg:py-28 flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+      <section className="relative w-full max-w-[1440px] mx-auto px-4 md:px-8 lg:px-10 py-16 lg:py-28 flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
         {/* Glow Effects */}
         <div className="absolute top-10 left-10 w-72 h-72 bg-[#00BCD4]/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#0097A7]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
@@ -69,7 +69,7 @@ export default function LandingPage() {
           <p className="text-slate-400 text-md sm:text-lg max-w-md mx-auto">Three simple steps to save money and reduce supermarket waste.</p>
         </div>
         
-        <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 grid sm:grid-cols-2 md:grid-cols-3 gap-10 lg:gap-14">
+        <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-10 grid sm:grid-cols-2 md:grid-cols-3 gap-10 lg:gap-14">
           {[
             { step: 1, title: "Find Deals", desc: "Discover near-expiry products at huge discounts from local stores.", icon: Clock, color: "bg-amber-50 text-amber-500" },
             { step: 2, title: "Book Safely", desc: "All products are quality-checked and 100% safe to consume.", icon: ShieldCheck, color: "bg-emerald-50 text-emerald-500" },
@@ -87,9 +87,9 @@ export default function LandingPage() {
       </section>
 
       {/* Impact Stats */}
-      <section className="relative px-6 md:px-16 lg:px-24 py-20 bg-gradient-to-r from-[#1A1A2E] to-[#111122] text-white overflow-hidden">
+      <section className="relative px-4 md:px-8 lg:px-10 py-20 bg-gradient-to-r from-[#1A1A2E] to-[#111122] text-white overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-[#00BCD4]/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-slate-800/80">
+        <div className="max-w-[1440px] mx-auto grid md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-slate-800/80">
           <div className="pt-6 md:pt-0">
             <p className="text-5xl font-black text-[#00BCD4] mb-2 tracking-tight">50K+</p>
             <p className="text-slate-400 font-semibold uppercase tracking-wider text-xs">Happy Customers</p>
@@ -106,7 +106,7 @@ export default function LandingPage() {
       </section>
 
       {/* Featured Deals */}
-      <section className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 py-24 bg-[#FAFEFF]">
+      <section className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-10 py-24 bg-[#FAFEFF]">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-6">
           <div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1A1A2E] mb-3">Featured Deals</h2>
