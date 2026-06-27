@@ -422,11 +422,12 @@ CREATE POLICY "Orders: store owner read"
     EXISTS (SELECT 1 FROM stores WHERE stores.id = store_id AND stores.owner_id = auth.uid())
   );
 
--- Delivery partners see orders they are assigned to
+-- Delivery partners see available orders and their assigned orders
 CREATE POLICY "Orders: delivery partner read"
   ON orders FOR SELECT
   USING (
-    public.is_delivery_partner_for_order(id, auth.uid())
+    status = 'out_for_delivery'
+    OR public.is_delivery_partner_for_order(id, auth.uid())
   );
 
 -- Customers can place orders
@@ -486,7 +487,10 @@ CREATE POLICY "Delivery: store owner read"
 -- Delivery partners can update their assignment (mark picked_up / delivered)
 CREATE POLICY "Delivery: partner update"
   ON delivery_assignments FOR UPDATE USING (auth.uid() = partner_id);
-
+-- Delivery partners can accept available deliveries for themselves
+CREATE POLICY "Delivery: partner insert"
+  ON delivery_assignments FOR INSERT
+  WITH CHECK (auth.uid() = partner_id);
 -- Store owners can insert/assign a delivery partner to an order
 CREATE POLICY "Delivery: store owner insert"
   ON delivery_assignments FOR INSERT

@@ -38,6 +38,20 @@ CREATE POLICY "Addresses: self read"
   ON addresses FOR SELECT
   USING (auth.uid() = user_id);
 
+CREATE POLICY "Addresses: delivery partner read"
+  ON addresses FOR SELECT
+  USING (
+    EXISTS (
+      SELECT 1 FROM orders
+      WHERE orders.address_id = addresses.id
+        AND orders.status = 'out_for_delivery'
+    ) OR EXISTS (
+      SELECT 1 FROM orders
+      WHERE orders.address_id = addresses.id
+        AND public.is_delivery_partner_for_order(orders.id, auth.uid())
+    )
+  );
+
 CREATE POLICY "Addresses: self insert"
   ON addresses FOR INSERT
   WITH CHECK (auth.uid() = user_id);
@@ -147,11 +161,12 @@ CREATE POLICY "Orders: store owner read"
     )
   );
 
--- Delivery partners see their assigned orders
+-- Delivery partners see available orders and their assigned orders
 CREATE POLICY "Orders: delivery partner read"
   ON orders FOR SELECT
   USING (
-    public.is_delivery_partner_for_order(id, auth.uid())
+    status = 'out_for_delivery'
+    OR public.is_delivery_partner_for_order(id, auth.uid())
   );
 
 -- Customers can place orders
@@ -219,6 +234,11 @@ CREATE POLICY "Delivery: store owner read"
 CREATE POLICY "Delivery: partner update"
   ON delivery_assignments FOR UPDATE
   USING (auth.uid() = partner_id);
+
+-- Delivery partners can insert an assignment for themselves
+CREATE POLICY "Delivery: partner insert"
+  ON delivery_assignments FOR INSERT
+  WITH CHECK (auth.uid() = partner_id);
 
 -- ==================
 -- REVIEWS

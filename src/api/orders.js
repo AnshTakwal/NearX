@@ -289,7 +289,7 @@ export async function getAvailableDeliveryOrders() {
     if (assignError) throw assignError;
     const assignedIds = assignments.map(a => a.order_id);
 
-    // 2. Fetch orders with status 'placed', 'accepted', or 'packed' that are not in the assignedIds list
+    // 2. Fetch orders with status 'placed', 'accepted', 'packed', or 'out_for_delivery' that are not in the assignedIds list
     let query = supabase
       .from('orders')
       .select(`
@@ -298,10 +298,10 @@ export async function getAvailableDeliveryOrders() {
         addresses (label, address_line, city, pincode),
         profiles!orders_customer_id_fkey (full_name, phone)
       `)
-      .in('status', ['placed', 'accepted', 'packed']);
+      .in('status', ['placed', 'accepted', 'packed', 'out_for_delivery']);
 
     if (assignedIds.length > 0) {
-      query = query.not('id', 'in', `(${assignedIds.join(',')})`);
+      query = query.not('id', 'in', assignedIds);
     }
 
     const { data, error } = await query.order('created_at', { ascending: false });

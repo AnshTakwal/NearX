@@ -255,9 +255,9 @@ export default function DeliveryDashboard() {
               <div className="p-6">
                 <div className="flex justify-between items-center mb-6">
                   <span className="bg-[#E0F7FA] text-[#0097A7] px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase">
-                    {activeOrder.status.replace('_', ' ')}
+                    {activeOrder.status?.replace('_', ' ')}
                   </span>
-                  <span className="text-sm font-medium text-slate-500">Order #{activeOrder.order_id.split('-')[0]}</span>
+                  <span className="text-sm font-medium text-slate-500">Order #{activeOrder.order_id?.split('-')[0]}</span>
                 </div>
 
                 {/* Pickup */}
@@ -268,10 +268,10 @@ export default function DeliveryDashboard() {
                   <div className="absolute left-5 top-10 bottom-[-24px] w-0.5 bg-slate-200 z-0"></div>
                   <div className="flex-1 pb-4">
                     <p className="text-xs text-slate-500 font-bold tracking-wider uppercase mb-1">Pickup From</p>
-                    <p className="font-bold text-[#1A1A2E]">{activeOrder.orders.stores.name}</p>
-                    <p className="text-sm text-slate-600 mb-3">{activeOrder.orders.stores.address}, {activeOrder.orders.stores.city}</p>
+                    <p className="font-bold text-[#1A1A2E]">{activeOrder.orders?.stores?.name ?? 'Store'}</p>
+                    <p className="text-sm text-slate-600 mb-3">{activeOrder.orders?.stores?.address ?? ''}{activeOrder.orders?.stores?.city ? `, ${activeOrder.orders.stores.city}` : ''}</p>
                     <div className="flex gap-2">
-                      <a href={`tel:${activeOrder.orders.stores.phone}`} className="flex-1 flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors py-2 gap-2 text-sm font-semibold">
+                      <a href={`tel:${activeOrder.orders?.stores?.phone ?? ''}`} className="flex-1 flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors py-2 gap-2 text-sm font-semibold">
                         <Phone size={16} /> Call Store
                       </a>
                     </div>
@@ -285,10 +285,10 @@ export default function DeliveryDashboard() {
                   </div>
                   <div className="flex-1">
                     <p className="text-xs text-[#00BCD4] font-bold tracking-wider uppercase mb-1">Deliver To</p>
-                    <p className="font-bold text-[#1A1A2E]">{activeOrder.orders.profiles.full_name}</p>
-                    <p className="text-sm text-slate-600 mb-3">{activeOrder.orders.addresses.address_line}, {activeOrder.orders.addresses.city}</p>
+                    <p className="font-bold text-[#1A1A2E]">{activeOrder.orders?.profiles?.full_name ?? 'Customer'}</p>
+                    <p className="text-sm text-slate-600 mb-3">{activeOrder.orders?.addresses?.address_line ?? 'Address not provided'}{activeOrder.orders?.addresses?.city ? `, ${activeOrder.orders.addresses.city}` : ''}</p>
                     <div className="flex gap-2">
-                      <a href={`tel:${activeOrder.orders.profiles.phone}`} className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center gap-2">
+                      <a href={`tel:${activeOrder.orders?.profiles?.phone ?? ''}`} className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center gap-2">
                         <Phone size={16} /> Call Customer
                       </a>
                     </div>
@@ -300,8 +300,8 @@ export default function DeliveryDashboard() {
                   <h4 className="text-sm font-bold text-[#1A1A2E] mb-3">Route Map</h4>
                   <MapViewer 
                     markers={[
-                      { lat: activeOrder.orders.stores.lat, lng: activeOrder.orders.stores.lng, popupText: `Pickup: ${activeOrder.orders.stores.name}` },
-                      { lat: activeOrder.orders.addresses.lat || activeOrder.orders.stores.lat + 0.01, lng: activeOrder.orders.addresses.lng || activeOrder.orders.stores.lng + 0.01, popupText: `Dropoff: ${activeOrder.orders.profiles.full_name}` }
+                      { lat: activeOrder.orders?.stores?.lat ?? 28.6139, lng: activeOrder.orders?.stores?.lng ?? 77.2090, popupText: `Pickup: ${activeOrder.orders?.stores?.name ?? 'Store'}` },
+                      { lat: activeOrder.orders?.addresses?.lat ?? (activeOrder.orders?.stores?.lat ?? 28.6139) + 0.01, lng: activeOrder.orders?.addresses?.lng ?? (activeOrder.orders?.stores?.lng ?? 77.2090) + 0.01, popupText: `Dropoff: ${activeOrder.orders?.profiles?.full_name ?? 'Customer'}` }
                     ]} 
                     className="w-full h-48"
                   />
@@ -336,6 +336,10 @@ export default function DeliveryDashboard() {
                       {updating ? <Loader2 className="animate-spin mx-auto" /> : <><CheckCircle2 /> Mark as Delivered</>}
                     </button>
                   )}
+                  {/* Fallback for unrecognised status */}
+                  {!['assigned','picked_up','in_transit'].includes(activeOrder.status) && (
+                    <p className="text-center text-slate-400 text-sm">Status: {activeOrder.status}</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -357,8 +361,8 @@ export default function DeliveryDashboard() {
                 history.slice(0, 5).map(h => (
                   <div key={h.id} className="p-5 flex items-center justify-between">
                     <div>
-                      <p className="font-bold text-[#1A1A2E]">Order #{h.order_id.split('-')[0]}</p>
-                      <p className="text-sm text-slate-500">{new Date(h.delivered_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+                      <p className="font-bold text-[#1A1A2E]">Order #{h.order_id?.split('-')[0] ?? h.id?.split('-')[0]}</p>
+                      <p className="text-sm text-slate-500">{h.delivered_at ? new Date(h.delivered_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'Completed'}</p>
                     </div>
                     <div className="text-right">
                       <p className="font-bold text-[#22C55E]">+₹40.00</p>
