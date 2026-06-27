@@ -9,6 +9,10 @@
     "preview": "vite preview",
     "server": "cd server && npm start"
   },
+  "engines": {
+    "node": ">=20.19.0",
+    "npm": ">=10.0.0"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.107.0",
     "framer-motion": "^12.38.0",
