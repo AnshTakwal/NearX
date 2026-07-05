@@ -4,20 +4,45 @@ const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
 const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
+// CORS headers for production
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
 export default async function handler(req, res) {
+  // Handle CORS preflight
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204, corsHeaders);
+    res.end();
+    return;
+  }
+
+  // Set CORS headers on all responses
+  Object.entries(corsHeaders).forEach(([key, value]) => {
+    res.setHeader(key, value);
+  });
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   if (!supabaseUrl || !supabaseKey) {
-    return res.status(500).json({ error: 'Supabase is not configured' });
+    return res.status(500).json({ error: 'Supabase is not configured. Check environment variables.' });
   }
 
   if (!GEMINI_API_KEY) {
-    return res.status(500).json({ error: 'Gemini API key is not configured' });
+    return res.status(500).json({ error: 'Gemini API key is not configured. Check environment variables.' });
   }
 
-  const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body || {};
+  let body;
+  try {
+    body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body || {};
+  } catch {
+    return res.status(400).json({ error: 'Invalid JSON body' });
+  }
+
   const { query } = body;
 
   if (!query || !query.trim()) {
@@ -66,9 +91,8 @@ export default async function handler(req, res) {
     const geminiData = await geminiResponse.json();
     let jsonText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '{}';
 
-    if (jsonText.startsWith('```json')) {
-      jsonText = jsonText.replace(/^```json/, '').replace(/```$/, '').trim();
-    }
+    // Strip markdown code fences if present
+    jsonText = jsonText.replace(/^```json\s*/i, '').replace(/\s*```$/, '').trim();
 
     let filters;
     try {
@@ -84,11 +108,11 @@ export default async function handler(req, res) {
       dbQuery = dbQuery.ilike('category', `%${filters.category}%`);
     }
 
-    if (filters.max_price !== null) {
+    if (filters.max_price !== null && filters.max_price !== undefined) {
       dbQuery = dbQuery.lte('sale_price', filters.max_price * 100);
     }
 
-    if (filters.days_left_max !== null) {
+    if (filters.days_left_max !== null && filters.days_left_max !== undefined) {
       const targetDate = new Date();
       targetDate.setDate(targetDate.getDate() + filters.days_left_max);
       dbQuery = dbQuery.lte('expiry_date', targetDate.toISOString());
