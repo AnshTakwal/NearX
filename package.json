@@ -10,8 +10,8 @@
     "server": "cd server && npm start"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0"
+    "node": "20.x",
+    "npm": ">=10.0.0"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.107.0",
