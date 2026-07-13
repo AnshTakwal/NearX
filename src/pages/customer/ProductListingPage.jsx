@@ -41,8 +41,8 @@ export default function ProductListingPage() {
   const displayProducts = aiProducts !== null ? aiProducts : products;
 
   return (
-    <div className="bg-[#FAFEFF] min-h-screen py-8 pb-24 md:pb-8 text-[#1A1A2E] w-full flex flex-col items-center">
-      <div className="max-w-[1440px] w-full px-4 md:px-8 lg:px-10">
+    <div className="bg-[#F8FAFC] min-h-screen py-8 pb-24 md:pb-8 text-[#1F2937] w-full flex flex-col items-center">
+      <div className="container-premium">
         {/* Magic AI Search Bar */}
         <NaturalLanguageSearch 
           onSearchStart={() => setAiLoading(true)} 
@@ -52,33 +52,32 @@ export default function ProductListingPage() {
           }} 
         />
 
-        <div className="mt-14 mb-8 border-t border-slate-100 pt-8">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-6">Or browse normally</h2>
+        <div className="mt-14 mb-8 border-t border-gray-150 pt-8">
+          <h2 className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-6">Or browse normally</h2>
           
           {/* Header & Filters */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
             <div>
-              <h1 className="text-3xl font-extrabold text-[#1A1A2E] tracking-tight">
+              <h1 className="text-3xl font-black text-gray-800 tracking-tight">
                 {aiProducts !== null ? 'AI Search Results' : flashParam ? 'Flash Deals' : categoryParam ? `${categoryParam} Deals` : 'All Deals'}
               </h1>
-              <p className="text-xs text-slate-400 font-semibold mt-1">{displayProducts.length} fresh items near you</p>
+              <p className="text-[11px] text-gray-450 font-bold uppercase tracking-wider mt-1">{displayProducts.length} fresh items near you</p>
             </div>
             
             <div className="flex gap-3 w-full md:w-auto items-center">
-              {/* Search Icon Outside standard search bar */}
-              <div className="text-slate-400 bg-white p-3 rounded-2xl border border-slate-200 shadow-sm flex-shrink-0">
-                <Search size={18} />
+              <div className="text-gray-400 bg-white p-3 rounded-xl border border-gray-200 shadow-sm flex-shrink-0">
+                <Search size={16} />
               </div>
               <form onSubmit={handleSearchSubmit} className="flex-1 md:w-64">
                 <input 
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
-                  className="px-4 py-3.5 w-full rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all bg-white"
+                  className="input-premium !py-3 bg-white"
                   placeholder="Search products..." 
                 />
               </form>
-              <button className="flex items-center gap-2 px-5 py-3.5 border border-slate-200 rounded-2xl font-bold text-sm text-slate-600 hover:text-[#00BCD4] hover:border-[#00BCD4] hover:bg-[#E0F7FA]/10 active:scale-95 transition-all bg-white">
-                <Filter size={16} />
+              <button className="btn-secondary !py-3 !px-4 !rounded-xl text-xs font-bold whitespace-nowrap">
+                <Filter size={14} />
                 <span>Filters</span>
               </button>
             </div>

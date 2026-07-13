@@ -251,11 +251,11 @@ export default function RegisterPage() {
       </div>
 
       {/* Right Pane - Form */}
-      <div className="w-full md:w-[60%] bg-white rounded-[2.5rem] shadow-xl md:h-[calc(100vh-64px)] overflow-y-auto p-6 sm:p-8 md:p-10">
+      <div className="w-full md:w-[60%] bg-white rounded-[2.5rem] shadow-xl md:h-[calc(100vh-64px)] overflow-y-auto p-6 sm:p-8 md:p-12">
         <div className="w-full h-full flex flex-col justify-center py-4">
-          <div className="mb-10">
-            <h1 className="text-4xl font-extrabold text-[#1A1A2E] tracking-tight mb-3">Create Account</h1>
-            <p className="text-slate-400 text-base font-medium">Join NearX and start saving food & money</p>
+          <div className="mb-8">
+            <h1 className="text-4xl font-black text-gray-800 tracking-tight mb-3">Create Account</h1>
+            <p className="text-gray-400 text-base font-semibold">Join NearX and start saving food & money</p>
           </div>
 
           {/* Role Selector */}
@@ -271,7 +271,7 @@ export default function RegisterPage() {
                 onClick={() => setRole(r.id)}
                 className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 ${
                   role === r.id
-                    ? 'bg-[#00BCD4] text-white shadow-md shadow-cyan-150'
+                    ? 'bg-[#0097A7] text-white shadow-lg shadow-[#0097A7]/15'
                     : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100/70'
                 }`}
               >
@@ -282,14 +282,14 @@ export default function RegisterPage() {
           </div>
 
           {error && (
-            <div className="mb-6 bg-red-50 border border-red-100 text-[#B91C1C] text-sm py-3.5 px-4 rounded-2xl font-medium">
+            <div className="mb-6 bg-red-50 border border-red-100 text-[#B91C1C] text-sm py-3.5 px-4 rounded-2xl font-semibold">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleRegister} className="space-y-6">
+          <form onSubmit={handleRegister} className="space-y-5">
             <div>
-              <label className="block text-sm font-semibold text-slate-500 mb-2">Full Name</label>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-450 mb-2">Full Name</label>
               <div className="relative">
                 <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                 <input 
@@ -297,7 +297,7 @@ export default function RegisterPage() {
                   value={form.fullName} 
                   onChange={handle('fullName')}
                   style={{ paddingLeft: '3rem' }}
-                  className="w-full pr-4 h-14 rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all duration-200 bg-[#F1F5F9]/60"
+                  className="input-premium h-14 bg-slate-50/50 focus:bg-white"
                   placeholder="John Doe"
                   required 
                 />
@@ -305,7 +305,7 @@ export default function RegisterPage() {
             </div>
             
             <div>
-              <label className="block text-sm font-semibold text-slate-500 mb-2">Email Address</label>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-450 mb-2">Email Address</label>
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                 <input 
@@ -313,7 +313,7 @@ export default function RegisterPage() {
                   value={form.email} 
                   onChange={handle('email')}
                   style={{ paddingLeft: '3rem' }}
-                  className="w-full pr-4 h-14 rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all duration-200 bg-[#F1F5F9]/60"
+                  className="input-premium h-14 bg-slate-50/50 focus:bg-white"
                   placeholder="you@example.com"
                   required 
                   autoComplete="email" 
@@ -322,22 +322,22 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-500 mb-2">Phone (optional)</label>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-450 mb-2">Phone (optional)</label>
               <div className="relative">
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                 <input 
-                  type="tel" 
+                  type="focus" 
                   value={form.phone} 
                   onChange={handle('phone')}
                   style={{ paddingLeft: '3rem' }}
-                  className="w-full pr-4 h-14 rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all duration-200 bg-[#F1F5F9]/60"
+                  className="input-premium h-14 bg-slate-50/50 focus:bg-white"
                   placeholder="+91 98765 43210" 
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-500 mb-2">Password</label>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-450 mb-2">Password</label>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                 <input 
@@ -345,7 +345,7 @@ export default function RegisterPage() {
                   value={form.password} 
                   onChange={handle('password')}
                   style={{ paddingLeft: '3rem' }}
-                  className="w-full pr-4 h-14 rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all duration-200 bg-[#F1F5F9]/60"
+                  className="input-premium h-14 bg-slate-50/50 focus:bg-white"
                   placeholder="••••••••"
                   required 
                   minLength={6} 
@@ -356,9 +356,9 @@ export default function RegisterPage() {
 
             {/* Store owner extra fields */}
             {role === 'store' && (
-              <div className="space-y-6 border-t border-slate-100 pt-6 mt-6">
+              <div className="space-y-5 border-t border-slate-100 pt-5 mt-5">
                 <div>
-                  <label className="block text-sm font-semibold text-slate-500 mb-2">Store Name</label>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-450 mb-2">Store Name</label>
                   <div className="relative">
                     <Store className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                     <input 
@@ -366,14 +366,14 @@ export default function RegisterPage() {
                       value={form.storeName} 
                       onChange={handle('storeName')}
                       style={{ paddingLeft: '3rem' }}
-                      className="w-full pr-4 h-14 rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all duration-200 bg-[#F1F5F9]/60"
+                      className="input-premium h-14 bg-slate-50/50 focus:bg-white"
                       placeholder="Fresh Mart"
                       required 
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-slate-500 mb-2">Store Address</label>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-450 mb-2">Store Address</label>
                   <div className="relative">
                     <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                     <input 
@@ -381,40 +381,40 @@ export default function RegisterPage() {
                       value={form.storeAddress} 
                       onChange={handle('storeAddress')}
                       style={{ paddingLeft: '3rem' }}
-                      className="w-full pr-4 h-14 rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all duration-200 bg-[#F1F5F9]/60"
+                      className="input-premium h-14 bg-slate-50/50 focus:bg-white"
                       placeholder="123 Market St"
                       required
                     />
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-semibold text-slate-500 mb-2">City</label>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-450 mb-2">City</label>
                     <input 
                       type="text" 
                       value={form.city} 
                       onChange={handle('city')}
-                      className="w-full px-4 h-14 rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all duration-200 bg-[#F1F5F9]/60"
+                      className="input-premium h-14 bg-slate-50/50 focus:bg-white"
                       placeholder="Delhi"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-slate-500 mb-2">Pincode</label>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-450 mb-2">Pincode</label>
                     <input 
                       type="text" 
                       value={form.pincode} 
                       onChange={handle('pincode')}
-                      className="w-full px-4 h-14 rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all duration-200 bg-[#F1F5F9]/60"
+                      className="input-premium h-14 bg-slate-50/50 focus:bg-white"
                       placeholder="110001"
                       required
                     />
                   </div>
                 </div>
                 
-                <div className="text-[11px] text-slate-400 font-semibold bg-[#F1F5F9]/80 p-3.5 rounded-xl border border-slate-100 flex items-center justify-between">
+                <div className="text-[11px] text-slate-400 font-bold bg-[#F8FAFC] p-3.5 rounded-xl border border-slate-100 flex items-center justify-between">
                   <span>Coordinates: {form.lat.toFixed(4)}, {form.lng.toFixed(4)}</span>
-                  <span className="text-[#00BCD4]">Set on map (left side)</span>
+                  <span className="text-[#0097A7]">Set on map (left side)</span>
                 </div>
               </div>
             )}
@@ -422,7 +422,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#00BCD4] hover:bg-[#0097A7] text-white h-14 rounded-2xl font-bold transition-all duration-300 shadow-md hover:shadow-xl active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-8"
+              className="w-full btn-primary h-14 !rounded-2xl text-sm mt-8"
             >
               {loading ? (
                 <><Loader2 size={18} className="animate-spin" /> Creating account...</>
@@ -439,7 +439,7 @@ export default function RegisterPage() {
 
           <p className="text-center mt-10 text-sm text-slate-400 font-semibold">
             Already have an account?{' '}
-            <Link to="/login" className="text-[#00BCD4] hover:text-[#0097A7] font-bold transition-colors">
+            <Link to="/login" className="text-[#0097A7] hover:text-[#00838F] font-bold transition-colors">
               Log in
             </Link>
           </p>

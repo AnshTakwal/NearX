@@ -78,11 +78,11 @@ export default function LoginPage() {
       </div>
 
       {/* Right Pane - Form */}
-      <div className="w-full md:w-[60%] bg-white rounded-[2.5rem] shadow-xl md:h-[calc(100vh-64px)] overflow-y-auto p-6 sm:p-8 md:p-10">
+      <div className="w-full md:w-[60%] bg-white rounded-[2.5rem] shadow-xl md:h-[calc(100vh-64px)] overflow-y-auto p-6 sm:p-8 md:p-12">
         <div className="w-full h-full flex flex-col justify-center py-4">
           <div className="mb-10">
-            <h1 className="text-4xl font-extrabold text-[#1A1A2E] tracking-tight mb-3">Welcome Back</h1>
-            <p className="text-slate-400 text-base font-medium">Please enter your credentials to continue.</p>
+            <h1 className="text-4xl font-black text-gray-800 tracking-tight mb-3">Welcome Back</h1>
+            <p className="text-gray-400 text-base font-semibold">Please enter your credentials to continue.</p>
           </div>
 
           {/* Role Selector */}
@@ -96,9 +96,9 @@ export default function LoginPage() {
                 key={r.id}
                 type="button"
                 onClick={() => setRole(r.id)}
-                className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 ${
+                className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-bold transition-all duration-305 ${
                   role === r.id
-                    ? 'bg-[#00BCD4] text-white shadow-md shadow-cyan-150'
+                    ? 'bg-[#0097A7] text-white shadow-lg shadow-[#0097A7]/15'
                     : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100/70'
                 }`}
               >
@@ -109,14 +109,14 @@ export default function LoginPage() {
           </div>
 
           {error && (
-            <div className="mb-6 bg-red-50 border border-red-100 text-[#B91C1C] text-sm py-3.5 px-4 rounded-2xl font-medium">
+            <div className="mb-6 bg-red-50 border border-red-100 text-[#B91C1C] text-sm py-3.5 px-4 rounded-2xl font-semibold">
               {error}
             </div>
           )}
 
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
-              <label className="block text-sm font-semibold text-slate-500 mb-2">Email Address</label>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-450 mb-2">Email Address</label>
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                 <input
@@ -124,7 +124,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   style={{ paddingLeft: '3rem' }}
-                  className="w-full pr-4 h-14 rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all duration-200 bg-[#F1F5F9]/60"
+                  className="input-premium h-14 bg-slate-50/50 focus:bg-white"
                   placeholder="Enter your email address"
                   required
                   autoComplete="email"
@@ -132,7 +132,7 @@ export default function LoginPage() {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-semibold text-slate-500 mb-2">Password</label>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-450 mb-2">Password</label>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                 <input
@@ -140,7 +140,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   style={{ paddingLeft: '3rem' }}
-                  className="w-full pr-4 h-14 rounded-2xl border border-slate-200 focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 text-sm font-medium transition-all duration-200 bg-[#F1F5F9]/60"
+                  className="input-premium h-14 bg-slate-50/50 focus:bg-white"
                   placeholder="Enter your password"
                   required
                   autoComplete="current-password"
@@ -151,7 +151,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#00BCD4] hover:bg-[#0097A7] text-white h-14 rounded-2xl font-bold transition-all duration-300 shadow-md hover:shadow-xl active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-8"
+              className="w-full btn-primary h-14 !rounded-2xl text-sm mt-8"
             >
               {loading ? (
                 <><Loader2 size={18} className="animate-spin" /> Signing in...</>
@@ -168,7 +168,7 @@ export default function LoginPage() {
 
           <p className="text-center mt-10 text-sm text-slate-400 font-semibold">
             Don't have an account?{' '}
-            <Link to="/register" className="text-[#00BCD4] hover:text-[#0097A7] font-bold transition-colors">
+            <Link to="/register" className="text-[#0097A7] hover:text-[#00838F] font-bold transition-colors">
               Sign up
             </Link>
           </p>

@@ -298,20 +298,20 @@ export default function StoreOwnerDashboard() {
 
 
   const stats = [
-    { label: "Total Revenue", value: `₹${((analytics?.totalRevenue || 0) / 100).toFixed(2)}`, icon: IndianRupee, color: "text-[#22C55E]", bg: "bg-[#E8F5E9]" },
-    { label: "Total Orders", value: analytics?.totalOrders || 0, icon: Package, color: "text-[#00BCD4]", bg: "bg-[#E0F7FA]" },
-    { label: "Expiring Soon (5 days)", value: analytics?.expiringSoon || 0, icon: AlertTriangle, color: "text-[#EF4444]", bg: "bg-[#FEF2F2]" },
-    { label: "Food Waste Saved", value: `₹${((analytics?.totalSavings || 0) / 100).toFixed(2)}`, icon: TrendingUp, color: "text-[#F59E0B]", bg: "bg-[#FFFBEB]" }
+    { label: "Total Revenue", value: `₹${((analytics?.totalRevenue || 0) / 100).toFixed(2)}`, icon: IndianRupee, color: "text-green-600", bg: "bg-green-50" },
+    { label: "Total Orders", value: analytics?.totalOrders || 0, icon: Package, color: "text-[#0097A7]", bg: "bg-[#E0F7FA]" },
+    { label: "Expiring Soon (5 days)", value: analytics?.expiringSoon || 0, icon: AlertTriangle, color: "text-red-655", bg: "bg-red-50" },
+    { label: "Food Waste Saved", value: `₹${((analytics?.totalSavings || 0) / 100).toFixed(2)}`, icon: TrendingUp, color: "text-amber-600", bg: "bg-amber-50" }
   ];
 
   return (
-    <div className="bg-[#FAFEFF] min-h-screen px-6 md:px-16 lg:px-24 py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+    <div className="container-premium bg-[#F8FAFC] min-h-screen py-10">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-[#1A1A2E]">Store Dashboard</h1>
-          <p className="text-slate-500 mt-1">{store.name}</p>
+          <h1 className="text-3xl font-black text-[#111827] tracking-tight">Store Dashboard</h1>
+          <p className="text-sm font-semibold text-gray-500 mt-1">{store.name}</p>
         </div>
-        <a href="/store/products" className="bg-[#00BCD4] text-white px-5 py-2.5 rounded-xl font-semibold shadow-sm hover:bg-[#0097A7] transition-colors inline-block text-center">
+        <a href="/store/products" className="btn-primary">
           Manage Products
         </a>
       </div>
@@ -319,59 +319,58 @@ export default function StoreOwnerDashboard() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         {stats.map((stat, i) => (
-          <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-[#00BCD4] border-y border-r border-slate-100 relative overflow-hidden">
-            <div className={`absolute -right-4 -top-4 w-20 h-20 rounded-full ${stat.bg} opacity-50`}></div>
-            <div className="relative z-10 flex items-center justify-between">
-              <div>
-                <p className="text-slate-500 font-medium mb-1 text-sm">{stat.label}</p>
-                <p className="text-2xl font-bold text-[#1A1A2E] truncate max-w-[150px]">{stat.value}</p>
-              </div>
-              <div className={`${stat.bg} ${stat.color} p-3 rounded-xl`}>
-                <stat.icon size={24} />
-              </div>
+          <div key={i} className="card-premium border-l-4 border-l-[#0097A7] relative overflow-hidden flex items-center justify-between">
+            <div className="relative z-10">
+              <p className="text-gray-400 font-bold uppercase tracking-wider text-[10px] mb-1">{stat.label}</p>
+              <p className="text-2xl font-black text-[#111827] truncate max-w-[150px]">{stat.value}</p>
+            </div>
+            <div className={`${stat.bg} ${stat.color} p-3 rounded-xl shadow-inner`}>
+              <stat.icon size={22} />
             </div>
           </div>
         ))}
       </div>
 
       {/* Recent Orders */}
-      <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
-        <div className="p-6 border-b border-slate-100 flex justify-between items-center">
-          <h2 className="text-xl font-bold text-[#1A1A2E]">Recent Orders</h2>
-          <a href="/store/orders" className="text-[#00BCD4] font-medium hover:underline">View All</a>
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-150 overflow-hidden">
+        <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+          <h2 className="text-lg font-bold text-gray-800">Recent Orders</h2>
+          <a href="/store/orders" className="text-sm font-bold text-[#0097A7] hover:text-[#00838F] hover:underline">View All</a>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse min-w-[600px]">
+        
+        <div className="table-container !border-none !rounded-none">
+          <table className="table-premium min-w-[600px]">
             <thead>
-              <tr className="bg-slate-50 text-slate-500 text-sm border-b border-slate-100">
-                <th className="p-4 font-medium">Order ID</th>
-                <th className="p-4 font-medium">Customer</th>
-                <th className="p-4 font-medium">Amount</th>
-                <th className="p-4 font-medium">Status</th>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Amount</th>
+                <th>Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
-              {recentOrders.length === 0 && (
+            <tbody>
+              {recentOrders.length === 0 ? (
                 <tr>
-                  <td colSpan="4" className="p-4 text-center text-slate-500">No orders yet.</td>
+                  <td colSpan="4" className="text-center text-gray-450 py-8">No orders yet.</td>
                 </tr>
+              ) : (
+                recentOrders.map((order) => (
+                  <tr key={order.id}>
+                    <td className="font-mono text-xs font-semibold text-gray-550">{order.id.split('-')[0]}...</td>
+                    <td className="text-gray-700 font-semibold">{order.profiles?.full_name}</td>
+                    <td className="font-bold text-gray-900">₹{(order.total / 100).toFixed(2)}</td>
+                    <td>
+                      <span className={`badge-premium ${
+                        order.status === 'delivered' ? 'bg-green-50 text-green-700 border border-green-200' :
+                        order.status === 'placed' ? 'bg-[#E0F7FA] text-[#0097A7] border border-[#B2EBF2]' :
+                        'bg-gray-50 text-gray-600 border border-gray-200'
+                      }`}>
+                        {order.status.replace(/_/g, ' ')}
+                      </span>
+                    </td>
+                  </tr>
+                ))
               )}
-              {recentOrders.map((order, i) => (
-                <tr key={order.id} className="hover:bg-slate-50/50 transition-colors">
-                  <td className="p-4 font-medium text-[#1A1A2E] font-mono text-sm">{order.id.split('-')[0]}...</td>
-                  <td className="p-4 text-slate-600">{order.profiles?.full_name}</td>
-                  <td className="p-4 font-semibold text-[#1A1A2E]">₹{(order.total / 100).toFixed(2)}</td>
-                  <td className="p-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold inline-block capitalize ${
-                      order.status === 'delivered' ? 'bg-[#E8F5E9] text-[#22C55E]' :
-                      order.status === 'placed' ? 'bg-[#E0F7FA] text-[#00BCD4]' :
-                      'bg-slate-100 text-slate-600'
-                    }`}>
-                      {order.status.replace(/_/g, ' ')}
-                    </span>
-                  </td>
-                </tr>
-              ))}
             </tbody>
           </table>
         </div>

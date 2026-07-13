@@ -86,9 +86,9 @@ export default function ProductCard({ product }) {
         <button 
           onClick={handleAddToCart}
           disabled={stock <= 0}
-          className="w-full bg-[#E0F7FA] text-[#0097A7] hover:bg-[#00BCD4] hover:text-white py-2.5 rounded-xl font-extrabold text-[12px] transition-all duration-300 flex items-center justify-center gap-1.5 shadow-sm active:scale-95 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed"
+          className="w-full btn-primary !py-2.5 !rounded-lg text-xs"
         >
-          <ShoppingCart size={14} />
+          <ShoppingCart size={13} />
           <span>Add to Cart</span>
         </button>
       </div>

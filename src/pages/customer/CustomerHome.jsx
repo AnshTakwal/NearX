@@ -26,23 +26,23 @@ export default function CustomerHome() {
   });
 
   return (
-    <div className="bg-[#FAFEFF] min-h-screen pb-24 md:pb-8 text-[#1A1A2E] w-full flex flex-col items-center">
+    <div className="bg-[#F8FAFC] min-h-screen pb-24 md:pb-8 text-[#1A1A2E] w-full flex flex-col items-center">
       {/* Top Bar / Search Sticky Container */}
-      <div className="bg-white/80 backdrop-blur-md sticky top-16 z-40 border-b border-slate-100 shadow-sm w-full flex justify-center">
-        <div className="max-w-[1440px] w-full px-4 py-5 md:px-8 lg:px-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white/85 backdrop-blur-md sticky top-16 z-40 border-b border-gray-150 shadow-sm w-full flex justify-center">
+        <div className="container-premium py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="bg-[#E0F7FA] p-3 rounded-2xl text-[#00BCD4] shadow-sm active:scale-95 transition-transform">
-              <MapPin size={22} />
+            <div className="bg-[#E0F7FA] p-2.5 rounded-xl text-[#0097A7] shadow-sm active:scale-95 transition-transform">
+              <MapPin size={20} />
             </div>
             <div>
-              <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Delivering to</p>
-              <p className="text-[16px] font-extrabold text-[#1A1A2E] leading-tight">{profile?.full_name || 'Customer'}</p>
+              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Delivering to</p>
+              <p className="text-[15px] font-extrabold text-gray-800 leading-tight">{profile?.full_name || 'Customer'}</p>
             </div>
           </div>
           
           <div className="flex items-center gap-3 flex-1 max-w-lg">
-            <div className="text-slate-400 bg-slate-50/70 p-3.5 rounded-2xl border border-slate-200 shadow-sm flex-shrink-0">
-              <Search size={18} />
+            <div className="text-gray-400 bg-gray-50/80 p-3.5 rounded-xl border border-gray-200 shadow-inner flex-shrink-0">
+              <Search size={16} />
             </div>
             <form onSubmit={handleSearch} className="flex-1">
               <input 
@@ -50,17 +50,17 @@ export default function CustomerHome() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search for fresh items, dairy, snacks..." 
-                className="w-full bg-slate-50/70 px-4 py-3.5 rounded-2xl border border-slate-200 focus:bg-white focus:border-[#00BCD4] focus:outline-none focus:ring-4 focus:ring-cyan-50/50 transition-all text-sm font-medium"
+                className="input-premium !py-3.5 !rounded-xl text-xs font-semibold focus:bg-white"
               />
             </form>
           </div>
         </div>
       </div>
 
-      <div className="max-w-[1440px] w-full px-4 md:px-8 lg:px-10 py-8 space-y-12">
+      <div className="container-premium py-8 space-y-12">
         {/* Categories Horizontal Scroller */}
         <div>
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Categories</h3>
+          <h3 className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-4">Categories</h3>
           <div className="flex overflow-x-auto hide-scrollbar gap-3 pb-2 -mx-6 px-6 md:mx-0 md:px-0">
             {categories.map((cat, i) => {
               const icons = { All: '📦', Dairy: '🥛', Bakery: '🍞', Snacks: '🍿', Beverages: '🧃', Pantry: '🫙', Cleaning: '🧹' };
@@ -69,7 +69,7 @@ export default function CustomerHome() {
                 <Link 
                   key={i} 
                   to={cat === 'All' ? '/products' : `/products?category=${cat}`} 
-                  className="whitespace-nowrap px-6 py-3 rounded-2xl font-bold text-sm transition-all duration-300 border border-slate-100 hover:border-[#00BCD4] hover:text-[#00BCD4] bg-white shadow-sm hover:shadow flex items-center gap-2 active:scale-95"
+                  className="whitespace-nowrap px-5 py-2.5 rounded-xl font-bold text-xs transition-all duration-200 border border-gray-200 hover:border-[#0097A7] hover:text-[#0097A7] bg-white shadow-sm hover:shadow-md flex items-center gap-2 active:scale-95"
                 >
                   <span>{icon}</span>
                   <span>{cat}</span>
@@ -80,20 +80,20 @@ export default function CustomerHome() {
         </div>
 
         {/* Flash Deals Banner */}
-        <div className="bg-gradient-to-br from-[#00BCD4] to-[#0097A7] rounded-[2.5rem] p-8 md:p-12 text-white relative overflow-hidden shadow-lg shadow-cyan-100/40">
+        <div className="bg-gradient-to-br from-[#00BCD4] to-[#0097A7] rounded-[2rem] p-8 md:p-12 text-white relative overflow-hidden shadow-lg shadow-[#0097A7]/10">
           <div className="absolute right-0 top-0 w-80 h-80 bg-white/10 rounded-full blur-3xl -translate-y-1/3 translate-x-1/4 pointer-events-none"></div>
           <div className="relative z-10 md:w-2/3 space-y-4">
-            <div className="flex items-center gap-2 bg-white/20 w-fit px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wide backdrop-blur-md">
-              <Timer size={14} /> Ends soon
+            <div className="flex items-center gap-2 bg-white/20 w-fit px-3.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider backdrop-blur-md">
+              <Timer size={12} /> Ends soon
             </div>
             <h2 className="text-3xl md:text-5xl font-black leading-tight tracking-tight">Midnight Mega Sale</h2>
-            <p className="text-white/80 text-sm md:text-md max-w-md leading-relaxed font-medium">
+            <p className="text-blue-100 text-xs md:text-sm max-w-md leading-relaxed font-semibold">
               Get up to 70% off on near-expiry essentials. Top quality checked items ready for delivery.
             </p>
             <div className="pt-2">
               <Link 
                 to="/products?flash=true" 
-                className="bg-white text-[#0097A7] px-8 py-3.5 rounded-2xl font-extrabold hover:bg-slate-50 active:scale-95 shadow-md hover:shadow-lg transition-all inline-block text-sm"
+                className="bg-white text-[#0097A7] px-6 py-3 rounded-xl font-black hover:bg-gray-50 active:scale-95 shadow-md hover:shadow-lg transition-all inline-block text-xs uppercase tracking-wider"
               >
                 Shop Deals Now
               </Link>
@@ -105,11 +105,11 @@ export default function CustomerHome() {
         <section>
           <div className="flex justify-between items-end mb-6">
             <div>
-              <h2 className="text-2xl font-extrabold text-[#1A1A2E]">Trending Near You</h2>
-              <p className="text-xs text-slate-400 font-semibold mt-1">Directly sourced from trusted partner stores</p>
+              <h2 className="text-2xl font-black text-gray-800">Trending Near You</h2>
+              <p className="text-[11px] text-gray-400 font-bold uppercase tracking-wider mt-1">Directly sourced from trusted partner stores</p>
             </div>
-            <Link to="/products" className="text-[#00BCD4] hover:text-[#0097A7] font-bold text-sm flex items-center gap-1 hover:underline transition-all">
-              See all <ChevronRight size={16} />
+            <Link to="/products" className="text-[#0097A7] hover:text-[#00838F] font-bold text-xs flex items-center gap-0.5 hover:underline transition-all uppercase tracking-wider">
+              See all <ChevronRight size={14} />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
