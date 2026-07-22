@@ -9,17 +9,17 @@ const ICONS = {
 };
 
 const STYLES = {
-  success: 'bg-white border-l-4 border-[#22C55E] text-[#166534]',
-  error: 'bg-white border-l-4 border-[#EF4444] text-[#991B1B]',
-  info: 'bg-white border-l-4 border-[#00BCD4] text-[#0e7490]',
-  warning: 'bg-white border-l-4 border-[#F59E0B] text-[#92400E]',
+  success: 'bg-white border-l-4 border-[#16A34A] text-[#166534]',
+  error: 'bg-white border-l-4 border-[#DC2626] text-[#991B1B]',
+  info: 'bg-white border-l-4 border-[#0097A7] text-[#0e7490]',
+  warning: 'bg-white border-l-4 border-[#D97706] text-[#92400E]',
 };
 
 const ICON_COLORS = {
-  success: 'text-[#22C55E]',
-  error: 'text-[#EF4444]',
-  info: 'text-[#00BCD4]',
-  warning: 'text-[#F59E0B]',
+  success: 'text-[#16A34A]',
+  error: 'text-[#DC2626]',
+  info: 'text-[#0097A7]',
+  warning: 'text-[#D97706]',
 };
 
 let toastIdCounter = 0;
@@ -59,7 +59,7 @@ function ToastItem({ id, message, type, duration, onRemove }) {
   return (
     <div
       className={`
-        flex items-start gap-3 p-4 rounded-xl shadow-lg max-w-sm w-full
+        flex items-start gap-3 p-4 rounded-2xl shadow-lg max-w-sm w-full
         transition-all duration-300 ease-in-out
         ${STYLES[type]}
         ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
@@ -72,9 +72,9 @@ function ToastItem({ id, message, type, duration, onRemove }) {
           setVisible(false);
           setTimeout(() => onRemove(id), 300);
         }}
-        className="flex-shrink-0 text-slate-400 hover:text-slate-600 transition-colors"
+        className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-lg hover:bg-gray-100"
       >
-        <X size={16} />
+        <X size={14} />
       </button>
     </div>
   );

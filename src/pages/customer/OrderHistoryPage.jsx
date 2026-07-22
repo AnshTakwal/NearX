@@ -8,77 +8,77 @@ export default function OrderHistoryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-[#FAFEFF]">
-        <Loader2 className="w-8 h-8 text-[#00BCD4] animate-spin" />
+      <div className="min-h-[calc(100vh-68px)] flex items-center justify-center bg-[#F7F8FA]">
+        <Loader2 className="w-8 h-8 text-[#0097A7] animate-spin" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-[calc(100vh-64px)] flex flex-col items-center justify-center bg-[#FAFEFF] px-6 text-center">
+      <div className="min-h-[calc(100vh-68px)] flex flex-col items-center justify-center bg-[#F7F8FA] px-6 text-center">
         <p className="text-red-500 mb-4">{error}</p>
-        <button onClick={() => window.location.reload()} className="text-[#00BCD4] font-medium hover:underline">Retry</button>
+        <button onClick={() => window.location.reload()} className="text-[#0097A7] font-medium hover:underline">Retry</button>
       </div>
     );
   }
 
   return (
-    <div className="bg-[#FAFEFF] min-h-screen py-8 pb-24 md:pb-8 text-[#1A1A2E] w-full flex flex-col items-center">
-      <div className="max-w-[1440px] w-full px-4 md:px-8 lg:px-10">
-        <h1 className="text-3xl font-bold text-[#1A1A2E] mb-8">My Orders</h1>
+    <div className="bg-[#F7F8FA] min-h-screen py-8 pb-24 md:pb-8 text-gray-900 w-full flex flex-col items-center">
+      <div className="container-premium">
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">My Orders</h1>
 
-      {orders.length === 0 ? (
-        <div className="bg-white p-8 rounded-3xl text-center border border-slate-100">
-          <Package className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-[#1A1A2E] mb-2">No orders yet</h2>
-          <p className="text-slate-500 mb-6">When you place an order, it will appear here.</p>
-          <Link to="/products" className="bg-[#00BCD4] text-white px-6 py-2.5 rounded-xl font-medium hover:bg-[#0097A7] transition-colors inline-block">
-            Start Shopping
-          </Link>
-        </div>
-      ) : (
-        <div className="space-y-4">
-          {orders.map((order) => {
-            const date = new Date(order.created_at).toLocaleDateString('en-IN', {
-              day: 'numeric', month: 'short', year: 'numeric'
-            });
-            const itemCount = order.order_items?.length || 0;
-            
-            return (
-              <Link key={order.id} to={`/track/${order.id}`} className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between group hover:border-[#00BCD4] transition-colors gap-4">
-                <div className="flex items-center gap-5">
-                  <div className="bg-[#E0F7FA] p-3 rounded-full text-[#00BCD4]">
-                    <Package size={24} />
-                  </div>
-                  <div>
-                    <p className="font-bold text-[#1A1A2E] mb-1 truncate max-w-[200px] sm:max-w-xs">{order.stores?.name}</p>
-                    <div className="flex items-center gap-2 flex-wrap text-sm text-slate-500">
-                      <span>{date}</span>
-                      <span className="w-1 h-1 rounded-full bg-slate-300"></span>
-                      <span>{itemCount} items</span>
-                      <span className="w-1 h-1 rounded-full bg-slate-300"></span>
-                      <span className="font-medium text-[#1A1A2E]">₹{(order.total / 100).toFixed(2)}</span>
+        {orders.length === 0 ? (
+          <div className="bg-white p-10 rounded-2xl text-center border border-gray-100 shadow-sm">
+            <Package className="w-14 h-14 text-gray-300 mx-auto mb-4" />
+            <h2 className="text-xl font-bold text-gray-900 mb-2">No orders yet</h2>
+            <p className="text-gray-500 mb-6">When you place an order, it will appear here.</p>
+            <Link to="/products" className="btn-primary px-6 py-3 rounded-xl text-sm inline-block">
+              Start Shopping
+            </Link>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {orders.map((order) => {
+              const date = new Date(order.created_at).toLocaleDateString('en-IN', {
+                day: 'numeric', month: 'short', year: 'numeric'
+              });
+              const itemCount = order.order_items?.length || 0;
+              
+              return (
+                <Link key={order.id} to={`/track/${order.id}`} className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between group hover:border-[#0097A7] transition-all gap-4">
+                  <div className="flex items-center gap-5">
+                    <div className="bg-[#E0F7FA] p-3 rounded-xl text-[#0097A7]">
+                      <Package size={22} />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 mb-1 truncate max-w-[200px] sm:max-w-xs">{order.stores?.name}</p>
+                      <div className="flex items-center gap-2 flex-wrap text-sm text-gray-500">
+                        <span>{date}</span>
+                        <span className="w-1 h-1 rounded-full bg-gray-300"></span>
+                        <span>{itemCount} items</span>
+                        <span className="w-1 h-1 rounded-full bg-gray-300"></span>
+                        <span className="font-semibold text-gray-800">₹{(order.total / 100).toFixed(2)}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                
-                <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                    order.status === 'delivered' ? 'bg-[#E8F5E9] text-[#22C55E]' :
-                    order.status === 'out_for_delivery' ? 'bg-[#FFFBEB] text-[#F59E0B]' :
-                    order.status === 'cancelled' ? 'bg-[#FEF2F2] text-[#EF4444]' :
-                    'bg-slate-100 text-slate-600'
-                  }`}>
-                    {order.status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                  </span>
-                  <ChevronRight size={20} className="text-slate-400 group-hover:text-[#00BCD4] transition-colors hidden sm:block" />
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      )}
+                  
+                  <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4">
+                    <span className={`px-3.5 py-1.5 rounded-full text-xs font-semibold ${
+                      order.status === 'delivered' ? 'bg-green-50 text-green-600' :
+                      order.status === 'out_for_delivery' ? 'bg-amber-50 text-amber-600' :
+                      order.status === 'cancelled' ? 'bg-red-50 text-red-600' :
+                      'bg-gray-100 text-gray-600'
+                    }`}>
+                      {order.status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                    </span>
+                    <ChevronRight size={20} className="text-gray-400 group-hover:text-[#0097A7] transition-colors hidden sm:block" />
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

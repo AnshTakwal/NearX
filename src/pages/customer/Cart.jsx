@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { ShoppingCart } from 'lucide-react';
 import CartItem from '../../components/customer/CartItem';
 
 export default function Cart({ cartItems, cartTotal, onUpdateQuantity, onRemove, onClearCart }) {
@@ -13,7 +14,7 @@ export default function Cart({ cartItems, cartTotal, onUpdateQuantity, onRemove,
     if (!cartItems || cartItems.length === 0) {
         return (
             <div className="max-w-5xl mx-auto px-4 py-16 text-center">
-                <p className="text-6xl mb-4">🛒</p>
+                <p className="flex justify-center mb-4 text-gray-300"><ShoppingCart size={60} strokeWidth={1} /></p>
                 <h2 className="text-xl font-bold text-gray-700 mb-2">Your cart is empty</h2>
                 <p className="text-gray-400 text-sm mb-6">Browse deals and add items to get started</p>
                 <Link

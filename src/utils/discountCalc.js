@@ -20,7 +20,7 @@ export function getDiscountInfo(expiryDate) {
     return {
       daysLeft: 0,
       discountPercent: 60,
-      badge: '🔴 Expired',
+      badge: 'Expired',
       badgeLabel: 'Expired',
       badgeColor: 'bg-danger text-white',
       borderColor: 'border-l-danger',
@@ -34,7 +34,7 @@ export function getDiscountInfo(expiryDate) {
     return {
       daysLeft,
       discountPercent: 60,
-      badge: '🔴 Last Chance',
+      badge: 'Last Chance',
       badgeLabel: 'Last Chance',
       badgeColor: 'bg-danger text-white',
       borderColor: 'border-l-danger',
@@ -48,7 +48,7 @@ export function getDiscountInfo(expiryDate) {
     return {
       daysLeft,
       discountPercent: 40,
-      badge: '⚠️ Buy Soon',
+      badge: 'Buy Soon',
       badgeLabel: 'Buy Soon',
       badgeColor: 'bg-warning text-white',
       borderColor: 'border-l-warning',
@@ -62,7 +62,7 @@ export function getDiscountInfo(expiryDate) {
     return {
       daysLeft,
       discountPercent: 25,
-      badge: '✅ Safe',
+      badge: 'Safe',
       badgeLabel: 'Safe',
       badgeColor: 'bg-success text-white',
       borderColor: 'border-l-success',
@@ -75,7 +75,7 @@ export function getDiscountInfo(expiryDate) {
   return {
     daysLeft,
     discountPercent: 10,
-    badge: '✅ Safe',
+    badge: 'Safe',
     badgeLabel: 'Safe',
     badgeColor: 'bg-success text-white',
     borderColor: 'border-l-success',

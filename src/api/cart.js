@@ -16,6 +16,7 @@ function readCart() {
 
 function writeCart(cart) {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  window.dispatchEvent(new Event('cart_updated'));
 }
 
 /** Get the full cart object. */

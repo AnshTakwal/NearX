@@ -158,6 +158,7 @@ export function AuthProvider({ children }) {
             .update({
               full_name: userData.fullName,
               phone: userData.phone || null,
+              role: role,
             })
             .eq('id', data.user.id);
           if (profileErr) console.warn('Profile details sync warning:', profileErr);
@@ -176,6 +177,22 @@ export function AuthProvider({ children }) {
               },
             ]);
             if (storeErr) console.warn('Store creation warning:', storeErr);
+          }
+          // Create address record for customers
+          if (role === 'customer' && userData.storeAddress) {
+            const { error: addressErr } = await supabase.from('addresses').insert([
+              {
+                user_id: data.user.id,
+                address_line: userData.storeAddress,
+                city: userData.city || 'Delhi',
+                pincode: userData.pincode || '110001',
+                label: 'Home',
+                is_default: true,
+                lat: userData.lat || 28.6139,
+                lng: userData.lng || 77.209,
+              },
+            ]);
+            if (addressErr) console.warn('Address creation warning:', addressErr);
           }
         }
 

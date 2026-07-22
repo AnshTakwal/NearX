@@ -52,22 +52,32 @@ export default async function handler(req, res) {
   try {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    const systemPrompt = `
-      You are an AI assistant for a grocery app. Convert the user's search query into a JSON object.
-      The JSON must match this exact structure:
-      {
-        "category": "string or null",
-        "max_price": "number or null",
-        "days_left_max": "number or null",
-        "keywords": ["array", "of", "strings"]
-      }
-      Rules:
-      - If category, max_price, or days_left_max are not mentioned, set them to null.
-      - If no keywords, return an empty array [].
-      - Return ONLY valid JSON, without any markdown formatting like \`\`\`json.
-    `;
+    // STEP 1: Fetch all product names from DB
+    const { data: allProducts, error: productsError } = await supabase
+      .from('products')
+      .select('id, name, brand, category, description, image_url, mrp, discount_percent, sale_price, stock, expiry_date, store_id, is_active, status')
+      .eq('is_active', true);
 
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+    if (productsError) throw productsError;
+
+    const productNames = allProducts.map(p => p.name);
+
+    // STEP 2: Ask Gemini to match products from the list
+    const systemPrompt = `You are an AI shopping assistant for a grocery and household items app called NearX. 
+The user will describe what they're looking for in natural language (e.g. "breakfast items for kids", "healthy snacks", "cleaning supplies for bathroom").
+
+Here is the complete list of products currently available in the app:
+${JSON.stringify(productNames)}
+
+Your task:
+1. Understand the user's intent.
+2. From the product list above, identify ALL products that match the user's request.
+3. Return ONLY a JSON array of the matching product names, exactly as they appear in the list.
+4. If no products match, return an empty array [].
+5. Be generous in matching - include anything that could reasonably fit the user's request.
+6. Return ONLY valid JSON (a string array), no markdown formatting, no explanation.`;
+
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
 
     const geminiResponse = await fetch(geminiUrl, {
       method: 'POST',
@@ -81,6 +91,10 @@ export default async function handler(req, res) {
         contents: [{
           parts: [{ text: query }],
         }],
+        generationConfig: {
+          temperature: 0.2,
+          maxOutputTokens: 2048
+        }
       }),
     });
 
@@ -89,48 +103,33 @@ export default async function handler(req, res) {
     }
 
     const geminiData = await geminiResponse.json();
-    let jsonText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '{}';
+    let jsonText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '[]';
 
     // Strip markdown code fences if present
     jsonText = jsonText.replace(/^```json\s*/i, '').replace(/\s*```$/, '').trim();
 
-    let filters;
+    let matchedNames;
     try {
-      filters = JSON.parse(jsonText);
+      matchedNames = JSON.parse(jsonText);
+      if (!Array.isArray(matchedNames)) {
+        matchedNames = [];
+      }
     } catch (error) {
-      console.warn('Failed to parse Gemini output, falling back to empty filters.', jsonText);
-      filters = { category: null, max_price: null, days_left_max: null, keywords: [] };
+      console.warn('Failed to parse Gemini output, falling back to empty results.', jsonText);
+      matchedNames = [];
     }
 
-    let dbQuery = supabase.from('products').select('*');
-
-    if (filters.category) {
-      dbQuery = dbQuery.ilike('category', `%${filters.category}%`);
-    }
-
-    if (filters.max_price !== null && filters.max_price !== undefined) {
-      dbQuery = dbQuery.lte('sale_price', filters.max_price * 100);
-    }
-
-    if (filters.days_left_max !== null && filters.days_left_max !== undefined) {
-      const targetDate = new Date();
-      targetDate.setDate(targetDate.getDate() + filters.days_left_max);
-      dbQuery = dbQuery.lte('expiry_date', targetDate.toISOString());
-    }
-
-    if (filters.keywords && filters.keywords.length > 0) {
-      dbQuery = dbQuery.ilike('name', `%${filters.keywords[0]}%`);
-    }
-
-    const { data: products, error } = await dbQuery;
-
-    if (error) {
-      throw error;
-    }
+    // STEP 3: Filter actual products by the names Gemini returned
+    const matchedProducts = allProducts.filter(product =>
+      matchedNames.some(name =>
+        product.name.toLowerCase() === name.toLowerCase()
+      )
+    );
 
     return res.status(200).json({
-      filtersApplied: filters,
-      products,
+      query,
+      matchedCount: matchedProducts.length,
+      products: matchedProducts,
     });
   } catch (error) {
     console.error('Search API Error:', error);

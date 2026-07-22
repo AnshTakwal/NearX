@@ -19,8 +19,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 // POST /api/search
-// This route takes a natural language query, asks Gemini to extract filters, 
-// and then searches Supabase for matching products.
+// Takes a natural language query, asks Gemini for relevant product names/keywords,
+// then matches those against actual products in Supabase.
 app.post('/api/search', async (req, res) => {
   const { query } = req.body;
 
@@ -30,28 +30,35 @@ app.post('/api/search', async (req, res) => {
 
   try {
     // ---------------------------------------------------------
-    // STEP 1: Define the System Prompt for Gemini
+    // STEP 1: Fetch ALL product names from database
     // ---------------------------------------------------------
-    // We strictly tell Gemini to return a specific JSON format
-    const systemPrompt = `
-      You are an AI assistant for a grocery app. Convert the user's search query into a JSON object.
-      The JSON must match this exact structure:
-      {
-        "category": "string or null",
-        "max_price": "number or null",
-        "days_left_max": "number or null",
-        "keywords": ["array", "of", "strings"]
-      }
-      Rules:
-      - If category, max_price, or days_left_max are not mentioned, set them to null.
-      - If no keywords, return an empty array [].
-      - Return ONLY valid JSON, without any markdown formatting like \`\`\`json.
-    `;
+    const { data: allProducts, error: productsError } = await supabase
+      .from('products')
+      .select('id, name, brand, category, description, image_url, mrp, discount_percent, sale_price, stock, expiry_date, store_id, is_active, status')
+      .eq('is_active', true);
+
+    if (productsError) throw productsError;
+
+    const productNames = allProducts.map(p => p.name);
 
     // ---------------------------------------------------------
-    // STEP 2: Call Gemini API using standard fetch (No SDK)
+    // STEP 2: Ask Gemini to identify which products match the query
     // ---------------------------------------------------------
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+    const systemPrompt = `You are an AI shopping assistant for a grocery and household items app called NearX. 
+The user will describe what they're looking for in natural language (e.g. "breakfast items for kids", "healthy snacks", "cleaning supplies for bathroom").
+
+Here is the complete list of products currently available in the app:
+${JSON.stringify(productNames)}
+
+Your task:
+1. Understand the user's intent.
+2. From the product list above, identify ALL products that match the user's request.
+3. Return ONLY a JSON array of the matching product names, exactly as they appear in the list.
+4. If no products match, return an empty array [].
+5. Be generous in matching - include anything that could reasonably fit the user's request.
+6. Return ONLY valid JSON (a string array), no markdown formatting, no explanation.`;
+
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
     
     const geminiResponse = await fetch(geminiUrl, {
       method: 'POST',
@@ -64,81 +71,53 @@ app.post('/api/search', async (req, res) => {
         },
         contents: [{
           parts: [{ text: query }]
-        }]
+        }],
+        generationConfig: {
+          temperature: 0.2,
+          maxOutputTokens: 2048
+        }
       })
     });
 
     if (!geminiResponse.ok) {
+      const errText = await geminiResponse.text();
+      console.error('Gemini API Error:', errText);
       throw new Error(`Gemini API Error: ${geminiResponse.statusText}`);
     }
 
     const geminiData = await geminiResponse.json();
-    
-    // Extract the text response from Gemini
-    let jsonText = geminiData.candidates[0].content.parts[0].text.trim();
-    
-    // Sometimes Gemini still adds ```json ... ``` despite instructions. 
-    // We clean it up just in case.
-    if (jsonText.startsWith('```json')) {
-      jsonText = jsonText.replace(/^```json/, '').replace(/```$/, '').trim();
-    }
+    let jsonText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '[]';
 
-    // ---------------------------------------------------------
-    // STEP 3: Parse the JSON and build the Supabase Query
-    // ---------------------------------------------------------
-    let filters;
+    // Strip markdown code fences if present
+    jsonText = jsonText.replace(/^```json\s*/i, '').replace(/\s*```$/, '').trim();
+
+    let matchedNames;
     try {
-      filters = JSON.parse(jsonText);
+      matchedNames = JSON.parse(jsonText);
+      if (!Array.isArray(matchedNames)) {
+        matchedNames = [];
+      }
     } catch (err) {
-      console.warn("Failed to parse Gemini output, falling back to empty filters.", jsonText);
-      // Edge Case: Invalid JSON from Gemini. We default to nulls (fetch all products).
-      filters = { category: null, max_price: null, days_left_max: null, keywords: [] };
-    }
-
-    // Start a base query: "Select all columns from products"
-    let dbQuery = supabase.from('products').select('*');
-
-    // Filter by Category (Skip if null)
-    if (filters.category) {
-      dbQuery = dbQuery.ilike('category', `%${filters.category}%`);
-    }
-
-    // Filter by Max Price (Skip if null)
-    if (filters.max_price !== null) {
-      // Assuming price in DB is stored in paise/cents (multiply by 100).
-      // If your DB stores raw rupees (e.g., 50.00), remove the * 100.
-      dbQuery = dbQuery.lte('sale_price', filters.max_price * 100);
-    }
-
-    // Filter by Expiry Date (Skip if null)
-    if (filters.days_left_max !== null) {
-      // Calculate target date based on today + days_left_max
-      const targetDate = new Date();
-      targetDate.setDate(targetDate.getDate() + filters.days_left_max);
-      // We want products expiring BEFORE or ON that target date
-      dbQuery = dbQuery.lte('expiry_date', targetDate.toISOString());
-    }
-
-    // Filter by Keywords (Skip if empty)
-    if (filters.keywords && filters.keywords.length > 0) {
-      // For simplicity, we just use the first keyword with an ilike (case-insensitive) match
-      // This checks if the product name contains the keyword
-      dbQuery = dbQuery.ilike('name', `%${filters.keywords[0]}%`);
-    }
-
-    // Execute the final built query
-    const { data: products, error } = await dbQuery;
-
-    if (error) {
-      throw error;
+      console.warn("Failed to parse Gemini output, falling back to empty results.", jsonText);
+      matchedNames = [];
     }
 
     // ---------------------------------------------------------
-    // STEP 4: Return the filtered products to the React frontend
+    // STEP 3: Filter actual products by the names Gemini returned
+    // ---------------------------------------------------------
+    const matchedProducts = allProducts.filter(product =>
+      matchedNames.some(name => 
+        product.name.toLowerCase() === name.toLowerCase()
+      )
+    );
+
+    // ---------------------------------------------------------
+    // STEP 4: Return the matched products
     // ---------------------------------------------------------
     res.json({
-      filtersApplied: filters, // Send back filters for debugging/UI
-      products: products
+      query,
+      matchedCount: matchedProducts.length,
+      products: matchedProducts
     });
 
   } catch (error) {
@@ -149,5 +128,5 @@ app.post('/api/search', async (req, res) => {
 
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`NearX Search Server running on http://localhost:${PORT}`);
 });

@@ -8,14 +8,19 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#00BCD4',
-          dark: '#0097A7',
-          light: '#E0F7FA',
+          DEFAULT: '#0F766E', // Deep Teal
+          dark: '#0D655E',
+          light: '#CCFBF1',
         },
-        bg: '#FAFEFF',
+        accent: {
+          DEFAULT: '#FF6B4A', // Warm Coral
+          dark: '#E85536',
+          light: '#FFF0ED',
+        },
+        bg: '#F8FAFA',
         text: '#1A1A2E',
         muted: '#64748B',
-        success: '#22C55E',
+        success: '#16A34A', // Muted green (Tailwind green-600)
         warning: '#F59E0B',
         danger: '#EF4444',
       },

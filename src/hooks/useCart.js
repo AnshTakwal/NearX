@@ -8,15 +8,24 @@ import * as cartApi from '../api/cart';
 export function useCart() {
   const [cart, setCart] = useState(() => cartApi.getCart());
 
-  // Sync with localStorage changes from other tabs
+  // Sync with localStorage changes from other tabs and from same tab
   useEffect(() => {
     const handleStorage = (e) => {
       if (e.key === 'nearx_cart') {
         setCart(cartApi.getCart());
       }
     };
+    const handleUpdate = () => {
+      setCart(cartApi.getCart());
+    };
+    
     window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
+    window.addEventListener('cart_updated', handleUpdate);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorage);
+      window.removeEventListener('cart_updated', handleUpdate);
+    };
   }, []);
 
   const refresh = useCallback(() => setCart(cartApi.getCart()), []);

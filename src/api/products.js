@@ -23,6 +23,14 @@ export async function getProducts(filters = {}) {
       .eq('is_active', true)
       .order('discount_percent', { ascending: false });
 
+    // Pagination
+    const page = filters.page || 1;
+    const limit = filters.limit || 20;
+    const from = (page - 1) * limit;
+    const to = from + limit - 1;
+    
+    query = query.range(from, to);
+
     if (filters.category && filters.category !== 'All') {
       query = query.eq('category', filters.category);
     }

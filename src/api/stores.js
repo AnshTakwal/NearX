@@ -48,7 +48,7 @@ export async function updateStore(storeId, updates) {
  * - Last 7 days revenue array
  * - Top 5 products by order count
  */
-export async function getStoreAnalytics(storeId) {
+export async function getStoreAnalytics(storeId, days = 7) {
   try {
     // Fetch all orders for this store
     const { data: orders, error: ordErr } = await supabase
@@ -63,9 +63,9 @@ export async function getStoreAnalytics(storeId) {
     const totalOrders = orders.length;
     const totalSavings = orders.reduce((sum, o) => sum + (o.savings || 0), 0);
 
-    // Last 7 days revenue
-    const last7 = [];
-    for (let i = 6; i >= 0; i--) {
+    // Trend revenue
+    const revenueTrend = [];
+    for (let i = days - 1; i >= 0; i--) {
       const date = new Date();
       date.setDate(date.getDate() - i);
       const dateStr = date.toISOString().split('T')[0];
@@ -73,8 +73,8 @@ export async function getStoreAnalytics(storeId) {
         (o) => o.created_at && o.created_at.startsWith(dateStr)
       );
       const dayRevenue = dayOrders.reduce((sum, o) => sum + (o.total || 0), 0);
-      last7.push({
-        date: date.toLocaleDateString('en-IN', { weekday: 'short' }),
+      revenueTrend.push({
+        date: date.toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' }),
         revenue: dayRevenue,
       });
     }
@@ -123,7 +123,7 @@ export async function getStoreAnalytics(storeId) {
       totalOrders,
       totalSavings,
       expiringSoon: expiringSoon ?? 0,
-      last7DaysRevenue: last7,
+      revenueTrend,
       topProducts,
     };
   } catch (err) {
@@ -147,6 +147,25 @@ export async function createStore(storeData) {
     return data;
   } catch (err) {
     console.error('createStore error:', err);
+    throw err;
+  }
+}
+
+/**
+ * Get all active stores (for filtering on customer product page).
+ */
+export async function getAllStores() {
+  try {
+    const { data, error } = await supabase
+      .from('stores')
+      .select('id, name')
+      .eq('is_active', true)
+      .order('name');
+      
+    if (error) throw error;
+    return data;
+  } catch (err) {
+    console.error('getAllStores error:', err);
     throw err;
   }
 }

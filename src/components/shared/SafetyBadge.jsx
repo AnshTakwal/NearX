@@ -3,23 +3,23 @@ import { ShieldCheck, AlertTriangle, Flame } from 'lucide-react';
 
 export default function SafetyBadge({ days }) {
   let status = "Safe";
-  let colorClass = "bg-[#E8F5E9] text-[#22C55E] border-[#bbf7d0]";
+  let colorClass = "bg-green-50 text-green-600 border-green-200";
   let Icon = ShieldCheck;
 
   if (days < 7) {
     status = "Last Chance";
-    colorClass = "bg-[#FEF2F2] text-[#EF4444] border-[#fecaca]";
+    colorClass = "bg-red-50 text-red-600 border-red-200";
     Icon = Flame;
   } else if (days <= 15) {
     status = "Buy Soon";
-    colorClass = "bg-[#FFFBEB] text-[#F59E0B] border-[#fde68a]";
+    colorClass = "bg-amber-50 text-amber-600 border-amber-200";
     Icon = AlertTriangle;
   }
 
   return (
-    <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border ${colorClass}`}>
-      <Icon size={14} />
-      <span className="text-[12px] font-medium">Expires in {days} days</span>
+    <div className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full border ${colorClass}`}>
+      <Icon size={13} />
+      <span className="text-[12px] font-medium">{days === 0 ? 'Expired' : `Expires in ${days} days`}</span>
     </div>
   );
 }

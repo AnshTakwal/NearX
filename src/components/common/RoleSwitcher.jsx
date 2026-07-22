@@ -1,7 +1,9 @@
+import { ShoppingCart, Store, Bike } from 'lucide-react';
+
 const roles = [
-    { key: 'customer', label: 'Customer', icon: '🛒', desc: 'Browse deals' },
-    { key: 'store', label: 'Store Owner', icon: '🏪', desc: 'Manage products' },
-    { key: 'delivery', label: 'Delivery', icon: '🚴', desc: 'Deliver orders' },
+    { key: 'customer', label: 'Customer', icon: ShoppingCart, desc: 'Browse deals' },
+    { key: 'store', label: 'Store Owner', icon: Store, desc: 'Manage products' },
+    { key: 'delivery', label: 'Delivery', icon: Bike, desc: 'Deliver orders' },
 ];
 
 export default function RoleSwitcher({ role, onSwitch }) {
@@ -24,7 +26,7 @@ export default function RoleSwitcher({ role, onSwitch }) {
                                 }
               `}
                         >
-                            <span className="text-base">{r.icon}</span>
+                            <r.icon size={16} />
                             <span>{r.label}</span>
                         </button>
                     ))}

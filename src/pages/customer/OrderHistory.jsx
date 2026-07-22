@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
+import { ClipboardList, CheckCircle, Bike, PartyPopper, Package } from 'lucide-react';
 import { orders } from '../../data/mockData';
 
 const statusConfig = {
-    placed: { label: 'Placed', color: 'bg-blue/10 text-blue', icon: '📋' },
-    accepted: { label: 'Accepted', color: 'bg-emerald/10 text-emerald', icon: '✅' },
-    picked_up: { label: 'In Transit', color: 'bg-amber/10 text-amber', icon: '🚴' },
-    delivered: { label: 'Delivered', color: 'bg-gray-100 text-gray-500', icon: '🎉' },
+    placed: { label: 'Placed', color: 'bg-blue/10 text-blue', icon: ClipboardList },
+    accepted: { label: 'Accepted', color: 'bg-emerald/10 text-emerald', icon: CheckCircle },
+    picked_up: { label: 'In Transit', color: 'bg-amber/10 text-amber', icon: Bike },
+    delivered: { label: 'Delivered', color: 'bg-gray-100 text-gray-500', icon: PartyPopper },
 };
 
 export default function OrderHistory() {
@@ -18,7 +19,7 @@ export default function OrderHistory() {
 
             {customerOrders.length === 0 ? (
                 <div className="text-center py-16">
-                    <p className="text-6xl mb-4">📦</p>
+                    <p className="flex justify-center mb-4 text-gray-300"><Package size={60} strokeWidth={1} /></p>
                     <h2 className="text-xl font-bold text-gray-700 mb-2">No orders yet</h2>
                     <p className="text-gray-400 text-sm mb-6">Start browsing deals to place your first order</p>
                     <Link
@@ -42,7 +43,7 @@ export default function OrderHistory() {
                                     <div className="flex items-center gap-3">
                                         <span className="text-lg font-bold text-blue">#{order.id.split('-')[1]}</span>
                                         <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold ${config.color}`}>
-                                            {config.icon} {config.label}
+                                            <config.icon size={14} /> {config.label}
                                         </span>
                                     </div>
                                     <span className="text-xs text-gray-400">

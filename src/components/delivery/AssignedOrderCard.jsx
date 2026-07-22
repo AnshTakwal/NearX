@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Package, Bike, Store, MapPin, CheckCircle } from 'lucide-react';
 
 export default function AssignedOrderCard({ order }) {
     const [status, setStatus] = useState(order.status);
@@ -7,12 +8,13 @@ export default function AssignedOrderCard({ order }) {
     const handleDelivered = () => setStatus('delivered');
 
     const statusConfig = {
-        accepted: { label: 'Ready for Pickup', color: 'bg-blue/10 text-blue', icon: '📦' },
-        picked_up: { label: 'In Transit', color: 'bg-amber/10 text-amber', icon: '🚴' },
-        delivered: { label: 'Delivered', color: 'bg-emerald/10 text-emerald', icon: '✅' },
+        accepted: { label: 'Ready for Pickup', color: 'bg-blue/10 text-blue', icon: Package },
+        picked_up: { label: 'In Transit', color: 'bg-amber/10 text-amber', icon: Bike },
+        delivered: { label: 'Delivered', color: 'bg-emerald/10 text-emerald', icon: CheckCircle },
     };
 
     const config = statusConfig[status] || statusConfig.accepted;
+    const StatusIcon = config.icon;
 
     return (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -22,8 +24,8 @@ export default function AssignedOrderCard({ order }) {
                     <span className="text-white/70 text-xs font-medium">Order</span>
                     <p className="text-white text-lg font-bold">#{order.id.split('-')[1]}</p>
                 </div>
-                <span className={`px-3 py-1.5 rounded-full text-xs font-bold bg-white/20 text-white backdrop-blur-sm`}>
-                    {config.icon} {config.label}
+                <span className={`px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 bg-white/20 text-white backdrop-blur-sm`}>
+                    <StatusIcon size={14} /> {config.label}
                 </span>
             </div>
 
@@ -31,7 +33,7 @@ export default function AssignedOrderCard({ order }) {
             <div className="p-5 space-y-4">
                 {/* Store address */}
                 <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-blue/10 flex items-center justify-center text-sm shrink-0">🏪</div>
+                    <div className="w-8 h-8 rounded-lg bg-blue/10 flex items-center justify-center text-blue shrink-0"><Store size={16} /></div>
                     <div>
                         <p className="text-xs font-medium text-gray-400">Pickup from</p>
                         <p className="text-sm font-semibold text-gray-700">{order.storeName}</p>
@@ -41,7 +43,7 @@ export default function AssignedOrderCard({ order }) {
 
                 {/* Customer address */}
                 <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-rose/10 flex items-center justify-center text-sm shrink-0">📍</div>
+                    <div className="w-8 h-8 rounded-lg bg-rose/10 flex items-center justify-center text-rose-500 shrink-0"><MapPin size={16} /></div>
                     <div>
                         <p className="text-xs font-medium text-gray-400">Deliver to</p>
                         <p className="text-sm font-semibold text-gray-700">{order.customerName}</p>
@@ -70,17 +72,17 @@ export default function AssignedOrderCard({ order }) {
                         {status === 'accepted' && (
                             <button
                                 onClick={handlePickedUp}
-                                className="flex-1 py-3 bg-blue hover:bg-blue-dark text-white text-sm font-semibold rounded-xl transition-all cursor-pointer border-none shadow-sm shadow-blue/20 hover:shadow-md hover:shadow-blue/30 hover:-translate-y-0.5"
+                                className="flex-1 py-3 bg-blue hover:bg-blue-dark text-white text-sm font-semibold rounded-xl transition-all cursor-pointer border-none shadow-sm shadow-blue/20 hover:shadow-md hover:shadow-blue/30 hover:-translate-y-0.5 flex items-center justify-center gap-2"
                             >
-                                🚴 Mark as Picked Up
+                                <Bike size={16} /> Mark as Picked Up
                             </button>
                         )}
                         {status === 'picked_up' && (
                             <button
                                 onClick={handleDelivered}
-                                className="flex-1 py-3 bg-emerald hover:bg-emerald-dark text-white text-sm font-semibold rounded-xl transition-all cursor-pointer border-none shadow-sm shadow-emerald/20 hover:-translate-y-0.5"
+                                className="flex-1 py-3 bg-emerald hover:bg-emerald-dark text-white text-sm font-semibold rounded-xl transition-all cursor-pointer border-none shadow-sm shadow-emerald/20 hover:-translate-y-0.5 flex items-center justify-center gap-2"
                             >
-                                ✅ Mark as Delivered
+                                <CheckCircle size={16} /> Mark as Delivered
                             </button>
                         )}
                     </div>

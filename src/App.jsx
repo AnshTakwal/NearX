@@ -37,7 +37,7 @@ function AppShell() {
   const hideNavbar = ['/login', '/register'].includes(location.pathname);
 
   return (
-    <div className="min-h-screen bg-[#FAFEFF] text-[#1A1A2E] font-sans pb-20 md:pb-0">
+    <div className="min-h-screen bg-[#F7F8FA] text-gray-900 font-sans pb-20 md:pb-0">
       {!hideNavbar && <Navbar />}
       <ToastContainer />
       <Routes>
@@ -50,15 +50,9 @@ function AppShell() {
         <Route path="/home" element={
           <ProtectedRoute role="customer"><CustomerHome /></ProtectedRoute>
         } />
-        <Route path="/products" element={
-          <ProtectedRoute role="customer"><ProductListingPage /></ProtectedRoute>
-        } />
-        <Route path="/product/:id" element={
-          <ProtectedRoute role="customer"><ProductDetailPage /></ProtectedRoute>
-        } />
-        <Route path="/cart" element={
-          <ProtectedRoute role="customer"><CartPage /></ProtectedRoute>
-        } />
+        <Route path="/products" element={<ProductListingPage />} />
+        <Route path="/product/:id" element={<ProductDetailPage />} />
+        <Route path="/cart" element={<CartPage />} />
         <Route path="/orders" element={
           <ProtectedRoute role="customer"><OrderHistoryPage /></ProtectedRoute>
         } />

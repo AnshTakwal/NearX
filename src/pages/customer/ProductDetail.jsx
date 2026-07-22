@@ -1,4 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
+import { ArrowLeft, Store, Package, Calendar, Clock, Search } from 'lucide-react';
 import { products, stores } from '../../data/mockData';
 import { getDiscountInfo, getDiscountedPrice } from '../../utils/discountCalc';
 import Badge from '../../components/common/Badge';
@@ -33,14 +34,8 @@ export default function ProductDetail({ onAddToCart }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Image */}
                 <div className={`relative h-72 sm:h-96 bg-gradient-to-br from-blue/5 to-blue/10 rounded-3xl flex items-center justify-center border border-gray-100 border-l-4 ${borderColor}`}>
-                    <span className="text-8xl opacity-40">
-                        {product.category === 'Dairy' && '🥛'}
-                        {product.category === 'Bakery' && '🍞'}
-                        {product.category === 'Beverages' && '🧃'}
-                        {product.category === 'Pantry' && '🫙'}
-                        {product.category === 'Snacks' && '🍫'}
-                        {product.category === 'Breakfast' && '🥣'}
-                        {!['Dairy', 'Bakery', 'Beverages', 'Pantry', 'Snacks', 'Breakfast'].includes(product.category) && '📦'}
+                    <span className="text-gray-300">
+                        <Package size={100} strokeWidth={1} />
                     </span>
                     <div className="absolute top-4 right-4">
                         <div className="bg-blue text-white text-xl font-extrabold px-4 py-2 rounded-2xl shadow-md shadow-blue/30">
@@ -53,7 +48,8 @@ export default function ProductDetail({ onAddToCart }) {
                 <div>
                     <div className="flex items-center gap-2 mb-2">
                         <Badge label={badge} className={badgeColor} />
-                        <span className="text-xs text-gray-400">⏰ {daysLeft} days left</span>
+                        <Clock size={14} className="text-gray-400" />
+                        <span className="text-xs text-gray-400">{daysLeft} days left</span>
                     </div>
 
                     <h1 className="text-2xl font-extrabold text-gray-900 mb-2">{product.name}</h1>
@@ -70,7 +66,7 @@ export default function ProductDetail({ onAddToCart }) {
                     {/* Expiry info card */}
                     <div className={`rounded-2xl p-4 mb-6 ${bgColor}`}>
                         <div className="flex items-center gap-3">
-                            <span className="text-2xl">📅</span>
+                            <span className={`text-2xl ${textColor}`}><Calendar size={28} /></span>
                             <div>
                                 <p className={`text-sm font-bold ${textColor}`}>Expires: {new Date(product.expiryDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                                 <p className="text-xs text-gray-500 mt-0.5">{daysLeft} days remaining • Auto-discount applied</p>
@@ -82,7 +78,7 @@ export default function ProductDetail({ onAddToCart }) {
                     {store && (
                         <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-blue/10 flex items-center justify-center text-lg">🏪</div>
+                                <div className="w-10 h-10 rounded-xl bg-blue/10 flex items-center justify-center text-blue"><Store size={20} /></div>
                                 <div>
                                     <p className="text-sm font-bold text-gray-700">{store.name}</p>
                                     <p className="text-xs text-gray-400">{store.address} • {store.distance}</p>
@@ -92,7 +88,7 @@ export default function ProductDetail({ onAddToCart }) {
                     )}
 
                     {/* Stock */}
-                    <p className="text-sm text-gray-400 mb-4">📦 {product.stock} units in stock</p>
+                    <p className="text-sm text-gray-400 mb-4 flex items-center gap-2"><Package size={16} /> {product.stock} units in stock</p>
 
                     {/* Add to cart */}
                     <button
