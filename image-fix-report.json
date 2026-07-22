@@ -1,0 +1,737 @@
+[
+  {
+    "name": "Butter Croissants 4pc",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Salted Chips 150g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Choco Chip Cookies 200g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Instant Noodles 4pk",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Orange Juice 1L",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Cold Coffee 250ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Whole Wheat Bread",
+    "outcome": "matched",
+    "source_url_used": "https://images.openfoodfacts.org/images/products/890/106/333/8593/front_en.3.400.jpg"
+  },
+  {
+    "name": "SALT ",
+    "outcome": "matched",
+    "source_url_used": "https://images.openfoodfacts.org/images/products/890/404/390/1015/front_en.34.400.jpg"
+  },
+  {
+    "name": "Full Cream Milk 1L",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Thick Curd 500g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Cheese Slices 200g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Rolled Oats 1kg",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Red Apples 1kg",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Amul Taaza Toned Milk 1L",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Amul Gold Full Cream Milk 1L",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Britannia Whole Wheat Bread 400g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Mother Dairy Classic Curd 400g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Amul Butter 500g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Tata Salt 1kg",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Modern White Bread 400g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Amul Cheese Slices 200g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Aashirvaad Atta 5kg",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Saffola Gold Oil 1L",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Surf Excel Easy Wash 1.5kg",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Lays Classic Salted Chips 52g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Coca-Cola 750ml",
+    "outcome": "matched",
+    "source_url_used": "https://images.openfoodfacts.org/images/products/890/176/401/2273/front_en.23.400.jpg"
+  },
+  {
+    "name": "Bisleri Water 1L (Pack of 12)",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Epigamia Greek Yogurt Strawberry 90g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Kurkure Masala Munch 94g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Real Fruit Power Mixed Fruit 1L",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Kissan Mixed Fruit Jam 500g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Vim Dishwash Gel Lemon 750ml",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Nestle Milkmaid 400g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Parachute Coconut Oil 500ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Cadbury 5 Star Chocolate Bar 40g (Pack of 5)",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "McVities Digestive Biscuits 250g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Sprite Lemon-Lime 750ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Paper Boat Aam Panna 200ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Sundrop Peanut Butter Creamy 462g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Nutella Hazelnut Spread 350g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Maggi 2-Minute Noodles Masala (Pack of 12)",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Colgate Strong Teeth Toothpaste 200g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Haldirams Aloo Bhujia 200g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Britannia Fruit Cake 250g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Nestle A+ Slim Milk 1L",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Oreo Original Cream Biscuit 120g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Kelloggs Corn Flakes 475g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Amul Masti Buttermilk 200ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Harpic Power Plus 500ml",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Dabur Honey 500g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Red Bull Energy Drink 250ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Britannia Milk Rusk 230g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Go Cheese Grated Mozzarella 250g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Sunfeast Dark Fantasy Choco Fills 75g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Cadbury Dairy Milk Silk 150g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Appy Fizz Apple Sparkling Drink 250ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Quaker Oats 1kg",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Lizol Disinfectant Floor Cleaner Citrus 500ml",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Parle-G Gold Biscuits 100g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Frooti Mango 1.2L",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Britannia Cream Cheese Spread 180g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Milky Mist Paneer 200g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Britannia Good Day Butter Cookies 250g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "MDH Garam Masala 100g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Pringles Original 107g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Dettol Antiseptic Liquid 250ml",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Bingo Mad Angles Achari Masti 72g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Act II Classic Salted Popcorn 30g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Too Yumm Multigrain Chips 54g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Saffola Oats 1kg",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Maaza Mango Drink 600ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Maggi Hot & Sweet Tomato Chilli Sauce 1kg",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Nescafe Classic Coffee 100g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Scotch-Brite Scrub Pad (Pack of 3)",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Kelloggs Chocos 375g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Tropicana Orange Juice 1L",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Nescafe Ready to Drink Cold Coffee 180ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Colin Glass Cleaner 500ml",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Dettol Original Soap 125g (Pack of 4)",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Dabur Real Litchi Juice 1L",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "MTR Ready To Eat Upma 180g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Yippee Noodles Magic Masala (Pack of 6)",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Pril Dishwash Liquid 425ml",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Good Knight Gold Flash 45ml",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Hide & Seek Chocolate Chip Cookies 200g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Nivea Body Lotion 400ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Pepsodent Germicheck Toothpaste 200g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Horlicks Classic Malt 500g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "English Oven Burger Buns (Pack of 4)",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Head & Shoulders Anti Dandruff Shampoo 340ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Tetley Green Tea Lemon 25 Bags",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Knorr Tomato Soup 53g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Bambino Vermicelli 850g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Domex Fresh Guard Toilet Cleaner 500ml",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Pillsbury Cookie Cake Chocolate 23g (Pack of 6)",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Bikano Rasgulla Tin 1kg",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Cerelac Baby Cereal Wheat 300g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Complan Royale Chocolate 500g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Bournvita Health Drink 500g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "MTR Ready To Eat Poha 180g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Comfort After Wash Fabric Conditioner 860ml",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Tang Orange 500g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Parle Monaco Salted Biscuit 200g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Dove Body Wash 250ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Listerine Cool Mint Mouthwash 250ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Parle-G Biscuits 250g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Tata Tea Gold 500g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Toor Dal 1kg",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Catch Turmeric Powder 200g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Maggi Pasta Penne 400g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Dettol Instant Hand Sanitizer 200ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Amul Paneer 200g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Fortune Sunlite Oil 1L",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Fanta Orange 750ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Bikaji Bhujia 400g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Catch Red Chilli Powder 200g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Cadbury Gems 17.8g (Pack of 12)",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Himalaya Neem Face Wash 200ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Lijjat Papad Udad 200g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Amul Dark Chocolate 150g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Dove Shampoo 340ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Gillette Guard Razor (Pack of 3)",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Sunsilk Shampoo 340ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Eno Fruit Salt Lemon 5g (Pack of 30)",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Britannia Cheese Garlic Bread 120g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Maggi Pazzta Cheese Macaroni 70g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Vim Bar 300g (Pack of 3)",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Whisper Choice Wings XL 20 Pads",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Maggi Cup Noodles Masala 70g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Ghadi Detergent Powder 1kg",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Chana Dal 1kg",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Moong Dal 1kg",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Lijjat Papad Masala 200g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Odo Mos Mosquito Repellent Spray 100ml",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Everest Kitchen King Masala 100g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Vaseline Body Lotion 400ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Surf Excel Matic Liquid 1L",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Sugar 1kg",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Basmati Rice 1kg",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Pepsi 750ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Harvest Gold Multigrain Bread 450g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Amul Lassi Mango 200ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Glucon-D Orange 1kg",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Closeup Everfresh Toothpaste 150g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Rin Advanced Detergent Bar 250g",
+    "outcome": "category_unsupported",
+    "source_url_used": null
+  },
+  {
+    "name": "Rajma 500g",
+    "outcome": "no_match",
+    "source_url_used": null
+  },
+  {
+    "name": "Amul Kool Kesar 200ml",
+    "outcome": "no_match",
+    "source_url_used": null
+  }
+]
