@@ -3,20 +3,21 @@ import { Link } from 'react-router-dom';
 import { ShoppingCart, AlertTriangle } from 'lucide-react';
 import SafetyBadge from './SafetyBadge';
 import DiscountBadge from './DiscountBadge';
+import { getDiscountInfo, getDiscountedPrice } from '../../utils/discountCalc';
 import { useCart } from '../../hooks/useCart';
 import { toast } from '../shared/Toast';
 
 export default function ProductCard({ product }) {
-  const { id, name, brand, mrp, sale_price, expiry_date, discount_percent, image_url, stock } = product;
+  const { id, name, brand, mrp, expiry_date, image_url, stock } = product;
   const { addToCart } = useCart();
 
-  // Calculate days left
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const expiry = new Date(expiry_date);
-  expiry.setHours(0, 0, 0, 0);
-  const diffTime = expiry.getTime() - today.getTime();
-  const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  // Dynamically calculate discount based on expiry date
+  const discountInfo = getDiscountInfo(expiry_date);
+  const daysLeft = discountInfo.daysLeft;
+  const dynamicDiscountPercent = discountInfo.discountPercent;
+
+  // Calculate sale price dynamically from MRP and dynamic discount
+  const dynamicSalePrice = Math.round(mrp * (1 - dynamicDiscountPercent / 100));
 
   // Check if product is expired
   const isExpired = daysLeft < 0;
@@ -24,7 +25,7 @@ export default function ProductCard({ product }) {
   const isUnavailable = isExpired || isOutOfStock;
 
   const formattedMrp = (mrp / 100).toFixed(0);
-  const formattedSalePrice = (sale_price / 100).toFixed(0);
+  const formattedSalePrice = (dynamicSalePrice / 100).toFixed(0);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -91,7 +92,7 @@ export default function ProductCard({ product }) {
       <div>
         {/* Discount Badge */}
         <div className="absolute top-3.5 right-3.5 z-10">
-          <DiscountBadge discount={discount_percent} />
+          <DiscountBadge discount={dynamicDiscountPercent} />
         </div>
 
         {/* Expired Badge */}

@@ -6,6 +6,18 @@ import { getStoreOrders, updateOrderStatus } from '../../api/orders';
 import { supabase } from '../../lib/supabase';
 import { toast } from '../../components/shared/Toast';
 
+/**
+ * Formats order_items into a compact summary string.
+ * Shows up to 2 item names, then "+N more" for the remainder.
+ */
+function formatItemNames(items = [], max = 2) {
+  if (!items || items.length === 0) return 'No items';
+  const names = items.map(i => i.product_name).filter(Boolean);
+  if (names.length === 0) return `${items.length} items`;
+  if (names.length <= max) return names.join(', ');
+  return `${names.slice(0, max).join(', ')}, +${names.length - max} more`;
+}
+
 export default function StoreOrdersPage() {
   const { user } = useAuth();
   const [store, setStore] = useState(null);
@@ -181,7 +193,7 @@ export default function StoreOrdersPage() {
                   <div>
                     <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1.5">Order Details</p>
                     <p className="font-bold text-gray-900 text-[15px]">₹{(order.total / 100).toFixed(2)}</p>
-                    <p className="text-sm text-gray-500 mt-0.5">{order.order_items?.length} items</p>
+                    <p className="text-sm text-gray-500 mt-0.5 truncate max-w-[160px]">{formatItemNames(order.order_items)}</p>
                   </div>
 
                   <div>

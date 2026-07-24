@@ -1,12 +1,3 @@
-/**
- * scripts/fix-product-images.js
- * 
- * Fetches accurate front-of-pack images from Open Food Facts / Open Beauty Facts.
- * Usage: 
- *   node scripts/fix-product-images.js --dry-run
- *   node scripts/fix-product-images.js
- */
-
 import { createClient } from '@supabase/supabase-js';
 import { readFileSync, writeFileSync } from 'fs';
 import { resolve, dirname } from 'path';
@@ -14,7 +5,6 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// Parse .env
 try {
   const envFile = readFileSync(resolve(__dirname, '..', '.env'), 'utf8');
   for (const line of envFile.split('\n')) {
@@ -26,210 +16,198 @@ try {
     const val = trimmed.slice(eqIdx + 1).trim();
     if (!process.env[key]) process.env[key] = val;
   }
-} catch (e) {
-  console.warn("⚠️  Could not read .env file, relying on environment variables.");
+} catch (e) {}
+
+const supabaseUrl = process.env.VITE_SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseUrl || !supabaseServiceKey) {
+  console.error("Missing SUPABASE credentials");
+  process.exit(1);
 }
 
-const supabase = createClient(
-  process.env.VITE_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { autoRefreshToken: false, persistSession: false } }
-);
+const supabase = createClient(supabaseUrl, supabaseServiceKey, {
+  auth: { autoRefreshToken: false, persistSession: false }
+});
 
 const isDryRun = process.argv.includes('--dry-run');
-const USER_AGENT = 'NearX-ProductFixer/2.0 (contact: admin@nearx.store)';
+
+const USER_AGENT = 'NearX-ProductSeed/1.0 (contact: test@example.com)';
 
 async function delay(ms) {
-  return new Promise(r => setTimeout(r, ms));
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function fetchJson(url, retries = 3) {
-  for (let i = 0; i < retries; i++) {
-    try {
-      const res = await fetch(url, {
-        headers: { 'User-Agent': USER_AGENT }
-      });
-      if (res.status === 429 || res.status === 503) {
-        throw new Error('Rate limited');
+async function searchOpenFacts(query, isCleaning) {
+  const baseUrl = isCleaning ? 'https://world.openbeautyfacts.org' : 'https://world.openfoodfacts.org';
+  const url = `${baseUrl}/cgi/search.pl?search_terms=${encodeURIComponent(query)}&search_simple=1&action=process&json=1&page_size=5`;
+  
+  try {
+    const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT } });
+    if (!res.ok) {
+      if (res.status === 503 || res.status === 429) {
+        console.warn(`Rate limited by ${baseUrl}. Retrying...`);
+        await delay(5000);
+        return searchOpenFacts(query, isCleaning);
       }
-      if (!res.ok) {
-        return { products: [] };
-      }
-      return await res.json();
-    } catch (e) {
-      if (e.message === 'Rate limited' && i < retries - 1) {
-        console.log(`  ⏳ Rate limited, waiting ${3000 * (i + 1)}ms...`);
-        await delay(3000 * (i + 1));
-      } else {
-        throw e;
-      }
+      return null;
     }
+    const data = await res.json();
+    return data.products || [];
+  } catch (err) {
+    console.error(`Error fetching from ${baseUrl}:`, err.message);
+    return null;
   }
-}
-
-async function downloadImage(url) {
-  const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT } });
-  if (!res.ok) throw new Error(`Failed to download image: ${res.status}`);
-  const arrayBuffer = await res.arrayBuffer();
-  return {
-    buffer: Buffer.from(arrayBuffer),
-    contentType: res.headers.get('content-type') || 'image/jpeg'
-  };
 }
 
 function normalize(str) {
-  if (!str) return '';
-  return str.toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+  return (str || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 }
 
-async function run() {
-  console.log(`🚀 Starting Image Fixer ${isDryRun ? '(DRY RUN)' : ''}...`);
+function verifyMatch(productName, productBrand, candidate) {
+  const cName = candidate.product_name || '';
+  const cBrands = candidate.brands || '';
+  const cImage = candidate.image_front_url;
 
-  const { data: products, error } = await supabase.from('products').select('*');
-  if (error) throw error;
+  if (!cImage || typeof cImage !== 'string') return false;
 
-  // Group by unique name/brand to avoid duplicate work
-  const uniqueItems = new Map();
-  for (const p of products) {
-    const key = `${p.brand}-${p.name}`;
-    if (!uniqueItems.has(key)) {
-      uniqueItems.set(key, {
-        name: p.name,
-        brand: p.brand || '',
-        category: p.category,
-        ids: [],
-        current_image_url: p.image_url
+  const searchTarget = (cName + ' ' + cBrands).toLowerCase();
+  
+  // Basic substring check: either the brand or part of the name should match
+  const nName = productName.toLowerCase();
+  const nBrand = (productBrand || '').toLowerCase();
+  
+  const brandMatch = nBrand && searchTarget.includes(nBrand);
+  const nameParts = nName.split(' ').filter(p => p.length > 2);
+  const nameMatch = nameParts.length > 0 && nameParts.some(p => searchTarget.includes(p));
+
+  return brandMatch || nameMatch;
+}
+
+async function uploadToSupabase(imageUrl, productName) {
+  try {
+    const res = await fetch(imageUrl);
+    if (!res.ok) return null;
+    const arrayBuffer = await res.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    
+    // Guess extension
+    const contentType = res.headers.get('content-type') || 'image/jpeg';
+    const ext = contentType.includes('png') ? 'png' : 'jpg';
+    
+    const timestamp = Date.now();
+    const random = Math.floor(Math.random() * 10000);
+    const path = `products/${timestamp}-${random}.${ext}`;
+
+    const { data, error } = await supabase.storage
+      .from('product-images')
+      .upload(path, buffer, {
+        contentType,
+        upsert: false
       });
+
+    if (error) {
+      console.error('Upload error:', error.message);
+      return null;
     }
-    uniqueItems.get(key).ids.push(p.id);
+
+    const { data: publicData } = supabase.storage.from('product-images').getPublicUrl(path);
+    return publicData.publicUrl;
+  } catch (err) {
+    console.error('Download/Upload error:', err.message);
+    return null;
+  }
+}
+
+async function main() {
+  console.log(`Starting Product Image Fixer ${isDryRun ? '(DRY RUN)' : '(REAL RUN)'}`);
+  
+  const { data: products, error } = await supabase.from('products').select('*');
+  if (error) {
+    console.error('DB Error:', error);
+    process.exit(1);
+  }
+
+  // Group by name to avoid fetching same product multiple times
+  const uniqueProducts = new Map();
+  for (const p of products) {
+    if (!uniqueProducts.has(p.name)) {
+      uniqueProducts.set(p.name, p);
+    }
   }
 
   const report = [];
-  let count = 0;
-  const total = uniqueItems.size;
+  let matchedCount = 0;
+  let noMatchCount = 0;
+  let categoryUnsupportedCount = 0;
 
-  for (const [key, item] of uniqueItems.entries()) {
-    count++;
+  const usedImageUrls = new Set();
+  
+  const productList = Array.from(uniqueProducts.values());
+  for (let i = 0; i < productList.length; i++) {
+    const p = productList[i];
+    console.log(`[${i+1}/${productList.length}] Processing: ${p.name}`);
     
-    // Check if it's already in our bucket
-    if (item.current_image_url && item.current_image_url.includes('supabase.co/storage/v1/object/public/product-images')) {
-      console.log(`[${count}/${total}] ⏭️  Skipping (Already in bucket): ${item.name}`);
-      report.push({ name: item.name, outcome: 'skipped_manual_upload', source_url_used: item.current_image_url });
-      continue;
-    }
-
-    // Build query without doubling the brand
-    let searchStr = item.name;
-    if (item.brand && !item.name.toLowerCase().includes(item.brand.toLowerCase())) {
-      searchStr = `${item.brand} ${item.name}`;
-    }
-
-    console.log(`[${count}/${total}] 🔍 Searching for: ${searchStr}`);
+    const isCleaning = p.category === 'Cleaning';
+    const query = `${p.brand || ''} ${p.name}`.trim();
     
-    const baseUrl = item.category === 'Cleaning' 
-      ? 'https://world.openbeautyfacts.org' 
-      : 'https://world.openfoodfacts.org';
-      
-    const searchTerms = encodeURIComponent(searchStr);
-    const searchUrl = `${baseUrl}/cgi/search.pl?search_terms=${searchTerms}&search_simple=1&action=process&json=1&page_size=5`;
+    let candidates = await searchOpenFacts(query, isCleaning);
+    await delay(3000); // Higher rate limit protection
     
-    let matchedProduct = null;
-    let matchUrl = null;
+    let outcome = 'no_match';
+    let source_url_used = null;
+    let final_public_url = null;
 
-    try {
-      const result = await fetchJson(searchUrl);
-      await delay(1500); // Wait 1.5s between requests to respect rate limits
-
-      if (result && result.products) {
-        for (const fp of result.products) {
-          const apiName = normalize(fp.product_name);
-          const apiBrand = normalize(fp.brands);
-          const dbName = normalize(item.name);
-          const dbBrand = normalize(item.brand);
-
-          // Substring match check
-          const nameMatches = apiName && (apiName.includes(dbName) || dbName.includes(apiName));
-          const brandMatches = apiBrand && dbBrand && (apiBrand.includes(dbBrand) || dbBrand.includes(apiBrand));
-          
-          // Loose match: at least one word >3 chars overlaps
-          const looseMatch = apiName && dbName && (
-            item.name.toLowerCase().split(' ').some(word => word.length > 3 && apiName.includes(normalize(word)))
-          );
-
-          if ((nameMatches || brandMatches || looseMatch) && fp.image_front_url) {
-            matchedProduct = fp;
-            matchUrl = fp.image_front_url;
+    if (candidates && candidates.length > 0) {
+      for (const c of candidates) {
+        if (verifyMatch(p.name, p.brand, c)) {
+          if (!usedImageUrls.has(c.image_front_url)) {
+            outcome = 'matched';
+            source_url_used = c.image_front_url;
+            usedImageUrls.add(source_url_used);
             break;
           }
         }
       }
-    } catch (err) {
-      console.error(`  ❌ API Error: ${err.message}`);
+    } else {
+      if (isCleaning) categoryUnsupportedCount++;
     }
 
-    if (!matchUrl) {
-      console.log(`  ⚠️  No match found for: ${item.name}`);
-      report.push({ 
-        name: item.name, 
-        outcome: item.category === 'Cleaning' ? 'category_unsupported' : 'no_match', 
-        source_url_used: null 
-      });
-      
-      if (!isDryRun) {
-        // Clear bad external URL to a safe placeholder so we don't leave confidently wrong photos
-        const placeholderUrl = 'https://placehold.co/400x400/eeeeee/999999?text=No+Image';
-        const { error: dbError } = await supabase
-          .from('products')
-          .update({ image_url: placeholderUrl })
-          .in('id', item.ids);
-        if (dbError) console.error(`  ❌ Failed to set placeholder for ${item.name}:`, dbError.message);
-        else console.log(`  🧹 Cleared bad image to placeholder for ${item.name}`);
-      }
-      continue;
+    if (outcome === 'matched' && !isDryRun) {
+       final_public_url = await uploadToSupabase(source_url_used, p.name);
+       if (final_public_url) {
+         // Update all products with this exact name
+         await supabase.from('products').update({ image_url: final_public_url }).eq('name', p.name);
+       } else {
+         outcome = 'no_match'; // upload failed
+       }
     }
 
-    console.log(`  ✅ Match found: ${matchedProduct.product_name} -> ${matchUrl}`);
-    report.push({ 
-      name: item.name, 
-      outcome: 'matched', 
-      source_url_used: matchUrl 
+    report.push({
+      product_id: p.id,
+      name: p.name,
+      outcome,
+      source_url_used,
+      final_public_url
     });
 
-    if (!isDryRun) {
-      try {
-        console.log(`  ⬇️  Downloading image...`);
-        const { buffer, contentType } = await downloadImage(matchUrl);
-        
-        const ext = matchUrl.split('.').pop().split('?')[0] || 'jpg';
-        const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${ext}`;
-        const filePath = `products/${fileName}`;
-        
-        console.log(`  ⬆️  Uploading to Supabase...`);
-        const { error: uploadError } = await supabase.storage
-          .from('product-images')
-          .upload(filePath, buffer, { contentType, upsert: false });
-          
-        if (uploadError) throw uploadError;
-        
-        const { data: { publicUrl } } = supabase.storage
-          .from('product-images')
-          .getPublicUrl(filePath);
-          
-        console.log(`  💾 Updating ${item.ids.length} database rows...`);
-        const { error: dbError } = await supabase
-          .from('products')
-          .update({ image_url: publicUrl })
-          .in('id', item.ids);
-          
-        if (dbError) throw dbError;
-      } catch (err) {
-        console.error(`  ❌ Failed to process/upload image: ${err.message}`);
-      }
-    }
+    if (outcome === 'matched') matchedCount++;
+    else noMatchCount++;
   }
 
-  writeFileSync(resolve(__dirname, '..', 'image-fix-report.json'), JSON.stringify(report, null, 2));
-  console.log(`\n🎉 Finished! Report saved to image-fix-report.json`);
+  const reportData = {
+    summary: {
+      total: productList.length,
+      matched: matchedCount,
+      no_match: noMatchCount,
+      category_unsupported: categoryUnsupportedCount
+    },
+    details: report
+  };
+
+  writeFileSync(resolve(__dirname, '..', 'image-fix-report.json'), JSON.stringify(reportData, null, 2));
+  console.log(`\nReport generated at image-fix-report.json`);
+  console.log(`Matched: ${matchedCount}, No Match: ${noMatchCount}`);
 }
 
-run().catch(console.error);
+main();

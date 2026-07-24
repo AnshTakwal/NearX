@@ -28,7 +28,7 @@ function GeminiIcon({ size = 20, className = '' }) {
   );
 }
 
-export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete }) {
+export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete, onStandardSearch }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
@@ -125,6 +125,8 @@ export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete 
     e.preventDefault();
     if (isAiMode) {
       executeSearch(query);
+    } else {
+      if (onStandardSearch) onStandardSearch(query);
     }
   };
 
@@ -215,7 +217,7 @@ export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete 
                 <X size={16} />
               </button>
             )}
-            {isAiMode && (
+            {isAiMode ? (
               <button
                 type="submit"
                 disabled={loading || !query.trim()}
@@ -223,6 +225,15 @@ export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete 
               >
                 {loading ? <Loader2 size={14} className="animate-spin" /> : <GeminiIcon size={14} />}
                 <span className="hidden sm:inline">{loading ? 'Thinking...' : 'Ask AI'}</span>
+              </button>
+            ) : (
+              <button
+                type="submit"
+                disabled={!query.trim()}
+                className="bg-[#0097A7] text-white px-6 py-3.5 rounded-[12px] font-semibold flex items-center gap-2 transition-all shadow-md active:scale-95 hover:bg-[#007A88] disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                <Search size={16} />
+                <span className="hidden sm:inline">Search</span>
               </button>
             )}
           </div>

@@ -3,6 +3,19 @@ import { Package, ChevronRight, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useOrders } from '../../hooks/useOrders';
 
+/**
+ * Formats order_items into a compact summary string.
+ * Shows up to 2 item names, then "+N more" for the remainder.
+ * e.g. ["Milk 1L", "Bread", "Eggs", "Butter"] → "Milk 1L, Bread, +2 more"
+ */
+function formatItemNames(items = [], max = 2) {
+  if (!items || items.length === 0) return 'No items';
+  const names = items.map(i => i.product_name).filter(Boolean);
+  if (names.length === 0) return `${items.length} items`;
+  if (names.length <= max) return names.join(', ');
+  return `${names.slice(0, max).join(', ')}, +${names.length - max} more`;
+}
+
 export default function OrderHistoryPage() {
   const { orders, loading, error } = useOrders();
 
@@ -43,7 +56,6 @@ export default function OrderHistoryPage() {
               const date = new Date(order.created_at).toLocaleDateString('en-IN', {
                 day: 'numeric', month: 'short', year: 'numeric'
               });
-              const itemCount = order.order_items?.length || 0;
               
               return (
                 <Link key={order.id} to={`/track/${order.id}`} className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between group hover:border-[#0097A7] transition-all gap-4">
@@ -56,7 +68,7 @@ export default function OrderHistoryPage() {
                       <div className="flex items-center gap-2 flex-wrap text-sm text-gray-500">
                         <span>{date}</span>
                         <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-                        <span>{itemCount} items</span>
+                        <span className="truncate max-w-[180px]">{formatItemNames(order.order_items)}</span>
                         <span className="w-1 h-1 rounded-full bg-gray-300"></span>
                         <span className="font-semibold text-gray-800">₹{(order.total / 100).toFixed(2)}</span>
                       </div>

@@ -27,6 +27,39 @@ export default function Home({ onAddToCart }) {
                 </p>
             </div>
 
+            <h2 className="text-base font-bold text-gray-800 mb-3">Nearby Stores</h2>
+            <div className="flex gap-2.5 overflow-x-auto pb-2">
+                <button
+                    onClick={() => setSelectedStore(null)}
+                    className={`
+              shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer
+              ${!selectedStore
+                            ? 'bg-blue text-white shadow-sm shadow-blue/30 border border-blue'
+                            : 'bg-white text-gray-500 border border-gray-200 hover:border-blue/40 hover:text-blue'
+                        }
+            `}
+                >
+                    All Stores
+                </button>
+                {stores.map((store) => (
+                    <button
+                        key={store.id}
+                        onClick={() => setSelectedStore(store.id)}
+                        className={`
+                shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer
+                ${selectedStore === store.id
+                                ? 'bg-blue text-white shadow-sm shadow-blue/30 border border-blue'
+                                : 'bg-white text-gray-500 border border-gray-200 hover:border-blue/40 hover:text-blue'
+                            }
+              `}
+                    >
+                        <span className="mr-1.5">🏪</span>
+                        {store.name}
+                        <span className="ml-1.5 text-xs opacity-60">{store.distance}</span>
+                    </button>
+                ))}
+            </div>
+
             {/* Search */}
             <div className="mb-6">
                 <div className="relative">
@@ -43,15 +76,6 @@ export default function Home({ onAddToCart }) {
                 </div>
             </div>
 
-            {/* Nearby Stores */}
-            <div className="mb-8">
-                <h2 className="text-base font-bold text-gray-800 mb-3">Nearby Stores</h2>
-                <div className="flex gap-2.5 overflow-x-auto pb-2">
-                    <button
-                        onClick={() => setSelectedStore(null)}
-                        className={`
-              shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer
-              ${!selectedStore
                                 ? 'bg-blue text-white shadow-sm shadow-blue/30 border border-blue'
                                 : 'bg-white text-gray-500 border border-gray-200 hover:border-blue/40 hover:text-blue'
                             }

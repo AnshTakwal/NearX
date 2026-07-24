@@ -237,7 +237,9 @@ export async function getDeliveryHistory(deliveryPartnerId) {
           id,
           total,
           created_at,
-          stores (name)
+          stores (name),
+          addresses (label, address_line, city, pincode),
+          profiles!orders_customer_id_fkey (full_name, phone)
         )
       `)
       .eq('partner_id', deliveryPartnerId)

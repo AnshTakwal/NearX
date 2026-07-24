@@ -117,6 +117,13 @@ export default function ProductListingPage() {
         {/* Magic AI Search Bar */}
         <NaturalLanguageSearch
           onSearchStart={() => setAiLoading(true)}
+          onStandardSearch={(q) => {
+            setSearchParams(prev => {
+              if (q) prev.set('search', q);
+              else prev.delete('search');
+              return prev;
+            });
+          }}
           onSearchComplete={(result) => {
             if (result) {
               setAiKeywords(result.keywords || []);

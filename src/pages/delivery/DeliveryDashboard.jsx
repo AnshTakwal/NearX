@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { MapPin, Navigation, Phone, CheckCircle2, Package, Loader2, ArrowRight, X } from 'lucide-react';
+import { MapPin, Navigation, Phone, CheckCircle2, Package, Loader2, ArrowRight, X, History } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { getActiveDeliveryOrder, updateDeliveryStatus, getDeliveryHistory, getAvailableDeliveryOrders, acceptDeliveryRequest } from '../../api/orders';
 import { supabase } from '../../lib/supabase';
@@ -352,7 +353,16 @@ export default function DeliveryDashboard() {
         <section>
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl md:text-2xl font-bold text-gray-900">Recent Deliveries</h2>
-            <span className="text-sm font-bold text-[#0097A7] bg-[#E0F7FA] px-3 py-1 rounded-full">{history.length} total</span>
+            <div className="flex items-center gap-3">
+              <span className="text-sm font-bold text-[#0097A7] bg-[#E0F7FA] px-3 py-1 rounded-full">{history.length} total</span>
+              <Link
+                to="/delivery/history"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#0097A7] hover:text-[#00838F] transition-colors"
+              >
+                <History size={15} />
+                View All
+              </Link>
+            </div>
           </div>
           
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">

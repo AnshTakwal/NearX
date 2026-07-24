@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from './useAuth';
-import { getCustomerOrders, getStoreOrders, getActiveDeliveryOrder } from '../api/orders';
+import { getCustomerOrders, getStoreOrders, getActiveDeliveryOrder, getDeliveryHistory } from '../api/orders';
 import { getStoreByOwner } from '../api/stores';
 
 /**
@@ -13,6 +13,7 @@ export function useOrders() {
   const { user, profile } = useAuth();
   const [orders, setOrders] = useState([]);
   const [activeOrder, setActiveOrder] = useState(null);
+  const [deliveryHistory, setDeliveryHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -31,8 +32,12 @@ export function useOrders() {
           setOrders(data);
         }
       } else if (profile.role === 'delivery_partner') {
-        const data = await getActiveDeliveryOrder(user.id);
-        setActiveOrder(data);
+        const [active, hist] = await Promise.all([
+          getActiveDeliveryOrder(user.id),
+          getDeliveryHistory(user.id),
+        ]);
+        setActiveOrder(active);
+        setDeliveryHistory(hist);
       }
     } catch (err) {
       setError(err.message || 'Failed to load orders.');
@@ -45,5 +50,5 @@ export function useOrders() {
     fetchOrders();
   }, [fetchOrders]);
 
-  return { orders, activeOrder, loading, error, refetch: fetchOrders };
+  return { orders, activeOrder, deliveryHistory, loading, error, refetch: fetchOrders };
 }

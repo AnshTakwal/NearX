@@ -1,0 +1,1789 @@
+[
+  {
+    "name": "Act II Classic Salted Popcorn 30g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/189220_8-act-ii-instant-popcorn-classic-salted-hot-fresh-delicious.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833931905-441.jpg"
+  },
+  {
+    "name": "Instant Noodles 4pk",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Cold Coffee 250ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Orange Juice 1L",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40048802_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833934925-925.jpg"
+  },
+  {
+    "name": "Milky Mist Paneer 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Bisleri Water 1L (Pack of 12)",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40245905_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833937392-635.jpg"
+  },
+  {
+    "name": "Saffola Oats 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Nescafe Classic Coffee 100g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/263510_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833939164-50.jpg"
+  },
+  {
+    "name": "Whole Wheat Bread",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Cheese Slices 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/104808_9-amul-cheese-slices.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833940703-802.jpg"
+  },
+  {
+    "name": "Britannia Good Day Butter Cookies 250g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Full Cream Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Maggi 2-Minute Noodles Masala (Pack of 12)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Choco Chip Cookies 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40024263_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833943286-774.jpg"
+  },
+  {
+    "name": "Too Yumm Multigrain Chips 54g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40094378_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833944632-49.jpg"
+  },
+  {
+    "name": "Colgate Strong Teeth Toothpaste 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Salted Chips 150g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40094327_2.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833946631-53.jpg"
+  },
+  {
+    "name": "Surf Excel Easy Wash 1.5kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40052895_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833948224-271.jpg"
+  },
+  {
+    "name": "Lays Classic Salted Chips 52g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Britannia Cream Cheese Spread 180g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Tropicana Orange Juice 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "MDH Garam Masala 100g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40023730_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833950609-371.jpg"
+  },
+  {
+    "name": "Dettol Antiseptic Liquid 250ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/241099_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833951960-506.jpg"
+  },
+  {
+    "name": "Bingo Mad Angles Achari Masti 72g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40105754_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833953503-497.jpg"
+  },
+  {
+    "name": "Butter Croissants 4pc",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Maaza Mango Drink 600ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Pringles Original 107g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40037399_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833955733-918.jpg"
+  },
+  {
+    "name": "Bisleri Water 1L (Pack of 12)",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40245905_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833956761-252.jpg"
+  },
+  {
+    "name": "Maggi 2-Minute Noodles Masala (Pack of 12)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Choco Chip Cookies 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40024263_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833958277-98.jpg"
+  },
+  {
+    "name": "Haldirams Aloo Bhujia 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/260651_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833959741-362.jpg"
+  },
+  {
+    "name": "Cadbury 5 Star Chocolate Bar 40g (Pack of 5)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Kissan Mixed Fruit Jam 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Parachute Coconut Oil 500ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40044345_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833961979-385.jpg"
+  },
+  {
+    "name": "McVities Digestive Biscuits 250g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Full Cream Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Colgate Strong Teeth Toothpaste 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Surf Excel Easy Wash 1.5kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40052895_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833963765-787.jpg"
+  },
+  {
+    "name": "Lays Classic Salted Chips 52g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Real Fruit Power Mixed Fruit 1L",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40048812_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833965342-790.jpg"
+  },
+  {
+    "name": "Vim Dishwash Gel Lemon 750ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Nestle Milkmaid 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Paper Boat Aam Panna 200ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40094388_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833967028-311.jpg"
+  },
+  {
+    "name": "Amul Cheese Slices 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/104808_9-amul-cheese-slices.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833968100-182.jpg"
+  },
+  {
+    "name": "Thick Curd 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Thick Curd 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Cheese Slices 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Instant Noodles 4pk",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Cheese Slices 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Rolled Oats 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Butter Croissants 4pc",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Sprite Lemon-Lime 750ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Coca-Cola 750ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Kurkure Masala Munch 94g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40094345_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833971901-637.jpg"
+  },
+  {
+    "name": "Salted Chips 150g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40094327_2.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833972940-997.jpg"
+  },
+  {
+    "name": "Maggi 2-Minute Noodles Masala (Pack of 12)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Bisleri Water 1L (Pack of 12)",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40245905_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833974430-669.jpg"
+  },
+  {
+    "name": "Parle-G Gold Biscuits 100g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40024258_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833975902-200.jpg"
+  },
+  {
+    "name": "Kelloggs Corn Flakes 475g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Surf Excel Easy Wash 1.5kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40052895_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833977645-53.jpg"
+  },
+  {
+    "name": "Appy Fizz Apple Sparkling Drink 250ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Frooti Mango 1.2L",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40140826_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833980064-906.jpg"
+  },
+  {
+    "name": "Quaker Oats 1kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40025746_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833981525-868.jpg"
+  },
+  {
+    "name": "Amul Gold Full Cream Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Tata Salt 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Red Apples 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Surf Excel Easy Wash 1.5kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40052895_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833984871-30.jpg"
+  },
+  {
+    "name": "Lays Classic Salted Chips 52g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Nestle A+ Slim Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Oreo Original Cream Biscuit 120g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Harpic Power Plus 500ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Dabur Honey 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Sunfeast Dark Fantasy Choco Fills 75g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40024288_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833989063-834.jpg"
+  },
+  {
+    "name": "Lizol Disinfectant Floor Cleaner Citrus 500ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Masti Buttermilk 200ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Orange Juice 1L",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40048802_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833991457-496.jpg"
+  },
+  {
+    "name": "Lays Classic Salted Chips 52g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Cadbury Dairy Milk Silk 150g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40021505_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833993632-138.jpg"
+  },
+  {
+    "name": "Britannia Milk Rusk 230g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Red Bull Energy Drink 250ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Colgate Strong Teeth Toothpaste 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Go Cheese Grated Mozzarella 250g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40063486_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784833997506-438.jpg"
+  },
+  {
+    "name": "Modern White Bread 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Colgate Strong Teeth Toothpaste 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Britannia Whole Wheat Bread 400g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40097069_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834000225-261.jpg"
+  },
+  {
+    "name": "Scotch-Brite Scrub Pad (Pack of 3)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Harvest Gold Multigrain Bread 450g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Bournvita Health Drink 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Dettol Instant Hand Sanitizer 200ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40044126_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834003492-230.jpg"
+  },
+  {
+    "name": "Comfort After Wash Fabric Conditioner 860ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40052858_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834004943-204.jpg"
+  },
+  {
+    "name": "Listerine Cool Mint Mouthwash 250ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Gold Full Cream Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Gold Full Cream Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Bisleri Water 1L (Pack of 12)",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40245905_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834008102-518.jpg"
+  },
+  {
+    "name": "Kelloggs Chocos 375g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Tang Orange 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Maggi 2-Minute Noodles Masala (Pack of 12)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Maggi Hot & Sweet Tomato Chilli Sauce 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Parle Monaco Salted Biscuit 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40023982_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834012681-870.jpg"
+  },
+  {
+    "name": "Dove Body Wash 250ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Saffola Gold Oil 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "MTR Ready To Eat Poha 180g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40023880_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834015424-429.jpg"
+  },
+  {
+    "name": "Maggi Pasta Penne 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Colgate Strong Teeth Toothpaste 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Rolled Oats 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Hide & Seek Chocolate Chip Cookies 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Colin Glass Cleaner 500ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Dabur Real Litchi Juice 1L",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40048810_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834020076-712.jpg"
+  },
+  {
+    "name": "MTR Ready To Eat Upma 180g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40023876_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834021991-772.jpg"
+  },
+  {
+    "name": "Yippee Noodles Magic Masala (Pack of 6)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Pril Dishwash Liquid 425ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Good Knight Gold Flash 45ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Pepsodent Germicheck Toothpaste 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Modern White Bread 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Sundrop Peanut Butter Creamy 462g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40072095_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834026464-445.jpg"
+  },
+  {
+    "name": "Nutella Hazelnut Spread 350g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40023818_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834028224-328.jpg"
+  },
+  {
+    "name": "Dettol Original Soap 125g (Pack of 4)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Taaza Toned Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Bisleri Water 1L (Pack of 12)",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40245905_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834030328-963.jpg"
+  },
+  {
+    "name": "Modern White Bread 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Surf Excel Easy Wash 1.5kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40052895_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834031852-403.jpg"
+  },
+  {
+    "name": "Cold Coffee 250ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Nescafe Ready to Drink Cold Coffee 180ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40153016_2.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834034465-54.jpg"
+  },
+  {
+    "name": "Nivea Body Lotion 400ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40072020_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834035970-555.jpg"
+  },
+  {
+    "name": "Britannia Whole Wheat Bread 400g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40097069_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834037095-74.jpg"
+  },
+  {
+    "name": "Dettol Original Soap 125g (Pack of 4)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Bisleri Water 1L (Pack of 12)",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40245905_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834038892-500.jpg"
+  },
+  {
+    "name": "Cerelac Baby Cereal Wheat 300g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Hide & Seek Chocolate Chip Cookies 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Complan Royale Chocolate 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Mother Dairy Classic Curd 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Britannia Whole Wheat Bread 400g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40097069_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834040713-413.jpg"
+  },
+  {
+    "name": "English Oven Burger Buns (Pack of 4)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Head & Shoulders Anti Dandruff Shampoo 340ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Tetley Green Tea Lemon 25 Bags",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Knorr Tomato Soup 53g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40004750_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834042988-341.jpg"
+  },
+  {
+    "name": "Domex Fresh Guard Toilet Cleaner 500ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Pillsbury Cookie Cake Chocolate 23g (Pack of 6)",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40105765_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834044864-861.jpg"
+  },
+  {
+    "name": "Nescafe Ready to Drink Cold Coffee 180ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40153016_2.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834045756-962.jpg"
+  },
+  {
+    "name": "Dabur Real Litchi Juice 1L",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40048810_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834046838-23.jpg"
+  },
+  {
+    "name": "MTR Ready To Eat Upma 180g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40023876_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834047961-310.jpg"
+  },
+  {
+    "name": "Yippee Noodles Magic Masala (Pack of 6)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Pril Dishwash Liquid 425ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Good Knight Gold Flash 45ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Nivea Body Lotion 400ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40072020_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834049660-409.jpg"
+  },
+  {
+    "name": "Pepsodent Germicheck Toothpaste 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Epigamia Greek Yogurt Strawberry 90g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40063485_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834051098-738.jpg"
+  },
+  {
+    "name": "Amul Butter 500g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/104864_8-amul-butter-pasteurised.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834052420-893.jpg"
+  },
+  {
+    "name": "Amul Butter 500g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/104864_8-amul-butter-pasteurised.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834053716-751.jpg"
+  },
+  {
+    "name": "Amul Butter 500g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/104864_8-amul-butter-pasteurised.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834054502-274.jpg"
+  },
+  {
+    "name": "Kurkure Masala Munch 94g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40094345_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834055636-408.jpg"
+  },
+  {
+    "name": "Bikano Rasgulla Tin 1kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40026200_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834057118-182.jpg"
+  },
+  {
+    "name": "Horlicks Classic Malt 500g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40020979_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834058618-188.jpg"
+  },
+  {
+    "name": "Colin Glass Cleaner 500ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Knorr Tomato Soup 53g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40004750_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834060508-659.jpg"
+  },
+  {
+    "name": "Domex Fresh Guard Toilet Cleaner 500ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Pillsbury Cookie Cake Chocolate 23g (Pack of 6)",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40105765_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834062326-253.jpg"
+  },
+  {
+    "name": "Epigamia Greek Yogurt Strawberry 90g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40063485_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834063474-347.jpg"
+  },
+  {
+    "name": "Horlicks Classic Malt 500g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40020979_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834064752-357.jpg"
+  },
+  {
+    "name": "Bikano Rasgulla Tin 1kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40026200_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834065848-575.jpg"
+  },
+  {
+    "name": "Complan Royale Chocolate 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "English Oven Burger Buns (Pack of 4)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Head & Shoulders Anti Dandruff Shampoo 340ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Real Fruit Power Mixed Fruit 1L",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40048812_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834067768-178.jpg"
+  },
+  {
+    "name": "Vim Dishwash Gel Lemon 750ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Nestle Milkmaid 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Paper Boat Aam Panna 200ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40094388_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834069518-37.jpg"
+  },
+  {
+    "name": "Sundrop Peanut Butter Creamy 462g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40072095_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834070491-663.jpg"
+  },
+  {
+    "name": "Kissan Mixed Fruit Jam 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Parachute Coconut Oil 500ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40044345_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834071841-802.jpg"
+  },
+  {
+    "name": "Bambino Vermicelli 850g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Cerelac Baby Cereal Wheat 300g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Tetley Green Tea Lemon 25 Bags",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Cadbury 5 Star Chocolate Bar 40g (Pack of 5)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "McVities Digestive Biscuits 250g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Sprite Lemon-Lime 750ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Aashirvaad Atta 5kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/126903_12-aashirvaad-atta-whole-wheat.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834074720-306.jpg"
+  },
+  {
+    "name": "Tang Orange 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Cheese Slices 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/104808_9-amul-cheese-slices.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834076014-685.jpg"
+  },
+  {
+    "name": "Maggi 2-Minute Noodles Masala (Pack of 12)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Coca-Cola 750ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Tata Salt 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Coca-Cola 750ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Coca-Cola 750ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Coca-Cola 750ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Coca-Cola 750ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Nutella Hazelnut Spread 350g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40023818_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834078693-550.jpg"
+  },
+  {
+    "name": "Bournvita Health Drink 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Comfort After Wash Fabric Conditioner 860ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40052858_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834080091-713.jpg"
+  },
+  {
+    "name": "Colgate Strong Teeth Toothpaste 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "MTR Ready To Eat Poha 180g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40023880_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834081231-799.jpg"
+  },
+  {
+    "name": "Catch Turmeric Powder 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/30005800_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834082779-518.jpg"
+  },
+  {
+    "name": "Cadbury Gems 17.8g (Pack of 12)",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40242766_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834084447-392.jpg"
+  },
+  {
+    "name": "Amul Dark Chocolate 150g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Nestle A+ Slim Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Kelloggs Corn Flakes 475g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Catch Red Chilli Powder 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/30005802_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834086633-285.jpg"
+  },
+  {
+    "name": "Dove Shampoo 340ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Gillette Guard Razor (Pack of 3)",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40072131_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834088379-826.jpg"
+  },
+  {
+    "name": "Sunsilk Shampoo 340ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Eno Fruit Salt Lemon 5g (Pack of 30)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Britannia Cheese Garlic Bread 120g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Saffola Gold Oil 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Himalaya Neem Face Wash 200ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40064204_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834090801-855.jpg"
+  },
+  {
+    "name": "Fanta Orange 750ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Bikaji Bhujia 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Lijjat Papad Udad 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/30009006_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834092870-429.jpg"
+  },
+  {
+    "name": "Oreo Original Cream Biscuit 120g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Whole Wheat Bread",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Masti Buttermilk 200ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Haldirams Aloo Bhujia 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/260651_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834094701-796.jpg"
+  },
+  {
+    "name": "Britannia Fruit Cake 250g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Red Bull Energy Drink 250ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Cadbury Dairy Milk Silk 150g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40021505_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834096291-478.jpg"
+  },
+  {
+    "name": "Appy Fizz Apple Sparkling Drink 250ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Catch Red Chilli Powder 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/30005802_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834097592-232.jpg"
+  },
+  {
+    "name": "Chana Dal 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Moong Dal 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Maggi Pazzta Cheese Macaroni 70g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Harpic Power Plus 500ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Dabur Honey 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Go Cheese Grated Mozzarella 250g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40063486_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834100101-92.jpg"
+  },
+  {
+    "name": "Sunfeast Dark Fantasy Choco Fills 75g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40024288_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834101351-935.jpg"
+  },
+  {
+    "name": "Britannia Milk Rusk 230g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Cheese Slices 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/104808_9-amul-cheese-slices.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834102800-239.jpg"
+  },
+  {
+    "name": "Catch Turmeric Powder 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/30005800_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834103932-543.jpg"
+  },
+  {
+    "name": "Vim Bar 300g (Pack of 3)",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40001300_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834105334-144.jpg"
+  },
+  {
+    "name": "Whisper Choice Wings XL 20 Pads",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Maggi Cup Noodles Masala 70g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Ghadi Detergent Powder 1kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40085419_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834107379-63.jpg"
+  },
+  {
+    "name": "Odo Mos Mosquito Repellent Spray 100ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40131003_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834108920-953.jpg"
+  },
+  {
+    "name": "Lijjat Papad Masala 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Everest Kitchen King Masala 100g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Sugar 1kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40082654_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834110974-159.jpg"
+  },
+  {
+    "name": "Basmati Rice 1kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40196654_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834112547-324.jpg"
+  },
+  {
+    "name": "Pepsi 750ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Taaza Toned Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Lizol Disinfectant Floor Cleaner Citrus 500ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Aashirvaad Atta 5kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/126903_12-aashirvaad-atta-whole-wheat.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834114792-47.jpg"
+  },
+  {
+    "name": "Amul Cheese Slices 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/104808_9-amul-cheese-slices.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834115736-595.jpg"
+  },
+  {
+    "name": "Britannia Fruit Cake 250g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Quaker Oats 1kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40025746_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834117454-938.jpg"
+  },
+  {
+    "name": "Mother Dairy Classic Curd 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Vaseline Body Lotion 400ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40044381_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834119444-108.jpg"
+  },
+  {
+    "name": "Surf Excel Matic Liquid 1L",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40052901_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834120741-29.jpg"
+  },
+  {
+    "name": "Red Apples 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Taaza Toned Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Kelloggs Chocos 375g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Milky Mist Paneer 200g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Maggi 2-Minute Noodles Masala (Pack of 12)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Britannia Good Day Butter Cookies 250g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Act II Classic Salted Popcorn 30g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/189220_8-act-ii-instant-popcorn-classic-salted-hot-fresh-delicious.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834124968-450.jpg"
+  },
+  {
+    "name": "Too Yumm Multigrain Chips 54g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40094378_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834126161-797.jpg"
+  },
+  {
+    "name": "Parle-G Gold Biscuits 100g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40024258_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834127124-684.jpg"
+  },
+  {
+    "name": "Maaza Mango Drink 600ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Maggi Hot & Sweet Tomato Chilli Sauce 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Parle Monaco Salted Biscuit 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40023982_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834129658-916.jpg"
+  },
+  {
+    "name": "Dove Body Wash 250ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Surf Excel Easy Wash 1.5kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40052895_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834131466-931.jpg"
+  },
+  {
+    "name": "Saffola Gold Oil 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Lays Classic Salted Chips 52g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "MDH Garam Masala 100g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40023730_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834133941-104.jpg"
+  },
+  {
+    "name": "Pringles Original 107g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40037399_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834134977-894.jpg"
+  },
+  {
+    "name": "Dettol Antiseptic Liquid 250ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/241099_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834136120-703.jpg"
+  },
+  {
+    "name": "Bingo Mad Angles Achari Masti 72g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40105754_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834137237-81.jpg"
+  },
+  {
+    "name": "Scotch-Brite Scrub Pad (Pack of 3)",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Lays Classic Salted Chips 52g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Tropicana Orange Juice 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Listerine Cool Mint Mouthwash 250ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Parle-G Biscuits 250g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Parle-G Biscuits 250g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Parle-G Biscuits 250g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Tata Tea Gold 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Saffola Oats 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Nescafe Classic Coffee 100g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/263510_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834143137-484.jpg"
+  },
+  {
+    "name": "Britannia Cream Cheese Spread 180g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Mother Dairy Classic Curd 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Catch Red Chilli Powder 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/30005802_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834145855-887.jpg"
+  },
+  {
+    "name": "Amul Paneer 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/279588_7-amul-malai-paneer.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834147723-106.jpg"
+  },
+  {
+    "name": "Amul Paneer 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/279588_7-amul-malai-paneer.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834148759-234.jpg"
+  },
+  {
+    "name": "Tata Tea Gold 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Fortune Sunlite Oil 1L",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40047893_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834151041-959.jpg"
+  },
+  {
+    "name": "Tata Tea Gold 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Toor Dal 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Toor Dal 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Toor Dal 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Catch Turmeric Powder 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/30005800_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834153843-670.jpg"
+  },
+  {
+    "name": "Dettol Instant Hand Sanitizer 200ml",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40044126_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834155155-229.jpg"
+  },
+  {
+    "name": "Harvest Gold Multigrain Bread 450g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Lassi Mango 200ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Glucon-D Orange 1kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40004752_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834158351-376.jpg"
+  },
+  {
+    "name": "Closeup Everfresh Toothpaste 150g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Rin Advanced Detergent Bar 250g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Rajma 500g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Kool Kesar 200ml",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Taaza Toned Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Taaza Toned Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Taaza Toned Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Britannia Whole Wheat Bread 400g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40097069_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834164652-30.jpg"
+  },
+  {
+    "name": "Britannia Whole Wheat Bread 400g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40097069_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834165874-855.jpg"
+  },
+  {
+    "name": "Amul Gold Full Cream Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Fortune Sunlite Oil 1L",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40047893_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834167612-174.jpg"
+  },
+  {
+    "name": "Fortune Sunlite Oil 1L",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40047893_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834168761-984.jpg"
+  },
+  {
+    "name": "Maggi Pasta Penne 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Britannia Whole Wheat Bread 400g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40097069_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834170276-934.jpg"
+  },
+  {
+    "name": "Amul Butter 500g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/104864_8-amul-butter-pasteurised.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834171295-943.jpg"
+  },
+  {
+    "name": "Amul Cheese Slices 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/104808_9-amul-cheese-slices.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834172390-495.jpg"
+  },
+  {
+    "name": "Frooti Mango 1.2L",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/40140826_1.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834173273-853.jpg"
+  },
+  {
+    "name": "Amul Gold Full Cream Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Gold Full Cream Milk 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Saffola Gold Oil 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Aashirvaad Atta 5kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/126903_12-aashirvaad-atta-whole-wheat.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834174871-144.jpg"
+  },
+  {
+    "name": "Tata Salt 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Tata Salt 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Modern White Bread 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Mother Dairy Classic Curd 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Saffola Gold Oil 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Aashirvaad Atta 5kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/126903_12-aashirvaad-atta-whole-wheat.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834177160-440.jpg"
+  },
+  {
+    "name": "Aashirvaad Atta 5kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/126903_12-aashirvaad-atta-whole-wheat.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834178515-174.jpg"
+  },
+  {
+    "name": "Amul Butter 500g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/104864_8-amul-butter-pasteurised.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834179589-68.jpg"
+  },
+  {
+    "name": "Tata Salt 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Modern White Bread 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Bambino Vermicelli 850g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Mother Dairy Classic Curd 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Saffola Gold Oil 1L",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Aashirvaad Atta 5kg",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/126903_12-aashirvaad-atta-whole-wheat.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834181390-510.jpg"
+  },
+  {
+    "name": "Amul Butter 500g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/104864_8-amul-butter-pasteurised.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834182514-660.jpg"
+  },
+  {
+    "name": "Tata Salt 1kg",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Modern White Bread 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Mother Dairy Classic Curd 400g",
+    "status": "error",
+    "error": "Failed to fetch image: Not Found"
+  },
+  {
+    "name": "Amul Paneer 200g",
+    "status": "success",
+    "oldUrl": "https://www.bbassets.com/media/uploads/p/s/279588_7-amul-malai-paneer.jpg",
+    "newUrl": "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/1784834183980-188.jpg"
+  }
+]

@@ -1,0 +1,933 @@
+[
+  {
+    "id": "dc245252-96d0-4e14-be86-b44d2ea387e0",
+    "brand": "Amul",
+    "name": "Amul Cheese Slices 200g",
+    "search_query": "Amul Amul Cheese Slices 200g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "4f56009e-fe05-4e1c-8938-e182d730c8b3",
+    "brand": "Maggi",
+    "name": "Maggi 2-Minute Noodles Masala (Pack of 12)",
+    "search_query": "Maggi Maggi 2-Minute Noodles Masala (Pack of 12) packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "60dcc628-55ea-4c39-8cb6-9239531783f3",
+    "brand": "Colgate",
+    "name": "Colgate Strong Teeth Toothpaste 200g",
+    "search_query": "Colgate Colgate Strong Teeth Toothpaste 200g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "87f9dee9-0fda-4c58-8808-5ab3990a2f66",
+    "brand": "Surf Excel",
+    "name": "Surf Excel Easy Wash 1.5kg",
+    "search_query": "Surf Excel Surf Excel Easy Wash 1.5kg packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "f96bee32-b984-4427-9842-5895496e42b7",
+    "brand": "Lays",
+    "name": "Lays Classic Salted Chips 52g",
+    "search_query": "Lays Lays Classic Salted Chips 52g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "d8d09fcb-cfee-47e8-872e-7a30952dd954",
+    "brand": "Bisleri",
+    "name": "Bisleri Water 1L (Pack of 12)",
+    "search_query": "Bisleri Bisleri Water 1L (Pack of 12) packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "ca73eed1-0ce0-4296-822c-b7fa8ff853f8",
+    "brand": "Britannia",
+    "name": "Britannia Cream Cheese Spread 180g",
+    "search_query": "Britannia Britannia Cream Cheese Spread 180g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "25d44702-e97a-42ef-86de-7a613af9dc59",
+    "brand": "Milky Mist",
+    "name": "Milky Mist Paneer 200g",
+    "search_query": "Milky Mist Milky Mist Paneer 200g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "74bdbc0e-47b6-40b1-99ce-cb999ec0e7c3",
+    "brand": "Britannia",
+    "name": "Britannia Good Day Butter Cookies 250g",
+    "search_query": "Britannia Britannia Good Day Butter Cookies 250g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "8eb8518b-47dc-4284-9206-88baa630fa86",
+    "brand": "Tropicana",
+    "name": "Tropicana Orange Juice 1L",
+    "search_query": "Tropicana Tropicana Orange Juice 1L packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "ab6d7b55-8dab-4a4c-8d85-23247d30ef98",
+    "brand": "MDH",
+    "name": "MDH Garam Masala 100g",
+    "search_query": "MDH MDH Garam Masala 100g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "a2b949cb-36bb-45a7-9abc-29ed482039cc",
+    "brand": "Pringles",
+    "name": "Pringles Original 107g",
+    "search_query": "Pringles Pringles Original 107g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "c9729452-d667-4588-bf8b-cb6a5ac965e1",
+    "brand": "Dettol",
+    "name": "Dettol Antiseptic Liquid 250ml",
+    "search_query": "Dettol Dettol Antiseptic Liquid 250ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "75087f4a-5c6e-4f4c-8518-048eb37452fe",
+    "brand": "Bingo",
+    "name": "Bingo Mad Angles Achari Masti 72g",
+    "search_query": "Bingo Bingo Mad Angles Achari Masti 72g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "925ca975-0acc-4e06-84c3-2b38e060cbe3",
+    "brand": "La Boulange",
+    "name": "Butter Croissants 4pc",
+    "search_query": "La Boulange Butter Croissants 4pc packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "720a1987-1b16-4b7c-996e-ecc5baa0f5d1",
+    "brand": "Lays",
+    "name": "Salted Chips 150g",
+    "search_query": "Lays Salted Chips 150g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "ed018f63-64af-47b9-83f1-eeeedd3f7573",
+    "brand": "Parle",
+    "name": "Choco Chip Cookies 200g",
+    "search_query": "Parle Choco Chip Cookies 200g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "b35341b7-f95b-4719-b533-1bf8d29fec01",
+    "brand": "Maggi",
+    "name": "Instant Noodles 4pk",
+    "search_query": "Maggi Instant Noodles 4pk packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "3154f317-d14c-4648-b954-d2d8f58cd43e",
+    "brand": "Tropicana",
+    "name": "Orange Juice 1L",
+    "search_query": "Tropicana Orange Juice 1L packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "c55037ce-c265-4b23-a4bd-66ccf8743b85",
+    "brand": "Nescafe",
+    "name": "Cold Coffee 250ml",
+    "search_query": "Nescafe Cold Coffee 250ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "20294373-baa7-45a0-a625-95458ffeddd9",
+    "brand": "Act II",
+    "name": "Act II Classic Salted Popcorn 30g",
+    "search_query": "Act II Act II Classic Salted Popcorn 30g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "0fbee0a5-5472-423c-988a-7f2fcf38dd22",
+    "brand": "Too Yumm",
+    "name": "Too Yumm Multigrain Chips 54g",
+    "search_query": "Too Yumm Too Yumm Multigrain Chips 54g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "a2c7a857-9d40-40f3-8fa5-c8ca6ed03194",
+    "brand": "Maaza",
+    "name": "Maaza Mango Drink 600ml",
+    "search_query": "Maaza Maaza Mango Drink 600ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "0f23e376-5efe-4ee4-b8d3-1808b0424657",
+    "brand": "Amul",
+    "name": "Full Cream Milk 1L",
+    "search_query": "Amul Full Cream Milk 1L packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "afc5aeda-bed5-4ee2-98ee-c85002fdd775",
+    "brand": "Kurkure",
+    "name": "Kurkure Masala Munch 94g",
+    "search_query": "Kurkure Kurkure Masala Munch 94g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "f33cdf61-0f1c-4ad7-b149-eec5bdbdda1f",
+    "brand": "Haldirams",
+    "name": "Haldirams Aloo Bhujia 200g",
+    "search_query": "Haldirams Haldirams Aloo Bhujia 200g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "918a1da1-7940-4b1e-8311-1e656506a494",
+    "brand": "Real",
+    "name": "Real Fruit Power Mixed Fruit 1L",
+    "search_query": "Real Real Fruit Power Mixed Fruit 1L packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "13b5f6f8-724d-420c-b7d7-756ef770a960",
+    "brand": "Kissan",
+    "name": "Kissan Mixed Fruit Jam 500g",
+    "search_query": "Kissan Kissan Mixed Fruit Jam 500g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "7416efb4-8dbf-4f6a-9d11-b436fc98fda2",
+    "brand": "Vim",
+    "name": "Vim Dishwash Gel Lemon 750ml",
+    "search_query": "Vim Vim Dishwash Gel Lemon 750ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "bb469ee3-5fa4-4ec6-a60e-1cd970325191",
+    "brand": "Nestle",
+    "name": "Nestle Milkmaid 400g",
+    "search_query": "Nestle Nestle Milkmaid 400g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "7c83e9db-b3bf-4a9d-9e56-1eaac0a1ce19",
+    "brand": "Britannia",
+    "name": "Britannia Fruit Cake 250g",
+    "search_query": "Britannia Britannia Fruit Cake 250g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "0a424086-6231-4c5b-8b95-abb3a1cea551",
+    "brand": "Parachute",
+    "name": "Parachute Coconut Oil 500ml",
+    "search_query": "Parachute Parachute Coconut Oil 500ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "71631fc2-656b-48f7-ad7a-57e1f33c3eca",
+    "brand": "Cadbury",
+    "name": "Cadbury 5 Star Chocolate Bar 40g (Pack of 5)",
+    "search_query": "Cadbury Cadbury 5 Star Chocolate Bar 40g (Pack of 5) packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "19e7845c-25cb-441b-abed-936c5211c269",
+    "brand": "McVities",
+    "name": "McVities Digestive Biscuits 250g",
+    "search_query": "McVities McVities Digestive Biscuits 250g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "09ae80cb-f29b-4907-88ba-24e94407852b",
+    "brand": "Sprite",
+    "name": "Sprite Lemon-Lime 750ml",
+    "search_query": "Sprite Sprite Lemon-Lime 750ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "8e1bdeb5-c77e-4ac6-8b63-63339b0eb770",
+    "brand": "Paper Boat",
+    "name": "Paper Boat Aam Panna 200ml",
+    "search_query": "Paper Boat Paper Boat Aam Panna 200ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "51bf36b1-d849-446d-9cbc-28a483a3b2eb",
+    "brand": "Mother Dairy",
+    "name": "Thick Curd 500g",
+    "search_query": "Mother Dairy Thick Curd 500g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "8e112b2b-b4fa-4099-8f1f-bf028b698841",
+    "brand": "Amul",
+    "name": "Cheese Slices 200g",
+    "search_query": "Amul Cheese Slices 200g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "0b8abe03-c075-4f93-91b3-0c94d894db03",
+    "brand": "Quaker",
+    "name": "Rolled Oats 1kg",
+    "search_query": "Quaker Rolled Oats 1kg packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "a1ad1b3b-3b89-434d-9985-186f6a76fbb2",
+    "brand": "Nestle",
+    "name": "Nestle A+ Slim Milk 1L",
+    "search_query": "Nestle Nestle A+ Slim Milk 1L packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "55ef7b66-8d7d-497c-a2b4-f53e19f6b3d8",
+    "brand": "Parle",
+    "name": "Parle-G Gold Biscuits 100g",
+    "search_query": "Parle Parle-G Gold Biscuits 100g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "1330693c-9e2d-4d3c-a04a-f0a6628bdfe6",
+    "brand": "Cadbury",
+    "name": "Oreo Original Cream Biscuit 120g",
+    "search_query": "Cadbury Oreo Original Cream Biscuit 120g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "3e96cc30-91b7-49b2-b622-123dbc5cb697",
+    "brand": "Kelloggs",
+    "name": "Kelloggs Corn Flakes 475g",
+    "search_query": "Kelloggs Kelloggs Corn Flakes 475g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "e6d88058-99b2-49d6-92cc-9b9097c0bad5",
+    "brand": "Harpic",
+    "name": "Harpic Power Plus 500ml",
+    "search_query": "Harpic Harpic Power Plus 500ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "b6d21206-5f31-43da-916e-e9428b851354",
+    "brand": "Dabur",
+    "name": "Dabur Honey 500g",
+    "search_query": "Dabur Dabur Honey 500g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "51c40643-c8ee-4a46-93bc-1172fac7fa04",
+    "brand": "Britannia",
+    "name": "Britannia Milk Rusk 230g",
+    "search_query": "Britannia Britannia Milk Rusk 230g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "df3decc9-9342-44f7-b3df-37c20d507ec3",
+    "brand": "Go",
+    "name": "Go Cheese Grated Mozzarella 250g",
+    "search_query": "Go Go Cheese Grated Mozzarella 250g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "57472879-fa2e-4661-a794-e34152f47a7a",
+    "brand": "Sunfeast",
+    "name": "Sunfeast Dark Fantasy Choco Fills 75g",
+    "search_query": "Sunfeast Sunfeast Dark Fantasy Choco Fills 75g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "1a9f9bb7-a72d-42d1-9dd5-6a110c1c78b9",
+    "brand": "Cadbury",
+    "name": "Cadbury Dairy Milk Silk 150g",
+    "search_query": "Cadbury Cadbury Dairy Milk Silk 150g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "09b4e23b-81f3-4700-be6a-e7fa54f787eb",
+    "brand": "Appy",
+    "name": "Appy Fizz Apple Sparkling Drink 250ml",
+    "search_query": "Appy Appy Fizz Apple Sparkling Drink 250ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "56e59064-be60-412c-96cb-8a6aedce2a88",
+    "brand": "Frooti",
+    "name": "Frooti Mango 1.2L",
+    "search_query": "Frooti Frooti Mango 1.2L packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "39ba709e-669d-4937-be23-45211e25ff5b",
+    "brand": "Quaker",
+    "name": "Quaker Oats 1kg",
+    "search_query": "Quaker Quaker Oats 1kg packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "fe9f6b9f-abb4-4c1c-9939-13815f33709d",
+    "brand": "Lizol",
+    "name": "Lizol Disinfectant Floor Cleaner Citrus 500ml",
+    "search_query": "Lizol Lizol Disinfectant Floor Cleaner Citrus 500ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "85b0e9e1-18bb-49f2-a3e9-92db49d3348b",
+    "brand": "Farm Fresh",
+    "name": "Red Apples 1kg",
+    "search_query": "Farm Fresh Red Apples 1kg packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "2c3ebd10-5888-4ae9-9186-95f69792df71",
+    "brand": "Amul",
+    "name": "Amul Gold Full Cream Milk 1L",
+    "search_query": "Amul Amul Gold Full Cream Milk 1L packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "117b8f43-ab95-481e-aec3-107e3867fa49",
+    "brand": "Tata",
+    "name": "Tata Salt 1kg",
+    "search_query": "Tata Tata Salt 1kg packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "685481b5-9bb9-41ee-abb9-24f38ff74fa8",
+    "brand": "Maggi",
+    "name": "Maggi Hot & Sweet Tomato Chilli Sauce 1kg",
+    "search_query": "Maggi Maggi Hot & Sweet Tomato Chilli Sauce 1kg packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "de605dcc-d9cb-4abc-b1c9-27de40c2fd3c",
+    "brand": "Scotch-Brite",
+    "name": "Scotch-Brite Scrub Pad (Pack of 3)",
+    "search_query": "Scotch-Brite Scotch-Brite Scrub Pad (Pack of 3) packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "07858a33-26ea-428c-825b-47679c36f2a9",
+    "brand": "Harvest Gold",
+    "name": "Harvest Gold Multigrain Bread 450g",
+    "search_query": "Harvest Gold Harvest Gold Multigrain Bread 450g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "007fcf72-76af-4025-ac77-0e2a9e960de9",
+    "brand": "Cadbury",
+    "name": "Bournvita Health Drink 500g",
+    "search_query": "Cadbury Bournvita Health Drink 500g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "d5f09bbd-8557-41c3-9383-4dab2c688511",
+    "brand": "MTR",
+    "name": "MTR Ready To Eat Poha 180g",
+    "search_query": "MTR MTR Ready To Eat Poha 180g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "f606d8fe-5a64-4d43-ac87-aa8bbf184fb9",
+    "brand": "Maggi",
+    "name": "Maggi Pasta Penne 400g",
+    "search_query": "Maggi Maggi Pasta Penne 400g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "4386c660-b857-44fc-b18a-5f92840f0406",
+    "brand": "Dettol",
+    "name": "Dettol Instant Hand Sanitizer 200ml",
+    "search_query": "Dettol Dettol Instant Hand Sanitizer 200ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "73228ca6-6248-4f0d-be93-fbf4f2be4e88",
+    "brand": "Comfort",
+    "name": "Comfort After Wash Fabric Conditioner 860ml",
+    "search_query": "Comfort Comfort After Wash Fabric Conditioner 860ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "acbfa7ba-7bfa-4594-95a2-749c5e71b9cf",
+    "brand": "Parle",
+    "name": "Parle Monaco Salted Biscuit 200g",
+    "search_query": "Parle Parle Monaco Salted Biscuit 200g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "e117619c-854c-4b7e-a8b9-c69994d697cc",
+    "brand": "Dove",
+    "name": "Dove Body Wash 250ml",
+    "search_query": "Dove Dove Body Wash 250ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "4339e10c-4de1-43aa-a1e2-cfbd64ad6edb",
+    "brand": "Listerine",
+    "name": "Listerine Cool Mint Mouthwash 250ml",
+    "search_query": "Listerine Listerine Cool Mint Mouthwash 250ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "e45545c0-f4b6-40cd-a352-38a6bdabc415",
+    "brand": "Saffola",
+    "name": "Saffola Gold Oil 1L",
+    "search_query": "Saffola Saffola Gold Oil 1L packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "aab2369b-b27b-494b-bc60-04f2767836ec",
+    "brand": "Britannia",
+    "name": "Britannia Whole Wheat Bread 400g",
+    "search_query": "Britannia Britannia Whole Wheat Bread 400g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "da0d1b1c-e469-4910-ad89-1170998c7aea",
+    "brand": "Modern",
+    "name": "Modern White Bread 400g",
+    "search_query": "Modern Modern White Bread 400g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "bb12ff3f-4e9c-4430-a2e3-bedc08df5df5",
+    "brand": "Sundrop",
+    "name": "Sundrop Peanut Butter Creamy 462g",
+    "search_query": "Sundrop Sundrop Peanut Butter Creamy 462g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "632da3c4-3f53-4d4e-a994-9a69671d315e",
+    "brand": "Nutella",
+    "name": "Nutella Hazelnut Spread 350g",
+    "search_query": "Nutella Nutella Hazelnut Spread 350g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "4437cb73-dc59-4821-ac9f-dadd06053430",
+    "brand": "Colin",
+    "name": "Colin Glass Cleaner 500ml",
+    "search_query": "Colin Colin Glass Cleaner 500ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "30f74bee-e18c-4114-bc0d-dd537900bd26",
+    "brand": "Dettol",
+    "name": "Dettol Original Soap 125g (Pack of 4)",
+    "search_query": "Dettol Dettol Original Soap 125g (Pack of 4) packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "34bcd538-b6dd-48ee-b2e4-27c65a44d459",
+    "brand": "Nescafe",
+    "name": "Nescafe Ready to Drink Cold Coffee 180ml",
+    "search_query": "Nescafe Nescafe Ready to Drink Cold Coffee 180ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "d032f8ab-8eff-4349-9a7e-8423a7933d44",
+    "brand": "Dabur",
+    "name": "Dabur Real Litchi Juice 1L",
+    "search_query": "Dabur Dabur Real Litchi Juice 1L packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "fefaf758-85b6-436c-bc93-43f9f9a61230",
+    "brand": "MTR",
+    "name": "MTR Ready To Eat Upma 180g",
+    "search_query": "MTR MTR Ready To Eat Upma 180g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "f7fe1829-745a-4ee3-9020-fb044a1b756f",
+    "brand": "Sunfeast",
+    "name": "Yippee Noodles Magic Masala (Pack of 6)",
+    "search_query": "Sunfeast Yippee Noodles Magic Masala (Pack of 6) packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "19078569-25f1-4f2e-8a02-c837d42c7a95",
+    "brand": "Pril",
+    "name": "Pril Dishwash Liquid 425ml",
+    "search_query": "Pril Pril Dishwash Liquid 425ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "9d72acda-73ce-4d36-b8f7-39e633428bfe",
+    "brand": "Good Knight",
+    "name": "Good Knight Gold Flash 45ml",
+    "search_query": "Good Knight Good Knight Gold Flash 45ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "bb340f76-c7b8-41d7-bdfa-29aff3e8daa8",
+    "brand": "Parle",
+    "name": "Hide & Seek Chocolate Chip Cookies 200g",
+    "search_query": "Parle Hide & Seek Chocolate Chip Cookies 200g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "6882e614-57cc-4754-a660-c3862ba1baa1",
+    "brand": "Nivea",
+    "name": "Nivea Body Lotion 400ml",
+    "search_query": "Nivea Nivea Body Lotion 400ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "7936a0de-f413-4bef-a2cb-bc84ad5b995c",
+    "brand": "Pepsodent",
+    "name": "Pepsodent Germicheck Toothpaste 200g",
+    "search_query": "Pepsodent Pepsodent Germicheck Toothpaste 200g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "de6bdbca-5490-4d11-a01d-408d7ddfbb16",
+    "brand": "Amul",
+    "name": "Amul Taaza Toned Milk 1L",
+    "search_query": "Amul Amul Taaza Toned Milk 1L packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "b1e05e63-b6e3-4383-a8cb-31b000c11a80",
+    "brand": "English Oven",
+    "name": "English Oven Burger Buns (Pack of 4)",
+    "search_query": "English Oven English Oven Burger Buns (Pack of 4) packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "c6c2bcab-7944-4b51-8900-35cf157fb844",
+    "brand": "Head & Shoulders",
+    "name": "Head & Shoulders Anti Dandruff Shampoo 340ml",
+    "search_query": "Head & Shoulders Head & Shoulders Anti Dandruff Shampoo 340ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "3ea54764-6a3e-4028-9be9-e5bd22d89d55",
+    "brand": "Tetley",
+    "name": "Tetley Green Tea Lemon 25 Bags",
+    "search_query": "Tetley Tetley Green Tea Lemon 25 Bags packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "5349f47d-d537-4608-a73d-23279efb70e8",
+    "brand": "Knorr",
+    "name": "Knorr Tomato Soup 53g",
+    "search_query": "Knorr Knorr Tomato Soup 53g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "a4804fb7-f754-4311-a3e4-861c2edb4303",
+    "brand": "Bambino",
+    "name": "Bambino Vermicelli 850g",
+    "search_query": "Bambino Bambino Vermicelli 850g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "2350910b-d755-4340-9c5c-0afb9a0743ab",
+    "brand": "Domex",
+    "name": "Domex Fresh Guard Toilet Cleaner 500ml",
+    "search_query": "Domex Domex Fresh Guard Toilet Cleaner 500ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "73557ab6-bc76-4936-bde2-bd9c18fe17b5",
+    "brand": "Pillsbury",
+    "name": "Pillsbury Cookie Cake Chocolate 23g (Pack of 6)",
+    "search_query": "Pillsbury Pillsbury Cookie Cake Chocolate 23g (Pack of 6) packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "3b4a1ea0-5763-42db-84c4-d045519a1ca2",
+    "brand": "Bikano",
+    "name": "Bikano Rasgulla Tin 1kg",
+    "search_query": "Bikano Bikano Rasgulla Tin 1kg packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "4a1bbcb7-70ca-4718-98b7-ecfb42c65a5d",
+    "brand": "Nestle",
+    "name": "Cerelac Baby Cereal Wheat 300g",
+    "search_query": "Nestle Cerelac Baby Cereal Wheat 300g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "c2218856-a0e7-48f0-bd08-43e0a6ddfc7e",
+    "brand": "Complan",
+    "name": "Complan Royale Chocolate 500g",
+    "search_query": "Complan Complan Royale Chocolate 500g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "5fbd0b32-de04-4608-9c0d-a6aa23a62b16",
+    "brand": "Epigamia",
+    "name": "Epigamia Greek Yogurt Strawberry 90g",
+    "search_query": "Epigamia Epigamia Greek Yogurt Strawberry 90g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "523ad3f5-a6d9-4c9c-af79-10b896cd7a56",
+    "brand": "Mother Dairy",
+    "name": "Mother Dairy Classic Curd 400g",
+    "search_query": "Mother Dairy Mother Dairy Classic Curd 400g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "e852225e-490d-478b-8b64-fccb18ff3b59",
+    "brand": "Amul",
+    "name": "Amul Butter 500g",
+    "search_query": "Amul Amul Butter 500g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "d0e42681-6f3a-4451-802d-3651108b9cd8",
+    "brand": "Aashirvaad",
+    "name": "Aashirvaad Atta 5kg",
+    "search_query": "Aashirvaad Aashirvaad Atta 5kg packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "a5228748-cbed-486b-b5f4-d3522a91a048",
+    "brand": "Catch",
+    "name": "Catch Turmeric Powder 200g",
+    "search_query": "Catch Catch Turmeric Powder 200g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "9656e9f9-9bf1-4811-b28c-d39ef3ac2500",
+    "brand": "Catch",
+    "name": "Catch Red Chilli Powder 200g",
+    "search_query": "Catch Catch Red Chilli Powder 200g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "93e13a62-d9dc-4c0b-a1d6-64dc4aeda325",
+    "brand": "Cadbury",
+    "name": "Cadbury Gems 17.8g (Pack of 12)",
+    "search_query": "Cadbury Cadbury Gems 17.8g (Pack of 12) packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "b2028926-9123-4021-9f2e-6378236db1c6",
+    "brand": "Himalaya",
+    "name": "Himalaya Neem Face Wash 200ml",
+    "search_query": "Himalaya Himalaya Neem Face Wash 200ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "3d0bb7b2-493b-4555-9693-ed7e65fd92fd",
+    "brand": "Lijjat",
+    "name": "Lijjat Papad Udad 200g",
+    "search_query": "Lijjat Lijjat Papad Udad 200g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "8c87f4fb-cb33-4864-a672-fc6e52dea493",
+    "brand": "Amul",
+    "name": "Amul Dark Chocolate 150g",
+    "search_query": "Amul Amul Dark Chocolate 150g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "e16a0754-8431-4d44-a8d2-571f4d7bc817",
+    "brand": "Dove",
+    "name": "Dove Shampoo 340ml",
+    "search_query": "Dove Dove Shampoo 340ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "30435cbe-7676-490e-9558-1305ecedc7bd",
+    "brand": "Gillette",
+    "name": "Gillette Guard Razor (Pack of 3)",
+    "search_query": "Gillette Gillette Guard Razor (Pack of 3) packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "4d1afee9-a0da-476a-af24-bfac423450d7",
+    "brand": "Sunsilk",
+    "name": "Sunsilk Shampoo 340ml",
+    "search_query": "Sunsilk Sunsilk Shampoo 340ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "126f0652-b77c-44eb-8beb-a6da2b73cd75",
+    "brand": "Eno",
+    "name": "Eno Fruit Salt Lemon 5g (Pack of 30)",
+    "search_query": "Eno Eno Fruit Salt Lemon 5g (Pack of 30) packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "496846f9-595e-452a-895f-7bbc40643db1",
+    "brand": "Britannia",
+    "name": "Britannia Cheese Garlic Bread 120g",
+    "search_query": "Britannia Britannia Cheese Garlic Bread 120g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "4337f102-b294-44be-ac7e-728542a04243",
+    "brand": "Maggi",
+    "name": "Maggi Pazzta Cheese Macaroni 70g",
+    "search_query": "Maggi Maggi Pazzta Cheese Macaroni 70g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "871efeee-5661-43c9-9269-e0564b4fbba9",
+    "brand": "Vim",
+    "name": "Vim Bar 300g (Pack of 3)",
+    "search_query": "Vim Vim Bar 300g (Pack of 3) packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "f1ef27f9-1a35-4890-8121-e92f3f641909",
+    "brand": "Whisper",
+    "name": "Whisper Choice Wings XL 20 Pads",
+    "search_query": "Whisper Whisper Choice Wings XL 20 Pads packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "645543c7-3ef1-4959-bfd9-6346579e91c4",
+    "brand": "Maggi",
+    "name": "Maggi Cup Noodles Masala 70g",
+    "search_query": "Maggi Maggi Cup Noodles Masala 70g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "614001ca-074b-4a4b-89fb-1ba8a44fec55",
+    "brand": "Ghadi",
+    "name": "Ghadi Detergent Powder 1kg",
+    "search_query": "Ghadi Ghadi Detergent Powder 1kg packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "4ad82886-9395-46cb-8993-de766bb6957c",
+    "brand": "Tata Sampann",
+    "name": "Chana Dal 1kg",
+    "search_query": "Tata Sampann Chana Dal 1kg packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "81e0f8b0-a049-4c11-a458-a56b2dc1c1f7",
+    "brand": "Tata Sampann",
+    "name": "Moong Dal 1kg",
+    "search_query": "Tata Sampann Moong Dal 1kg packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "210c794f-d163-445f-b580-576b645d9aaa",
+    "brand": "Lijjat",
+    "name": "Lijjat Papad Masala 200g",
+    "search_query": "Lijjat Lijjat Papad Masala 200g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "ab98bf29-844d-4fd1-8093-2948b6d070ec",
+    "brand": "Odo Mos",
+    "name": "Odo Mos Mosquito Repellent Spray 100ml",
+    "search_query": "Odo Mos Odo Mos Mosquito Repellent Spray 100ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "d62e45d2-d95e-41b5-be6a-32db1bfa7db2",
+    "brand": "Everest",
+    "name": "Everest Kitchen King Masala 100g",
+    "search_query": "Everest Everest Kitchen King Masala 100g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "d412d9d0-ed21-46f4-9099-a4a5be4ac6d4",
+    "brand": "Vaseline",
+    "name": "Vaseline Body Lotion 400ml",
+    "search_query": "Vaseline Vaseline Body Lotion 400ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "7103cd1f-d6ec-45e7-a865-a808e4a2bf7a",
+    "brand": "Surf Excel",
+    "name": "Surf Excel Matic Liquid 1L",
+    "search_query": "Surf Excel Surf Excel Matic Liquid 1L packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "83cd1606-69b3-4f65-99da-c1428095dff6",
+    "brand": "Uttam",
+    "name": "Sugar 1kg",
+    "search_query": "Uttam Sugar 1kg packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "5cc49c4d-96e5-4cfe-986c-3cc1326670b8",
+    "brand": "Parle",
+    "name": "Parle-G Biscuits 250g",
+    "search_query": "Parle Parle-G Biscuits 250g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "c959cad6-cccc-4ee3-abf9-1b682f68fa04",
+    "brand": "Tata",
+    "name": "Tata Tea Gold 500g",
+    "search_query": "Tata Tata Tea Gold 500g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "c3073236-3f72-47ee-8d4d-db1b313026d2",
+    "brand": "Tata Sampann",
+    "name": "Toor Dal 1kg",
+    "search_query": "Tata Sampann Toor Dal 1kg packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "c118303d-e528-406c-a21b-440be728ea36",
+    "brand": "Amul",
+    "name": "Amul Paneer 200g",
+    "search_query": "Amul Amul Paneer 200g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "0458dee2-332c-4a4d-9f1b-f29166e2c575",
+    "brand": "Fortune",
+    "name": "Fortune Sunlite Oil 1L",
+    "search_query": "Fortune Fortune Sunlite Oil 1L packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "78b052e8-de60-428d-8130-1603186461f8",
+    "brand": "Amul",
+    "name": "Amul Lassi Mango 200ml",
+    "search_query": "Amul Amul Lassi Mango 200ml packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "136d6a3e-3278-45e1-84be-2e40b05c1ca3",
+    "brand": "Glucon-D",
+    "name": "Glucon-D Orange 1kg",
+    "search_query": "Glucon-D Glucon-D Orange 1kg packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "ea18b088-db47-4112-9332-6a308c520f9a",
+    "brand": "Closeup",
+    "name": "Closeup Everfresh Toothpaste 150g",
+    "search_query": "Closeup Closeup Everfresh Toothpaste 150g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "4a4c8539-5cc1-48cd-bf16-76a616562515",
+    "brand": "Rin",
+    "name": "Rin Advanced Detergent Bar 250g",
+    "search_query": "Rin Rin Advanced Detergent Bar 250g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "8d7c89aa-6bd3-4c1a-833c-752e145ffe33",
+    "brand": "Tata Sampann",
+    "name": "Rajma 500g",
+    "search_query": "Tata Sampann Rajma 500g packaging",
+    "new_image_url": ""
+  },
+  {
+    "id": "d9a85fcf-b8b7-475b-8c5b-3f255cd0e693",
+    "brand": "Amul",
+    "name": "Amul Kool Kesar 200ml",
+    "search_query": "Amul Amul Kool Kesar 200ml packaging",
+    "new_image_url": ""
+  }
+]

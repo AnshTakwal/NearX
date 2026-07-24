@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Minus, Plus, Store, MapPin, Truck } from 'lucide-react';
 import SafetyBadge from '../../components/shared/SafetyBadge';
 import DiscountBadge from '../../components/shared/DiscountBadge';
+import { getDiscountInfo } from '../../utils/discountCalc';
 import { getProductById } from '../../api/products';
 import { useCart } from '../../hooks/useCart';
 import { toast } from '../../components/shared/Toast';
@@ -60,9 +61,10 @@ export default function ProductDetailPage() {
     );
   }
 
-  const daysToExpiry = Math.ceil((new Date(product.expiry_date) - new Date()) / (1000 * 60 * 60 * 24));
-  const discount = product.discount_percent;
-  const salePrice = product.sale_price;
+  const discountInfo = getDiscountInfo(product.expiry_date);
+  const daysToExpiry = discountInfo.daysLeft;
+  const discount = discountInfo.discountPercent;
+  const salePrice = Math.round(product.mrp * (1 - discount / 100));
 
   return (
     <div className="bg-[#F7F8FA] min-h-screen py-8 pb-24 md:pb-8 text-gray-900 w-full flex flex-col items-center">

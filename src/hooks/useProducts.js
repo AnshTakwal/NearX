@@ -30,6 +30,16 @@ export function useProducts(filters = {}) {
 
       let deduplicated = data;
 
+      // Deduplicate by name if 'All Stores' is selected
+      if (!currentFilters.storeId) {
+        const seen = new Set();
+        deduplicated = data.filter(p => {
+          if (seen.has(p.name)) return false;
+          seen.add(p.name);
+          return true;
+        });
+      }
+
       // Normalize expiry dates: if most products have past expiry dates,
       // redistribute so only ~10% appear expired and rest have future dates.
       const today = new Date();

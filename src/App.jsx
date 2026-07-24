@@ -26,6 +26,7 @@ import StoreOrdersPage from './pages/store/StoreOrdersPage';
 
 // Delivery
 import DeliveryDashboard from './pages/delivery/DeliveryDashboard';
+import DeliveryHistoryPage from './pages/delivery/DeliveryHistoryPage';
 
 // Shared Components
 import Navbar from './components/shared/Navbar';
@@ -77,6 +78,9 @@ function AppShell() {
         {/* Delivery Routes */}
         <Route path="/delivery/dashboard" element={
           <ProtectedRoute role="delivery_partner"><DeliveryDashboard /></ProtectedRoute>
+        } />
+        <Route path="/delivery/history" element={
+          <ProtectedRoute role="delivery_partner"><DeliveryHistoryPage /></ProtectedRoute>
         } />
 
         <Route path="*" element={<Navigate to="/" />} />
