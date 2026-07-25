@@ -62,11 +62,12 @@ export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete,
       const promptText = `
         You are an AI assistant for a grocery app called NearX.
         The user is searching for: "${searchQuery}"
-        Based on this query, expand it into a broad list of specific grocery products they might be looking for.
+        Based on this query, generate a focused list of specific grocery product keywords to search our database.
         IMPORTANT RULES for keywords:
-        1. Provide at least 15-20 diverse SINGLE-WORD product keywords (e.g., ["milk", "bread", "juice", "snacks", "chips", "oats"]). 
-        2. ALWAYS include the base category words (like "snacks", "beverages", "dairy", "bakery", "cleaning", "pantry") if they relate to the query.
-        3. ALWAYS include the individual relevant words from the user's search query itself (e.g., if they search "healthy snacks", include "healthy" and "snacks" as separate keywords).
+        1. If the user is searching for a specific item (e.g., "cookies", "milk", "bread"), ONLY return exact synonyms, popular brands, and highly relevant variants (e.g., ["cookie", "cookies", "biscuit", "oreo", "bourbon", "parle"]).
+        2. DO NOT include broad category words (like "snacks", "bakery", "dairy") unless the user's query is explicitly broad (e.g., "healthy snacks", "breakfast items").
+        3. ALWAYS include the individual relevant words from the user's search query itself.
+        4. Return 3 to 10 highly precise, SINGLE-WORD keywords to maximize relevance.
         
         Also, determine if they specified a maximum price constraint in the query (e.g. "under 100", "less than 50", "max 200").
         Respond EXACTLY and ONLY with a JSON object in this format, with no markdown formatting or backticks:
