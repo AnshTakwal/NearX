@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { getProducts } from '../api/products';
+import { getDiscountInfo } from '../utils/discountCalc';
 
 /**
  * useProducts — fetches products with optional filters.
@@ -81,8 +82,17 @@ export function useProducts(filters = {}) {
           }
         }
       }
+      // Sort so expired products always appear at the end
+      const finalSorted = deduplicated.sort((a, b) => {
+        const aExpired = getDiscountInfo(a.expiry_date).daysLeft === 0;
+        const bExpired = getDiscountInfo(b.expiry_date).daysLeft === 0;
+        
+        if (aExpired && !bExpired) return 1;
+        if (!aExpired && bExpired) return -1;
+        return 0;
+      });
 
-      setAllProducts(deduplicated);
+      setAllProducts(finalSorted);
     } catch (err) {
       setError(err.message || 'Failed to load products.');
       setAllProducts([]);
