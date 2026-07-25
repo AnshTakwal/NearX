@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, ShoppingBag, ShoppingCart, User } from 'lucide-react';
+import { Home, ShoppingBag, ShoppingCart, User, Package } from 'lucide-react';
 import { useCart } from '../../hooks/useCart';
 
 export default function BottomNav() {
@@ -8,9 +8,10 @@ export default function BottomNav() {
   const { itemCount } = useCart();
 
   const navItems = [
-    { icon: Home, label: 'Home', path: '/home' },
+    { icon: Home, label: 'Home', path: '/products' },
     { icon: ShoppingBag, label: 'Products', path: '/products' },
     { icon: ShoppingCart, label: 'Cart', path: '/cart', badge: itemCount },
+    { icon: Package, label: 'Orders', path: '/orders' },
     { icon: User, label: 'Profile', path: '/profile' }
   ];
 

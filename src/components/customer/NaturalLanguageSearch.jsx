@@ -221,7 +221,7 @@ export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete,
               <button
                 type="submit"
                 disabled={loading || !query.trim()}
-                className="bg-accent text-white px-8 py-3.5 rounded-[12px] font-semibold flex items-center gap-2 transition-all shadow-md active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+                className="bg-primary text-white hover:bg-primary-dark px-8 py-3.5 rounded-[12px] font-semibold flex items-center gap-2 transition-all shadow-md active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {loading ? <Loader2 size={14} className="animate-spin" /> : <GeminiIcon size={14} />}
                 <span className="hidden sm:inline">{loading ? 'Thinking...' : 'Ask AI'}</span>
@@ -230,7 +230,7 @@ export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete,
               <button
                 type="submit"
                 disabled={!query.trim()}
-                className="bg-[#0097A7] text-white px-6 py-3.5 rounded-[12px] font-semibold flex items-center gap-2 transition-all shadow-md active:scale-95 hover:bg-[#007A88] disabled:opacity-70 disabled:cursor-not-allowed"
+                className="bg-primary text-white hover:bg-primary-dark px-6 py-3.5 rounded-[12px] font-semibold flex items-center gap-2 transition-all shadow-md active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 <Search size={16} />
                 <span className="hidden sm:inline">Search</span>

@@ -32,6 +32,13 @@ export default function ProductDetailPage() {
 
   const handleAddToCart = () => {
     if (!product) return;
+    const discountInfo = getDiscountInfo(product.expiry_date);
+    const isExpired = discountInfo.daysLeft === 0;
+
+    if (isExpired) {
+      toast.error('This item has expired and cannot be added to cart.');
+      return;
+    }
     if (product.stock < qty) {
       toast.error('Not enough stock available');
       return;
@@ -82,7 +89,7 @@ export default function ProductDetailPage() {
                   <DiscountBadge discount={discount} />
                 </div>
                 <img 
-                  src={product.image_url || "https://images.unsplash.com/photo-1542838132-92c53300491e?w=500&h=500&fit=crop"} 
+                  src={product.image_url && product.image_url.includes('supabase.co') ? product.image_url : "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/placeholder-1784974879709.png"} 
                   alt={product.name} 
                   className="w-full max-w-sm h-auto object-cover rounded-xl" 
                 />
@@ -139,10 +146,15 @@ export default function ProductDetailPage() {
                 </div>
                 <button 
                   onClick={handleAddToCart}
-                  disabled={product.stock === 0}
-                  className="w-full btn-primary py-4 rounded-xl text-[15px]"
+                  className={`w-full py-4 rounded-xl text-[15px] font-bold flex items-center justify-center gap-2 transition-all duration-200 ${
+                    getDiscountInfo(product.expiry_date).daysLeft === 0
+                      ? 'bg-red-50 text-red-500 cursor-not-allowed border border-red-200'
+                      : product.stock === 0
+                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
+                        : 'btn-primary'
+                  }`}
                 >
-                  {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+                  {getDiscountInfo(product.expiry_date).daysLeft === 0 ? 'Expired' : product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
                 </button>
               </div>
               <p className="text-center sm:text-left text-xs text-gray-400 mt-4 font-medium">

@@ -34,23 +34,7 @@ export function getCart() {
 export function addToCart(product, quantity = 1) {
   const cart = readCart();
 
-  // Different store check
-  if (cart.storeId && cart.storeId !== product.store_id) {
-    const confirmed = window.confirm(
-      `Your cart has items from "${cart.storeName}". Adding this item will clear your current cart. Continue?`
-    );
-    if (!confirmed) return false;
-    // Clear and start fresh
-    const newCart = {
-      storeId: product.store_id,
-      storeName: product.stores?.name || product.store_name || '',
-      items: [{ ...product, cartQty: quantity }],
-    };
-    writeCart(newCart);
-    return true;
-  }
-
-  // Same store or empty cart
+  // We no longer restrict by store_id
   const existing = cart.items.find((i) => i.id === product.id);
   if (existing) {
     cart.items = cart.items.map((i) =>
@@ -116,8 +100,10 @@ export function getCartTotal() {
 
   const saved = mrp - discounted;
   const deliveryFee = cart.items.length > 0 ? 4000 : 0; // ₹40 in paise
-  const total = discounted + deliveryFee;
+  const uniqueStores = new Set(cart.items.map(i => i.store_id)).size;
+  const serviceCharge = uniqueStores > 1 ? 2000 : 0; // ₹20 multi-store fee
+  const total = discounted + deliveryFee + serviceCharge;
   const itemCount = cart.items.reduce((sum, i) => sum + i.cartQty, 0);
 
-  return { mrp, discounted, saved, deliveryFee, total, itemCount };
+  return { mrp, discounted, saved, deliveryFee, serviceCharge, total, itemCount };
 }

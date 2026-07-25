@@ -10,7 +10,7 @@ import { toast } from '../../components/shared/Toast';
 export default function CartPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { cartItems, storeName, updateQuantity, removeFromCart, total, mrp, saved, deliveryFee, clearCart } = useCart();
+  const { cartItems, updateQuantity, removeFromCart, total, mrp, saved, deliveryFee, serviceCharge, clearCart } = useCart();
   const [address, setAddress] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -40,10 +40,18 @@ export default function CartPage() {
     
     setLoading(true);
     try {
-      const newOrder = await placeOrder(cartItems, address.id, user.id);
+      const newOrders = await placeOrder(cartItems, address.id, user.id);
       clearCart();
       toast.success('Order placed successfully!');
-      navigate(`/track/${newOrder.id}`);
+      
+      // If placeOrder returns an array of multiple orders, go to history
+      if (Array.isArray(newOrders) && newOrders.length > 1) {
+        navigate('/history');
+      } else {
+        // Fallback for single order or old returned object
+        const orderId = Array.isArray(newOrders) ? newOrders[0].id : newOrders.id;
+        navigate(`/track/${orderId}`);
+      }
     } catch (err) {
       toast.error(err.message || 'Failed to save order. Please contact support.');
     } finally {
@@ -75,13 +83,13 @@ export default function CartPage() {
           {/* Cart Items */}
           <div className="lg:w-2/3 space-y-4">
             <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-4 flex justify-between items-center">
-              <span className="font-semibold text-gray-700 text-sm">From: {storeName}</span>
+              <span className="font-semibold text-gray-700 text-sm">Your Items</span>
               <button onClick={clearCart} className="text-sm font-semibold text-red-600 bg-red-50 hover:bg-red-100 px-4 py-2 rounded-lg transition-colors cursor-pointer">Clear Cart</button>
             </div>
             
             {cartItems.map((item) => (
               <div key={item.id} className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex gap-4 items-center">
-                <img src={item.image_url || "https://images.unsplash.com/photo-1542838132-92c53300491e"} alt={item.name} className="w-20 h-20 object-cover rounded-xl bg-gray-50 border border-gray-100" />
+                <img src={item.image_url && item.image_url.includes('supabase.co') ? item.image_url : "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/placeholder-1784974879709.png"} alt={item.name} className="w-20 h-20 object-cover rounded-xl bg-gray-50 border border-gray-100" />
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-800 text-[15px] leading-snug">{item.name}</h3>
                   <p className="text-[11px] text-gray-400 font-semibold uppercase tracking-wider mt-1">{item.brand || item.category}</p>
@@ -131,6 +139,12 @@ export default function CartPage() {
                   <span>Delivery Fee</span>
                   <span className="text-gray-800 font-semibold">₹{(deliveryFee / 100).toFixed(2)}</span>
                 </div>
+                {serviceCharge > 0 && (
+                  <div className="flex justify-between text-amber-600">
+                    <span>Multi-store Service Charge</span>
+                    <span className="font-semibold">₹{(serviceCharge / 100).toFixed(2)}</span>
+                  </div>
+                )}
                 <div className="pt-4 border-t border-gray-100 flex justify-between items-baseline">
                   <span className="font-semibold text-gray-800">To Pay</span>
                   <span className="font-bold text-xl text-[#0097A7]">₹{(total / 100).toFixed(2)}</span>

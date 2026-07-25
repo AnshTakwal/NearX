@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, LogOut, User } from 'lucide-react';
+import { ShoppingCart, LogOut, User, History } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
 import { useCart } from '../../hooks/useCart';
 
@@ -45,11 +45,7 @@ export default function Navbar() {
                   </Link>
                   <Link to="/profile" className="p-2 text-white/90 hover:text-white transition-colors flex items-center gap-2.5 group rounded-lg hover:bg-primary-dark">
                     <div className="w-8 h-8 rounded-full bg-white border border-primary-light flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:ring-2 group-hover:ring-accent shadow-sm">
-                      {profile.avatar_url ? (
-                        <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
-                      ) : (
-                        <User size={16} className="text-primary" />
-                      )}
+                      <User size={16} className="text-primary" />
                     </div>
                     <span className="text-sm font-semibold text-white/90 group-hover:text-white transition-colors hidden lg:inline">
                       {profile.full_name?.split(' ')[0]}
@@ -74,6 +70,10 @@ export default function Navbar() {
                 <div className="flex items-center gap-1 mr-2">
                   <Link to="/delivery/dashboard" className="text-sm font-semibold text-white/90 hover:text-white transition-colors py-3 px-4 rounded-lg hover:bg-primary-dark">
                     Dashboard
+                  </Link>
+                  <Link to="/delivery/history" className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/90 hover:text-white transition-colors py-3 px-4 rounded-lg hover:bg-primary-dark">
+                    <History size={16} />
+                    History
                   </Link>
                 </div>
               )}

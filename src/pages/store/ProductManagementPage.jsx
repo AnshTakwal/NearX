@@ -231,7 +231,7 @@ export default function ProductManagementPage() {
                   return (
                     <tr key={p.id}>
                       <td className="flex items-center gap-3">
-                        <img src={p.image_url || "https://images.unsplash.com/photo-1542838132-92c53300491e"} alt={p.name} className="w-11 h-11 rounded-lg object-cover bg-gray-50 border border-gray-100" />
+                        <img src={p.image_url && p.image_url.includes('supabase.co') ? p.image_url : "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/placeholder-1784974879709.png"} alt={p.name} className="w-11 h-11 rounded-lg object-cover bg-gray-50 border border-gray-100" />
                         <div>
                           <p className="font-semibold text-gray-900">{p.name}</p>
                           <p className="text-xs text-gray-500">{p.category}</p>

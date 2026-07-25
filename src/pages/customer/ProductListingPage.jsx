@@ -142,7 +142,7 @@ export default function ProductListingPage() {
               onClick={() => setSelectedStoreId(null)}
               className={`px-5 py-2.5 rounded-full text-[14px] font-semibold whitespace-nowrap transition-all flex items-center gap-2 ${
                 selectedStoreId === null
-                  ? 'bg-[#00BCD4] text-white shadow-md'
+                  ? 'bg-primary text-white shadow-md'
                   : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
               }`}
             >
@@ -155,7 +155,7 @@ export default function ProductListingPage() {
                 onClick={() => setSelectedStoreId(store.id)}
                 className={`px-5 py-2.5 rounded-full text-[14px] font-semibold whitespace-nowrap transition-all ${
                   selectedStoreId === store.id
-                    ? 'bg-[#00BCD4] text-white shadow-md'
+                    ? 'bg-primary text-white shadow-md'
                     : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
                 }`}
               >
@@ -165,8 +165,7 @@ export default function ProductListingPage() {
           </div>
         </div>
 
-        <div className="mt-6 mb-8 border-t border-gray-100 pt-8">
-          <h2 className="text-xs font-medium uppercase tracking-wider text-gray-400 mb-6">Or browse normally</h2>
+        <div className="mt-6 mb-8">
 
           {/* Header & Filters */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
@@ -174,9 +173,6 @@ export default function ProductListingPage() {
               <h1 className="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">
                 {aiKeywords !== null ? 'AI Search Results' : flashParam ? 'Flash Deals' : selectedCategory !== 'All' ? `${selectedCategory} Deals` : 'All Deals'}
               </h1>
-              <p className="text-xs text-gray-500 font-medium uppercase tracking-wider mt-1.5">
-                {products.length}{totalCount > products.length ? ` of ${totalCount}` : ''} fresh items near you
-              </p>
             </div>
 
             <div className="flex gap-3 w-full md:w-auto items-center">

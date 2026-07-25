@@ -12,7 +12,7 @@ import { toast } from '../components/shared/Toast';
 export const AuthContext = createContext(null);
 
 const ROLE_HOME = {
-  customer: '/home',
+  customer: '/products',
   store_owner: '/store/dashboard',
   delivery_partner: '/delivery/dashboard',
 };
@@ -79,10 +79,10 @@ export function AuthProvider({ children }) {
 
   /**
    * Login with email + password.
-   * Verifies the selected role matches the profile role.
+   * Role is read from the user's profile in the DB — no role selection needed.
    */
   const login = useCallback(
-    async (email, password, selectedRole) => {
+    async (email, password) => {
       try {
         const { data, error } = await supabase.auth.signInWithPassword({
           email,
@@ -92,23 +92,6 @@ export function AuthProvider({ children }) {
 
         const prof = await fetchProfile(data.user.id);
         if (!prof) throw new Error('Profile not found. Please contact support.');
-
-        // Map UI role labels to DB enum values
-        const roleMap = {
-          customer: 'customer',
-          store: 'store_owner',
-          delivery: 'delivery_partner',
-        };
-        const expectedRole = roleMap[selectedRole] || selectedRole;
-
-        if (prof.role !== expectedRole) {
-          await supabase.auth.signOut();
-          setUser(null);
-          setProfile(null);
-          throw new Error(
-            `Wrong role selected. This account is registered as "${prof.role.replace('_', ' ')}".`
-          );
-        }
 
         toast.success(`Welcome back, ${prof.full_name}!`);
         navigate(ROLE_HOME[prof.role] || '/');
@@ -120,6 +103,7 @@ export function AuthProvider({ children }) {
     },
     [fetchProfile, navigate]
   );
+
 
   /**
    * Register a new user.

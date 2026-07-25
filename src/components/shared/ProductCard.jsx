@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, AlertTriangle } from 'lucide-react';
+import { ShoppingCart, AlertTriangle, Store, Ban } from 'lucide-react';
 import SafetyBadge from './SafetyBadge';
 import DiscountBadge from './DiscountBadge';
 import { getDiscountInfo, getDiscountedPrice } from '../../utils/discountCalc';
@@ -19,8 +19,8 @@ export default function ProductCard({ product }) {
   // Calculate sale price dynamically from MRP and dynamic discount
   const dynamicSalePrice = Math.round(mrp * (1 - dynamicDiscountPercent / 100));
 
-  // Check if product is expired
-  const isExpired = daysLeft < 0;
+  // Check if product is expired (discountCalc floors daysLeft to 0 when expired)
+  const isExpired = daysLeft === 0;
   const isOutOfStock = stock <= 0;
   const isUnavailable = isExpired || isOutOfStock;
 
@@ -45,51 +45,26 @@ export default function ProductCard({ product }) {
   };
 
   // Dynamically resolve image URL if it's an emoji or missing
-  const getImageUrl = (url, prodName, cat) => {
-    const lowerName = prodName.toLowerCase();
-    
-    // Exact mapping for all DB products to guarantee accurate images (overrides DB fallback)
-    if (lowerName.includes('juice')) return 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Orangejuice.jpg/500px-Orangejuice.jpg';
-    if (lowerName.includes('milk')) return 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Glass_of_Milk_%2833657535532%29.jpg/500px-Glass_of_Milk_%2833657535532%29.jpg';
-    if (lowerName.includes('cheese')) return 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Cheese_platter.jpg/500px-Cheese_platter.jpg';
-    if (lowerName.includes('curd') || lowerName.includes('yogurt')) return 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Curd_Setting.jpg/500px-Curd_Setting.jpg';
-    if (lowerName.includes('coffee')) return 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Affogato_al_Caffe.jpg/500px-Affogato_al_Caffe.jpg';
-    if (lowerName.includes('bread')) return 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Korb_mit_Br%C3%B6tchen.JPG/500px-Korb_mit_Br%C3%B6tchen.JPG';
-    if (lowerName.includes('croissant')) return 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Croissant-Petr_Kratochvil.jpg/500px-Croissant-Petr_Kratochvil.jpg';
-    if (lowerName.includes('apples')) return 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Pink_lady_and_cross_section.jpg/500px-Pink_lady_and_cross_section.jpg';
-    if (lowerName.includes('cookies') || lowerName.includes('choco')) return 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Choco_chip_cookie.png/500px-Choco_chip_cookie.png';
-    if (lowerName.includes('oats')) return 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Rolled_oats.jpg/500px-Rolled_oats.jpg';
-    if (lowerName.includes('salt') && !lowerName.includes('chips')) return 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Salt_shaker_on_white_background.jpg/500px-Salt_shaker_on_white_background.jpg'; // Wiki salt
-    if (lowerName.includes('chips')) return 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Potato-Chips.jpg/500px-Potato-Chips.jpg'; // Wiki chips
-    if (lowerName.includes('noodle')) return 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Instant_noodles.jpg/500px-Instant_noodles.jpg'; // Wiki noodles
-    if (lowerName.includes('clean') || lowerName.includes('wash')) return 'https://images.unsplash.com/photo-1585421514738-01798e348b17?w=400&h=400&fit=crop';
-
-    if (url && url.startsWith('http')) return url;
-
-    const fallbackMap = {
-      'Dairy': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Glass_of_Milk_%2833657535532%29.jpg/500px-Glass_of_Milk_%2833657535532%29.jpg',
-      'Bakery': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Korb_mit_Br%C3%B6tchen.JPG/500px-Korb_mit_Br%C3%B6tchen.JPG',
-      'Beverages': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Orangejuice.jpg/500px-Orangejuice.jpg',
-      'Snacks': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Potato-Chips.jpg/500px-Potato-Chips.jpg',
-      'Pantry': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Rolled_oats.jpg/500px-Rolled_oats.jpg',
-      'Cleaning': 'https://images.unsplash.com/photo-1585421514738-01798e348b17?w=400&h=400&fit=crop'
-    };
-
-    return fallbackMap[cat] || 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&h=400&fit=crop';
+  const getImageUrl = (url, name, cat) => {
+    if (url && url.includes('supabase.co')) return url;
+    return 'https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/placeholder-1784974879709.png';
   };
 
   const finalImageUrl = getImageUrl(image_url, name, product.category);
 
+  const Wrapper = isExpired ? 'div' : Link;
+  const wrapperProps = isExpired ? {} : { to: `/product/${id}` };
+
   return (
-    <Link
-      to={`/product/${id}`}
+    <Wrapper
+      {...wrapperProps}
       className={`bg-white rounded-[16px] shadow-sm hover:shadow-xl hover:-translate-y-1.5 border border-gray-100 p-4 transition-all duration-300 group flex flex-col relative overflow-hidden h-full min-h-[340px] justify-between ${
         isExpired
-          ? 'opacity-50 grayscale pointer-events-auto hover:-translate-y-0 hover:shadow-sm'
+          ? 'opacity-70 grayscale-[0.5] !cursor-not-allowed hover:-translate-y-0 hover:shadow-sm'
           : ''
       }`}
     >
-      <div>
+      <div className={isExpired ? 'pointer-events-none' : ''}>
         {/* Discount Badge */}
         <div className="absolute top-3.5 right-3.5 z-10">
           <DiscountBadge discount={dynamicDiscountPercent} />
@@ -112,7 +87,7 @@ export default function ProductCard({ product }) {
               isExpired ? '' : 'group-hover:scale-105'
             }`}
             onError={(e) => {
-              e.target.src = "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&h=400&fit=crop";
+              e.target.src = "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/placeholder-1784974879709.png";
             }}
           />
           {isOutOfStock && !isExpired && (
@@ -130,7 +105,15 @@ export default function ProductCard({ product }) {
 
         {/* Product Information */}
         <div className="space-y-2">
-          <p className="text-[11px] text-gray-400 font-semibold tracking-wider uppercase">{brand || 'Generic'}</p>
+          <div className="flex justify-between items-center gap-2">
+            <p className="text-[11px] text-gray-400 font-semibold tracking-wider uppercase truncate">{brand || 'Generic'}</p>
+            {product.stores?.name && (
+              <span className="text-[10px] bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-full font-bold flex items-center gap-1 max-w-[120px]">
+                <Store size={10} className="shrink-0" />
+                <span className="truncate">{product.stores.name}</span>
+              </span>
+            )}
+          </div>
           <h3 className={`text-[15px] font-semibold leading-snug line-clamp-2 transition-colors ${
             isExpired ? 'text-gray-500' : 'text-gray-900 group-hover:text-primary'
           }`}>{name}</h3>
@@ -149,18 +132,17 @@ export default function ProductCard({ product }) {
         </div>
         <button
           onClick={handleAddToCart}
-          disabled={isUnavailable}
           className={`w-full py-4 rounded-full text-[15px] font-bold flex items-center justify-center gap-2 transition-all duration-200 ${
             isExpired
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
+              ? 'bg-red-50 text-red-500 cursor-not-allowed border border-red-200'
               : isOutOfStock
                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
-                : 'bg-accent text-white hover:bg-accent-dark shadow-sm active:scale-95'
+                : 'bg-primary text-white hover:bg-primary-dark shadow-sm active:scale-95'
           }`}
         >
           {isExpired ? (
             <>
-              <AlertTriangle size={14} />
+              <Ban size={16} strokeWidth={2.5} />
               <span>Expired</span>
             </>
           ) : isOutOfStock ? (
@@ -176,6 +158,6 @@ export default function ProductCard({ product }) {
           )}
         </button>
       </div>
-    </Link>
+    </Wrapper>
   );
 }

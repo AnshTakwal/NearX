@@ -13,71 +13,97 @@ export async function placeOrder(cartItems, addressId, customerId) {
       throw new Error('Cart is empty');
     }
 
-    const storeId = cartItems[0].store_id;
-    const subtotal = cartItems.reduce(
-      (sum, item) => sum + item.sale_price * (item.quantity || item.cartQty || 1),
-      0
-    );
-    const deliveryFee = 4000; // 4000 paise = ₹40
-    const total = subtotal + deliveryFee;
-    const savings = cartItems.reduce(
-      (sum, item) => sum + ((item.mrp || item.sale_price) - item.sale_price) * (item.quantity || item.cartQty || 1),
-      0
-    );
-
-    // Insert order
-    const { data: order, error: orderError } = await supabase
-      .from('orders')
-      .insert([
-        {
-          customer_id: customerId,
-          store_id: storeId,
-          address_id: addressId,
-          status: 'placed',
-          subtotal,
-          delivery_fee: deliveryFee,
-          total,
-          savings,
-          payment_status: 'pending',
-          payment_id: null,
-        },
-      ])
-      .select()
-      .single();
-
-    if (orderError) throw orderError;
-
-    // Insert order items
-    const orderItems = cartItems.map((item) => ({
-      order_id: order.id,
-      product_id: item.id,
-      product_name: item.name,
-      quantity: item.quantity || item.cartQty || 1,
-      unit_price: item.sale_price,
-      total_price: item.sale_price * (item.quantity || item.cartQty || 1),
-    }));
-
-    const { error: itemsError } = await supabase
-      .from('order_items')
-      .insert(orderItems);
-
-    if (itemsError) throw itemsError;
-
-    // Decrement stock for each item (use RPC for atomic operation)
+    // Group items by store
+    const storeGroups = {};
     for (const item of cartItems) {
-      const { data: success, error: stockError } = await supabase.rpc(
-        'decrement_stock',
-        { p_product_id: item.id, p_quantity: item.quantity || item.cartQty || 1 }
-      );
-      if (stockError) {
-        console.warn('Stock decrement failed for product:', item.id, stockError);
+      if (!storeGroups[item.store_id]) {
+        storeGroups[item.store_id] = [];
       }
-      if (success === false) {
-        console.warn('Insufficient stock for product:', item.id);
+      storeGroups[item.store_id].push(item);
+    }
+
+    const storeIds = Object.keys(storeGroups);
+    const numStores = storeIds.length;
+    const totalDeliveryFee = 4000; // base delivery
+    const multiStoreFee = numStores > 1 ? 2000 : 0; // multi-store service charge
+    
+    // Distribute fees evenly (in paise, integer division)
+    const baseDeliveryPerStore = Math.floor((totalDeliveryFee + multiStoreFee) / numStores);
+    let remainderFee = (totalDeliveryFee + multiStoreFee) % numStores;
+
+    const createdOrders = [];
+
+    for (const storeId of storeIds) {
+      const items = storeGroups[storeId];
+      const subtotal = items.reduce(
+        (sum, item) => sum + item.sale_price * (item.quantity || item.cartQty || 1),
+        0
+      );
+      const savings = items.reduce(
+        (sum, item) => sum + ((item.mrp || item.sale_price) - item.sale_price) * (item.quantity || item.cartQty || 1),
+        0
+      );
+
+      const deliveryFee = baseDeliveryPerStore + (remainderFee > 0 ? 1 : 0);
+      if (remainderFee > 0) remainderFee--;
+
+      const total = subtotal + deliveryFee;
+
+      // Insert order
+      const { data: order, error: orderError } = await supabase
+        .from('orders')
+        .insert([
+          {
+            customer_id: customerId,
+            store_id: storeId,
+            address_id: addressId,
+            status: 'placed',
+            subtotal,
+            delivery_fee: deliveryFee,
+            total,
+            savings,
+            payment_status: 'pending',
+            payment_id: null,
+          },
+        ])
+        .select()
+        .single();
+
+      if (orderError) throw orderError;
+      createdOrders.push(order);
+
+      // Insert order items
+      const orderItems = items.map((item) => ({
+        order_id: order.id,
+        product_id: item.id,
+        product_name: item.name,
+        quantity: item.quantity || item.cartQty || 1,
+        unit_price: item.sale_price,
+        total_price: item.sale_price * (item.quantity || item.cartQty || 1),
+      }));
+
+      const { error: itemsError } = await supabase
+        .from('order_items')
+        .insert(orderItems);
+
+      if (itemsError) throw itemsError;
+
+      // Decrement stock for each item
+      for (const item of items) {
+        const { data: success, error: stockError } = await supabase.rpc(
+          'decrement_stock',
+          { p_product_id: item.id, p_quantity: item.quantity || item.cartQty || 1 }
+        );
+        if (stockError) {
+          console.warn('Stock decrement failed for product:', item.id, stockError);
+        }
+        if (success === false) {
+          console.warn('Insufficient stock for product:', item.id);
+        }
       }
     }
 
-    return order;
+    return createdOrders;
   } catch (err) {
     console.error('placeOrder error:', err);
     throw err;
@@ -255,25 +281,34 @@ export async function getDeliveryHistory(deliveryPartnerId) {
 }
 
 /**
- * Update delivery assignment status (picked_up / delivered).
+ * Update delivery assignment status (picked_up / in_transit / delivered).
+ * Uses SECURITY DEFINER RPC so the partner can also update orders.status
+ * when marking as delivered (bypasses RLS on orders table).
  */
 export async function updateDeliveryStatus(assignmentId, status) {
   try {
-    const updates = { status };
-    if (status === 'picked_up') updates.picked_up_at = new Date().toISOString();
-    if (status === 'delivered') updates.delivered_at = new Date().toISOString();
-
-    const { data, error } = await supabase
-      .from('delivery_assignments')
-      .update(updates)
-      .eq('id', assignmentId)
-      .select()
-      .single();
-
-    if (error) throw error;
-    return data;
+    const res = await fetch('/api/delivery-status', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ assignmentId, status })
+    });
+    
+    const contentType = res.headers.get("content-type");
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to update delivery status');
+      }
+      return data;
+    } else {
+      const text = await res.text();
+      console.error('Non-JSON response from server:', text);
+      throw new Error(`Server returned ${res.status}: ${res.statusText}. Is the Node backend running?`);
+    }
   } catch (err) {
-    console.error('updateDeliveryStatus error:', err);
+    console.error('updateDeliveryStatus catch:', err);
     throw err;
   }
 }
@@ -303,7 +338,7 @@ export async function getAvailableDeliveryOrders() {
       .in('status', ['placed', 'accepted', 'packed', 'out_for_delivery']);
 
     if (assignedIds.length > 0) {
-      query = query.not('id', 'in', assignedIds);
+      query = query.not('id', 'in', `(${assignedIds.join(',')})`);
     }
 
     const { data, error } = await query.order('created_at', { ascending: false });
@@ -316,23 +351,17 @@ export async function getAvailableDeliveryOrders() {
 }
 
 /**
- * Accept a delivery request by creating a delivery assignment.
+ * Accept a delivery request.
+ * Uses SECURITY DEFINER RPC so accepting also flips orders.status
+ * to 'out_for_delivery' (store owner can then see partner is assigned).
  */
 export async function acceptDeliveryRequest(orderId, partnerId) {
   try {
-    // Create delivery assignment
-    const { data, error } = await supabase
-      .from('delivery_assignments')
-      .insert([
-        {
-          order_id: orderId,
-          partner_id: partnerId,
-          status: 'assigned',
-          earnings: 4000 // ₹40.00
-        }
-      ])
-      .select()
-      .single();
+    const { data, error } = await supabase.rpc('accept_delivery_order', {
+      p_order_id: orderId,
+      p_partner_id: partnerId,
+      p_earnings: 4000,
+    });
 
     if (error) throw error;
     return data;
@@ -341,4 +370,3 @@ export async function acceptDeliveryRequest(orderId, partnerId) {
     throw err;
   }
 }
-

@@ -72,6 +72,7 @@ export function useCart() {
     discounted: totals.discounted,
     saved: totals.saved,
     deliveryFee: totals.deliveryFee,
+    serviceCharge: totals.serviceCharge,
     addToCart,
     removeFromCart,
     updateQuantity,

@@ -126,7 +126,59 @@ Your task:
   }
 });
 
+// POST /api/delivery-status
+// Updates the delivery assignment and syncs back to the orders table bypassing RLS
+app.post('/api/delivery-status', async (req, res) => {
+  const { assignmentId, status } = req.body;
+  if (!assignmentId || !status) {
+    return res.status(400).json({ error: 'assignmentId and status are required' });
+  }
+
+  try {
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!supabaseServiceKey) {
+      return res.status(500).json({ error: 'Service role key not configured' });
+    }
+    
+    const serviceClient = createClient(supabaseUrl, supabaseServiceKey);
+
+    const { data: updateData, error: updateErr } = await serviceClient
+      .from('delivery_assignments')
+      .update({ status, updated_at: new Date().toISOString() })
+      .eq('id', assignmentId)
+      .select('order_id')
+      .single();
+
+    if (updateErr) throw updateErr;
+    if (!updateData) throw new Error('Assignment not found');
+
+    // Map delivery_status to order_status enum
+    let mappedOrderStatus = status;
+    if (status === 'picked_up' || status === 'in_transit') {
+      mappedOrderStatus = 'out_for_delivery';
+    } else if (status === 'failed') {
+      // Don't update order status if delivery failed (could be reassigned)
+      // or set it to a specific status if needed. For now, we skip updating order status.
+      mappedOrderStatus = null; 
+    }
+
+    if (mappedOrderStatus) {
+      const { error: orderErr } = await serviceClient
+        .from('orders')
+        .update({ status: mappedOrderStatus, updated_at: new Date().toISOString() })
+        .eq('id', updateData.order_id);
+
+      if (orderErr) throw orderErr;
+    }
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Delivery Status Update Error:", error);
+    res.status(500).json({ error: error.message || 'An error occurred' });
+  }
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`NearX Search Server running on http://localhost:${PORT}`);
+  console.log(`NearX Server running on http://localhost:${PORT}`);
 });

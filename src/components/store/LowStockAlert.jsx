@@ -39,7 +39,7 @@ export default function LowStockAlert({ products }) {
               <div key={product.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-white border border-gray-100 overflow-hidden flex-shrink-0">
-                    <img src={product.image_url || "https://images.unsplash.com/photo-1542838132-92c53300491e"} alt={product.name} className="w-full h-full object-cover" />
+                    <img src={product.image_url && product.image_url.includes('supabase.co') ? product.image_url : "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/placeholder-1784974879709.png"} alt={product.name} className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <p className="text-sm font-bold text-gray-900 line-clamp-1">{product.name}</p>

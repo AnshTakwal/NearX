@@ -144,7 +144,8 @@ export default function DeliveryDashboard() {
         setActiveOrder({ ...activeOrder, status: newStatus });
       }
     } catch (err) {
-      toast.error("Failed to update status");
+      console.error(err);
+      toast.error(err.message || "Failed to update status");
     } finally {
       setUpdating(false);
     }

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { User, Store, Bike, Loader2, Mail, Lock } from 'lucide-react';
+import { Loader2, Mail, Lock } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
 export default function LoginPage() {
-  const [role, setRole] = useState('customer');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -16,7 +15,7 @@ export default function LoginPage() {
     setError('');
     setLoading(true);
     try {
-      await login(email, password, role);
+      await login(email, password);
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.');
     } finally {
@@ -86,29 +85,6 @@ export default function LoginPage() {
               <p className="text-gray-500 text-[15px]">Enter your credentials to continue.</p>
             </div>
 
-            {/* Role Selector */}
-            <div className="flex p-1.5 bg-gray-50 rounded-xl mb-8 border border-gray-100">
-              {[
-                { id: 'customer', icon: User, label: 'Customer' },
-                { id: 'store', icon: Store, label: 'Store' },
-                { id: 'delivery', icon: Bike, label: 'Delivery' }
-              ].map((r) => (
-                <button
-                  key={r.id}
-                  type="button"
-                  onClick={() => setRole(r.id)}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                    role === r.id
-                      ? 'bg-[#0097A7] text-white shadow-md'
-                      : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
-                  }`}
-                >
-                  <r.icon size={16} />
-                  <span>{r.label}</span>
-                </button>
-              ))}
-            </div>
-
             {error && (
               <div className="mb-6 bg-red-50 border border-red-100 text-red-700 text-sm py-3.5 px-4 rounded-xl font-medium">
                 {error}
@@ -158,7 +134,7 @@ export default function LoginPage() {
                   <><Loader2 size={18} className="animate-spin" /> Signing in...</>
                 ) : (
                   <>
-                    <span>Continue as {role.charAt(0).toUpperCase() + role.slice(1)}</span>
+                    <span>Sign In</span>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
