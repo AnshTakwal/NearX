@@ -15,7 +15,7 @@ NearX connects consumers with local grocery stores and supermarkets to purchase 
 - `src/hooks` - Custom hooks (`useAuth`, `useCart`, `useProducts`, `useOrders`, etc.)
 - `src/pages` - Page components divided by user roles (`customer`, `store`, `delivery`)
 - `src/utils` - Utility functions like dynamic discount calculations
-- `server/` - Node.js Express server for Razorpay integration
+- `server/` - Modular Node.js Express backend (Controllers, Routes, Services, Config, Middlewares) for API integrations
 - `database/` - SQL scripts for Supabase schema, RLS policies, and dummy data
 - `scripts/` - Node.js scripts for bulk data processing, image scraping, and database seeding
 
@@ -52,7 +52,7 @@ npm install
 npm run dev
 ```
 
-**Terminal 2: Start the Backend (Razorpay Server)**
+**Terminal 2: Start the Backend (API Server)**
 ```bash
 cd server
 npm install
