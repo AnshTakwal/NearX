@@ -84,8 +84,9 @@ export function AuthProvider({ children }) {
   const login = useCallback(
     async (email, password) => {
       try {
+        const normalizedEmail = email.trim().toLowerCase();
         const { data, error } = await supabase.auth.signInWithPassword({
-          email,
+          email: normalizedEmail,
           password,
         });
         if (error) throw error;
@@ -119,8 +120,9 @@ export function AuthProvider({ children }) {
       const role = roleMap[selectedRole] || 'customer';
 
       try {
+        const normalizedEmail = userData.email.trim().toLowerCase();
         const { data, error } = await supabase.auth.signUp({
-          email: userData.email,
+          email: normalizedEmail,
           password: userData.password,
           options: {
             data: {

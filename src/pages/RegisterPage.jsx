@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { User, Store, Bike, Loader2, Mail, Phone, Lock, MapPin, Globe, Search } from 'lucide-react';
+import { User, Store, Bike, Loader2, Mail, Phone, Lock, MapPin, Globe, Search, AlertCircle } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import '../lib/leaflet-setup';
@@ -21,6 +21,7 @@ export default function RegisterPage() {
   const [role, setRole] = useState(initialRole);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
   const { register } = useAuth();
   
   const mapRef = useRef(null);
@@ -123,16 +124,94 @@ export default function RegisterPage() {
     }
   }, [role]);
 
+  // --- Validation helpers ---
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const PHONE_REGEX = /^\d{10}$/;
+
+  const validateForm = () => {
+    const errors = {};
+
+    // Full Name
+    if (!form.fullName.trim()) {
+      errors.fullName = 'Full name is required.';
+    }
+
+    // Email: trim + lowercase, then validate format
+    const normalizedEmail = form.email.trim().toLowerCase();
+    if (!normalizedEmail) {
+      errors.email = 'Email is required.';
+    } else if (!EMAIL_REGEX.test(normalizedEmail)) {
+      errors.email = 'Please enter a valid email address.';
+    }
+
+    // Phone: exactly 10 digits
+    const digitsOnly = form.phone.replace(/\D/g, '');
+    if (!form.phone.trim()) {
+      errors.phone = 'Phone number is required.';
+    } else if (!PHONE_REGEX.test(digitsOnly)) {
+      errors.phone = 'Phone number must be exactly 10 digits.';
+    }
+
+    // Password: 8+ characters
+    if (!form.password) {
+      errors.password = 'Password is required.';
+    } else if (form.password.length < 8) {
+      errors.password = 'Password must be at least 8 characters.';
+    }
+
+    // Store-specific fields
+    if (role === 'store') {
+      if (!form.storeName.trim()) {
+        errors.storeName = 'Store name is required.';
+      }
+    }
+
+    // Address fields for store & customer
+    if (role === 'store' || role === 'customer') {
+      if (!form.storeAddress.trim()) {
+        errors.storeAddress = 'Address is required.';
+      }
+      if (!form.city.trim()) {
+        errors.city = 'City is required.';
+      }
+      if (!form.pincode.trim()) {
+        errors.pincode = 'Pincode is required.';
+      }
+    }
+
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (!validateForm()) return;
+
+    // Normalize email before sending
+    const normalizedForm = {
+      ...form,
+      fullName: form.fullName.trim(),
+      email: form.email.trim().toLowerCase(),
+      phone: form.phone.replace(/\D/g, ''),
+    };
+
     setLoading(true);
     try {
-      await register(form, role);
+      await register(normalizedForm, role);
     } catch (err) {
       setError(err.message || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Clear field error when user edits the field
+  const handleFieldChange = (field) => (e) => {
+    setForm((f) => ({ ...f, [field]: e.target.value }));
+    if (fieldErrors[field]) {
+      setFieldErrors((prev) => { const next = { ...prev }; delete next[field]; return next; });
     }
   };
 
@@ -292,68 +371,76 @@ export default function RegisterPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-2">Full Name</label>
                 <div className="relative">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                  <User className={`absolute left-4 top-1/2 -translate-y-1/2 ${fieldErrors.fullName ? 'text-red-400' : 'text-gray-400'}`} size={18} />
                   <input 
                     type="text" 
                     value={form.fullName} 
-                    onChange={handle('fullName')}
+                    onChange={handleFieldChange('fullName')}
                     style={{ paddingLeft: '3rem' }}
-                    className="input-premium bg-gray-50 focus:bg-white w-full"
+                    className={`input-premium bg-gray-50 focus:bg-white w-full ${fieldErrors.fullName ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
                     placeholder="Enter full name"
-                    required 
                   />
                 </div>
+                {fieldErrors.fullName && (
+                  <p className="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1"><AlertCircle size={12} />{fieldErrors.fullName}</p>
+                )}
               </div>
               
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-2">Email Address</label>
                 <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                  <Mail className={`absolute left-4 top-1/2 -translate-y-1/2 ${fieldErrors.email ? 'text-red-400' : 'text-gray-400'}`} size={18} />
                   <input 
                     type="email" 
                     value={form.email} 
-                    onChange={handle('email')}
+                    onChange={handleFieldChange('email')}
                     style={{ paddingLeft: '3rem' }}
-                    className="input-premium bg-gray-50 focus:bg-white w-full"
+                    className={`input-premium bg-gray-50 focus:bg-white w-full ${fieldErrors.email ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
                     placeholder="Enter email address"
-                    required 
                     autoComplete="email" 
                   />
                 </div>
+                {fieldErrors.email && (
+                  <p className="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1"><AlertCircle size={12} />{fieldErrors.email}</p>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-2">Phone Number</label>
                 <div className="relative">
-                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                  <Phone className={`absolute left-4 top-1/2 -translate-y-1/2 ${fieldErrors.phone ? 'text-red-400' : 'text-gray-400'}`} size={18} />
                   <input 
                     type="tel" 
                     value={form.phone} 
-                    onChange={handle('phone')}
+                    onChange={handleFieldChange('phone')}
                     style={{ paddingLeft: '3rem' }}
-                    className="input-premium bg-gray-50 focus:bg-white w-full"
-                    placeholder="Enter phone number" 
-                    required
+                    className={`input-premium bg-gray-50 focus:bg-white w-full ${fieldErrors.phone ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
+                    placeholder="Enter 10-digit phone number"
+                    maxLength={10}
                   />
                 </div>
+                {fieldErrors.phone && (
+                  <p className="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1"><AlertCircle size={12} />{fieldErrors.phone}</p>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-2">Password</label>
                 <div className="relative">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                  <Lock className={`absolute left-4 top-1/2 -translate-y-1/2 ${fieldErrors.password ? 'text-red-400' : 'text-gray-400'}`} size={18} />
                   <input 
                     type="password" 
                     value={form.password} 
-                    onChange={handle('password')}
+                    onChange={handleFieldChange('password')}
                     style={{ paddingLeft: '3rem' }}
-                    className="input-premium bg-gray-50 focus:bg-white w-full"
-                    placeholder="Enter password"
-                    required 
-                    minLength={6} 
+                    className={`input-premium bg-gray-50 focus:bg-white w-full ${fieldErrors.password ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
+                    placeholder="Minimum 8 characters"
                     autoComplete="new-password" 
                   />
                 </div>
+                {fieldErrors.password && (
+                  <p className="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1"><AlertCircle size={12} />{fieldErrors.password}</p>
+                )}
               </div>
 
               {role === 'store' && (
@@ -361,16 +448,18 @@ export default function RegisterPage() {
                   <div>
                     <label className="block text-sm font-medium text-gray-600 mb-2">Store Name</label>
                     <div className="relative">
-                      <Store className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                      <Store className={`absolute left-4 top-1/2 -translate-y-1/2 ${fieldErrors.storeName ? 'text-red-400' : 'text-gray-400'}`} size={18} />
                       <input 
                         type="text" 
                         value={form.storeName} 
-                        onChange={handle('storeName')}
+                        onChange={handleFieldChange('storeName')}
                         style={{ paddingLeft: '3rem' }}
-                        className="input-premium bg-gray-50 focus:bg-white w-full"
+                        className={`input-premium bg-gray-50 focus:bg-white w-full ${fieldErrors.storeName ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
                         placeholder="Enter store name"
-                        required 
                       />
+                      {fieldErrors.storeName && (
+                        <p className="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1"><AlertCircle size={12} />{fieldErrors.storeName}</p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -381,17 +470,19 @@ export default function RegisterPage() {
                   <div>
                     <label className="block text-sm font-medium text-gray-600 mb-2">{role === 'store' ? 'Store Address' : 'Full Address'}</label>
                     <div className="relative">
-                      <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                      <MapPin className={`absolute left-4 top-1/2 -translate-y-1/2 ${fieldErrors.storeAddress ? 'text-red-400' : 'text-gray-400'}`} size={18} />
                       <input 
                         type="text" 
                         value={form.storeAddress} 
-                        onChange={handle('storeAddress')}
+                        onChange={handleFieldChange('storeAddress')}
                         style={{ paddingLeft: '3rem' }}
-                        className="input-premium bg-gray-50 focus:bg-white w-full"
+                        className={`input-premium bg-gray-50 focus:bg-white w-full ${fieldErrors.storeAddress ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
                         placeholder="Enter full address"
-                        required
                       />
                     </div>
+                    {fieldErrors.storeAddress && (
+                      <p className="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1"><AlertCircle size={12} />{fieldErrors.storeAddress}</p>
+                    )}
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -399,22 +490,26 @@ export default function RegisterPage() {
                       <input 
                         type="text" 
                         value={form.city} 
-                        onChange={handle('city')}
-                        className="input-premium bg-gray-50 focus:bg-white w-full"
+                        onChange={handleFieldChange('city')}
+                        className={`input-premium bg-gray-50 focus:bg-white w-full ${fieldErrors.city ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
                         placeholder="Enter city"
-                        required
                       />
+                      {fieldErrors.city && (
+                        <p className="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1"><AlertCircle size={12} />{fieldErrors.city}</p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-600 mb-2">Pincode</label>
                       <input 
                         type="text" 
                         value={form.pincode} 
-                        onChange={handle('pincode')}
-                        className="input-premium bg-gray-50 focus:bg-white w-full"
+                        onChange={handleFieldChange('pincode')}
+                        className={`input-premium bg-gray-50 focus:bg-white w-full ${fieldErrors.pincode ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
                         placeholder="Enter pincode"
-                        required
                       />
+                      {fieldErrors.pincode && (
+                        <p className="mt-1.5 text-xs text-red-500 font-medium flex items-center gap-1"><AlertCircle size={12} />{fieldErrors.pincode}</p>
+                      )}
                     </div>
                   </div>
                   
