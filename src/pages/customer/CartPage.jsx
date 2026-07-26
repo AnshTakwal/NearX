@@ -44,9 +44,8 @@ export default function CartPage() {
       clearCart();
       toast.success('Order placed successfully!');
       
-      // If placeOrder returns an array of multiple orders, go to history
       if (Array.isArray(newOrders) && newOrders.length > 1) {
-        navigate('/history');
+        navigate('/orders');
       } else {
         // Fallback for single order or old returned object
         const orderId = Array.isArray(newOrders) ? newOrders[0].id : newOrders.id;
