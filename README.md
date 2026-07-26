@@ -3,25 +3,30 @@
 NearX connects consumers with local grocery stores and supermarkets to purchase near-expiry products at heavily discounted prices, reducing food waste and saving money.
 
 ## Tech Stack
-- **Frontend**: React 19, Vite, Tailwind CSS, React Router v6
+- **Frontend**: React 19, Vite, Tailwind CSS, React Router v7
 - **Backend**: Supabase (PostgreSQL, Auth, Storage, Realtime, Edge Functions)
 - **Payments**: Razorpay (Node.js/Express backend for order generation)
+- **Maps**: Leaflet (for location picking and routing)
 
 ## Project Structure
 - `src/api` - Supabase API calls (products, orders, addresses, stores, cart)
-- `src/components` - Reusable UI components (Navbar, ProductCard, Toast, ProtectedRoute)
-- `src/context` - React Context (AuthContext for global state)
-- `src/hooks` - Custom hooks (`useAuth`, `useCart`, `useProducts`, `useOrders`)
-- `src/pages` - Page components divided by user roles (customer, store, delivery)
+- `src/components` - Reusable UI components organized by domain (`customer`, `store`, `delivery`, `shared`)
+- `src/context` - React Context (`AuthContext` for global state and role management)
+- `src/hooks` - Custom hooks (`useAuth`, `useCart`, `useProducts`, `useOrders`, etc.)
+- `src/pages` - Page components divided by user roles (`customer`, `store`, `delivery`)
+- `src/utils` - Utility functions like dynamic discount calculations
 - `server/` - Node.js Express server for Razorpay integration
+- `database/` - SQL scripts for Supabase schema, RLS policies, and dummy data
+- `scripts/` - Node.js scripts for bulk data processing, image scraping, and database seeding
 
 ## Setup Instructions
 
 ### 1. Supabase Configuration
 1. Create a new Supabase project.
-2. Run the SQL scripts provided in `database/schema.sql` and `database/rls_policies.sql` in the Supabase SQL Editor to set up tables, triggers, and Row Level Security.
-3. Create a storage bucket named `product-images` and make it public.
-4. Get your Supabase URL and Anon Key from Project Settings > API.
+2. Run the SQL scripts provided in `database/complete_setup.sql` (or `schema.sql` and `rls_policies.sql`) in the Supabase SQL Editor to set up tables, triggers, and Row Level Security.
+3. You can also run the seed scripts (like `database/seed_100_products.sql`) to populate initial dummy data.
+4. Create a storage bucket named `product-images` and make it public.
+5. Get your Supabase URL and Anon Key from Project Settings > API.
 
 ### 2. Razorpay Configuration
 1. Create a Razorpay account.
@@ -55,9 +60,11 @@ npm start
 ```
 
 ## Features Implemented
-1. **Authentication**: Role-based access (Customer, Store Owner, Delivery Partner) using Supabase Auth.
-2. **Products**: Real-time inventory sync, discount auto-calculation based on expiry date, image uploads to Supabase Storage.
+1. **Authentication & Validation**: Role-based access (Customer, Store Owner, Delivery Partner) using Supabase Auth with robust client-side form validations (email formatting, password strength, phone numbers).
+2. **Products & Dynamic Pricing**: Real-time inventory sync, advanced discount auto-calculation based on expiry date (`discountCalc.js`), and image uploads to Supabase Storage.
 3. **Cart & Checkout**: `localStorage` based cart, Razorpay payment gateway integration, secure atomic stock decrement.
-4. **Order Tracking**: Real-time status updates using Supabase Realtime subscriptions.
-5. **Store Dashboard**: Analytics, order management, and product CRUD.
-6. **Delivery Dashboard**: Real-time assignment tracking, maps navigation, and earnings calculation.
+4. **Order Tracking**: Real-time status updates using Supabase Realtime subscriptions with visual steppers.
+5. **AI Natural Language Search**: Customers can search for products intuitively using natural language queries.
+6. **Store Dashboard**: Analytics (Revenue charts, Top products), comprehensive order management, and product CRUD with low-stock alerts.
+7. **Delivery Dashboard**: Real-time assignment tracking, earnings calculation, and delivery history.
+8. **Map Integration**: Interactive maps via Leaflet for precise store location picking during registration and delivery navigation.
