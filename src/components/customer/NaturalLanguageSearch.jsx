@@ -56,8 +56,8 @@ export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete,
 
     try {
       // Direct call to Gemini API using the key from env or fallback
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY || 'AQ.Ab8RN6IuFB3TzvXusssjaEV1-1VLTmQTEU0tWi5p4p2W0zCM0g';
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent`;
       
       const promptText = `
         You are an AI assistant for a grocery app called NearX.
@@ -77,7 +77,10 @@ export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete,
 
       const response = await fetch(geminiUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': apiKey
+        },
         body: JSON.stringify({
           contents: [{ parts: [{ text: promptText }] }]
         })

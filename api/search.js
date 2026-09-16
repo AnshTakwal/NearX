@@ -77,12 +77,13 @@ Your task:
 5. Be generous in matching - include anything that could reasonably fit the user's request.
 6. Return ONLY valid JSON (a string array), no markdown formatting, no explanation.`;
 
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`;
 
     const geminiResponse = await fetch(geminiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'x-goog-api-key': GEMINI_API_KEY
       },
       body: JSON.stringify({
         system_instruction: {

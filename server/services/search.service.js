@@ -25,6 +25,7 @@ export const searchProducts = async (query) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'x-goog-api-key': GEMINI_API_KEY
     },
     body: JSON.stringify({
       system_instruction: {
