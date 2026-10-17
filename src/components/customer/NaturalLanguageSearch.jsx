@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, Loader2, X } from 'lucide-react';
 import ProductCard from '../shared/ProductCard';
+import { supabase } from '../../lib/supabase';
 
 // Authentic Google Gemini 4-point star SVG icon
 function GeminiIcon({ size = 20, className = '' }) {
@@ -55,70 +56,56 @@ export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete,
     if (onSearchStart) onSearchStart();
 
     try {
-      // Direct call to Gemini API using the key from env or fallback
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent`;
-      
-      const promptText = `
-        You are an AI assistant for a grocery app called NearX.
-        The user is searching for: "${searchQuery}"
-        Based on this query, generate a focused list of specific grocery product keywords to search our database.
-        IMPORTANT RULES for keywords:
-        1. If the user is searching for a specific item (e.g., "cookies", "milk", "bread"), ONLY return exact synonyms, popular brands, and highly relevant variants (e.g., ["cookie", "cookies", "biscuit", "oreo", "bourbon", "parle"]).
-        2. DO NOT include broad category words (like "snacks", "bakery", "dairy") unless the user's query is explicitly broad (e.g., "healthy snacks", "breakfast items").
-        3. ALWAYS include the individual relevant words from the user's search query itself.
-        4. Return 3 to 10 highly precise, SINGLE-WORD keywords to maximize relevance.
-        
-        Also, determine if they specified a maximum price constraint in the query (e.g. "under 100", "less than 50", "max 200").
-        Respond EXACTLY and ONLY with a JSON object in this format, with no markdown formatting or backticks:
-        {"keywords": ["keyword1", "keyword2", "keyword3"], "maxPrice": 100}
-        If there is no maximum price, set maxPrice to null.
-      `;
-
-      const response = await fetch(geminiUrl, {
+      // Step 1: Get keywords from server-side Gemini (key never touches the browser)
+      const response = await fetch('/api/search-keywords', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-goog-api-key': apiKey
-        },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: promptText }] }]
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: searchQuery })
       });
 
       if (!response.ok) {
-        if (response.status === 403) {
-          throw new Error('API Key Permission Denied (403). Please check your Google Cloud Console.');
+        if (response.status === 429) {
+          throw new Error('Too many requests. Please wait a moment and try again.');
         }
         if (response.status === 503) {
-          throw new Error('Gemini API is currently overloaded. Please try normal search for now.');
+          throw new Error('AI search is temporarily unavailable. Please try normal search.');
         }
-        throw new Error(`Failed to fetch from Gemini (${response.status})`);
+        throw new Error(`Search failed (${response.status})`);
       }
 
-      const data = await response.json();
-      let responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-      responseText = responseText.replace(/\`\`\`json/g, '').replace(/\`\`\`/g, '').trim();
+      const { keywords, maxPrice } = await response.json();
 
-      let aiResult = { keywords: [], maxPrice: null };
-      try {
-        aiResult = JSON.parse(responseText);
-        // Normalize
-        aiResult.keywords = (aiResult.keywords || []).map(k => k.toLowerCase().trim());
-      } catch (e) {
-        // Fallback
-        aiResult = { keywords: responseText.toLowerCase().split(',').map(k => k.trim()), maxPrice: null };
+      // Step 2: Fetch active products from Supabase and filter by keywords client-side
+      let supaQuery = supabase
+        .from('products')
+        .select('id, name, brand, category, description, image_url, mrp, discount_percent, sale_price, stock, expiry_date, store_id, is_active, status')
+        .eq('is_active', true);
+
+      // Apply price filter if Gemini extracted a budget (maxPrice is in rupees, DB stores paise)
+      if (maxPrice) {
+        supaQuery = supaQuery.lte('sale_price', maxPrice * 100);
       }
 
-      // We no longer setResults here, parent component handles filtering
+      const { data: products, error: dbError } = await supaQuery;
+      if (dbError) throw new Error('Failed to search products.');
+
+      // Match products whose name/brand/category/description contain any keyword
+      const matchedProducts = (products || []).filter(product => {
+        const haystack = [product.name, product.brand, product.category, product.description]
+          .filter(Boolean)
+          .join(' ')
+          .toLowerCase();
+        return keywords.some(kw => haystack.includes(kw.toLowerCase()));
+      });
+
       if (onSearchComplete) {
-        onSearchComplete(aiResult);
+        onSearchComplete({ products: matchedProducts });
       }
     } catch (err) {
       console.error(err);
-      setError(err.message || 'AI search failed. Please verify your Gemini API key or try again.');
+      setError(err.message || 'AI search failed. Please try again.');
       if (onSearchComplete) {
-        onSearchComplete({ keywords: [], maxPrice: null });
+        onSearchComplete({ products: [] });
       }
     } finally {
       setLoading(false);

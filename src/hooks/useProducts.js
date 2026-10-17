@@ -7,6 +7,8 @@ import { getDiscountInfo } from '../utils/discountCalc';
  * Loads all products at once (limit 1000) and handles
  * progressive display for smooth infinite scroll.
  * @param {object} filters - { category, search, maxDaysToExpiry, minDiscount, storeId }
+ * Note: AI search results are now handled directly in ProductListingPage,
+ * not through this hook.
  */
 export function useProducts(filters = {}) {
   const [allProducts, setAllProducts] = useState([]);
@@ -104,21 +106,9 @@ export function useProducts(filters = {}) {
   useEffect(() => {
     fetchProducts(filters);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.category, filters.search, filters.maxDaysToExpiry, filters.minDiscount, filters.storeId, filters.aiKeywords]);
+  }, [filters.category, filters.search, filters.maxDaysToExpiry, filters.minDiscount, filters.storeId]);
 
-  // Filter based on aiKeywords and aiMaxPrice
-  let filteredProducts = allProducts;
-  if (filters.aiKeywords && filters.aiKeywords.length > 0) {
-    filteredProducts = filteredProducts.filter(p => {
-      const searchable = `${p.name} ${p.category || ''} ${p.description || ''}`.toLowerCase();
-      return filters.aiKeywords.some(kw => searchable.includes(kw));
-    });
-  }
-  if (filters.aiMaxPrice !== null && filters.aiMaxPrice !== undefined) {
-    // maxPrice is in rupees, sale_price is in paise
-    const maxPaise = filters.aiMaxPrice * 100;
-    filteredProducts = filteredProducts.filter(p => p.sale_price <= maxPaise);
-  }
+  const filteredProducts = allProducts;
 
   const products = filteredProducts.slice(0, displayCount);
   const hasMore = displayCount < filteredProducts.length;

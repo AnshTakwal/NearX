@@ -23,8 +23,7 @@ export default function ProductListingPage() {
   const searchParam = searchParams.get('search');
   const flashParam = searchParams.get('flash');
 
-  const [aiKeywords, setAiKeywords] = useState(null);
-  const [aiMaxPrice, setAiMaxPrice] = useState(null);
+  const [aiProducts, setAiProducts] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
 
   // Store selection state
@@ -41,12 +40,14 @@ export default function ProductListingPage() {
     search: searchParam || '',
     maxDaysToExpiry: flashParam ? 7 : null,
     minDiscount: selectedDiscount > 0 ? selectedDiscount : null,
-    aiKeywords: aiKeywords,
-    aiMaxPrice: aiMaxPrice,
     storeId: selectedStoreId
   };
 
-  const { products, loading, loadingMore, hasMore, totalCount, fetchNextPage } = useProducts(filters);
+  const { products: normalProducts, loading, loadingMore, hasMore, totalCount, fetchNextPage } = useProducts(filters);
+
+  // When AI search is active, display AI results directly; otherwise use normal products
+  const isAiMode = aiProducts !== null;
+  const displayProducts = isAiMode ? aiProducts : normalProducts;
 
   // Infinite Scroll Observer
   const observer = useRef();
@@ -63,8 +64,7 @@ export default function ProductListingPage() {
   }, [loading, loadingMore, hasMore, fetchNextPage]);
 
   useEffect(() => {
-    setAiKeywords(null);
-    setAiMaxPrice(null);
+    setAiProducts(null);
   }, [categoryParam, searchParam, flashParam]);
 
   // Fetch stores for tabs
@@ -126,11 +126,9 @@ export default function ProductListingPage() {
           }}
           onSearchComplete={(result) => {
             if (result) {
-              setAiKeywords(result.keywords || []);
-              setAiMaxPrice(result.maxPrice || null);
+              setAiProducts(result.products || []);
             } else {
-              setAiKeywords(null);
-              setAiMaxPrice(null);
+              setAiProducts(null);
             }
             setAiLoading(false);
           }}
@@ -171,7 +169,7 @@ export default function ProductListingPage() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
             <div>
               <h1 className="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">
-                {aiKeywords !== null ? 'AI Search Results' : flashParam ? 'Flash Deals' : selectedCategory !== 'All' ? `${selectedCategory} Deals` : 'All Deals'}
+                {isAiMode ? 'AI Search Results' : flashParam ? 'Flash Deals' : selectedCategory !== 'All' ? `${selectedCategory} Deals` : 'All Deals'}
               </h1>
             </div>
 
@@ -265,10 +263,11 @@ export default function ProductListingPage() {
                 <div className="h-10 bg-gray-100 rounded w-full"></div>
               </div>
             ))
-          ) : products.length > 0 ? (
+          ) : displayProducts.length > 0 ? (
             <>
-              {products.map((product, index) => {
-                if (products.length === index + 1) {
+              {displayProducts.map((product, index) => {
+                // Only use infinite scroll ref for non-AI mode
+                if (!isAiMode && displayProducts.length === index + 1) {
                   return (
                     <div ref={lastProductElementRef} key={product.id}>
                       <ProductCard product={product} />
@@ -278,7 +277,7 @@ export default function ProductListingPage() {
                   return <ProductCard key={product.id} product={product} />;
                 }
               })}
-              {loadingMore && [...Array(4)].map((_, i) => (
+              {!isAiMode && loadingMore && [...Array(4)].map((_, i) => (
                 <div key={`loading-${i}`} className="bg-white rounded-2xl p-4 border border-gray-100 h-80 animate-pulse">
                   <div className="w-full h-44 bg-gray-100 rounded-xl mb-4"></div>
                   <div className="h-4 bg-gray-100 rounded w-3/4 mb-3"></div>
@@ -286,7 +285,7 @@ export default function ProductListingPage() {
                   <div className="h-10 bg-gray-100 rounded w-full"></div>
                 </div>
               ))}
-              {!hasMore && products.length > 0 && (
+              {!isAiMode && !hasMore && displayProducts.length > 0 && (
                 <div className="col-span-full py-6 text-center text-gray-400 text-sm font-medium">
                   You've seen all {totalCount} products
                 </div>
@@ -302,3 +301,4 @@ export default function ProductListingPage() {
     </div>
   );
 }
+

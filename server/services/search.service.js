@@ -1,3 +1,9 @@
+/**
+ * DEPRECATED: This service sends the entire product-name list to Gemini per request.
+ * Use searchKeywords.service.js instead (keyword extraction approach).
+ * Kept for backwards compatibility with /api/search route.
+ */
+
 import { supabaseAnonClient } from '../config/supabase.config.js';
 import { GEMINI_API_URL, GEMINI_API_KEY } from '../config/gemini.config.js';
 import { GEMINI_CONFIG } from '../utils/constants.js';
