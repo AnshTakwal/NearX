@@ -1,11 +1,14 @@
 import { supabase } from '../lib/supabase';
 
 /**
- * Place a new order.
+ * Place a new order atomically via the transactional place_order Postgres function.
+ * Validates inventory with exclusive row locks, recomputes prices server-side,
+ * decrements stock, and groups orders by store in a single transaction.
+ *
  * @param {Array} cartItems - [{id, name, sale_price, mrp, quantity, store_id}]
  * @param {string} addressId - UUID of the delivery address
  * @param {string} customerId - UUID of the customer
- * @returns {object} Created order
+ * @returns {Array<object>} Created order object(s)
  */
 export async function placeOrder(cartItems, addressId, customerId) {
   try {
@@ -13,94 +16,16 @@ export async function placeOrder(cartItems, addressId, customerId) {
       throw new Error('Cart is empty');
     }
 
-    // Group items by store
-    const storeGroups = {};
-    for (const item of cartItems) {
-      if (!storeGroups[item.store_id]) {
-        storeGroups[item.store_id] = [];
-      }
-      storeGroups[item.store_id].push(item);
-    }
+    // Call atomic transactional checkout RPC
+    const { data: createdOrders, error } = await supabase.rpc('place_order', {
+      p_items: cartItems,
+      p_address_id: addressId,
+      p_customer_id: customerId,
+    });
 
-    const storeIds = Object.keys(storeGroups);
-    const numStores = storeIds.length;
-    const totalDeliveryFee = 4000; // base delivery
-    const multiStoreFee = numStores > 1 ? 2000 : 0; // multi-store service charge
-    
-    // Distribute fees evenly (in paise, integer division)
-    const baseDeliveryPerStore = Math.floor((totalDeliveryFee + multiStoreFee) / numStores);
-    let remainderFee = (totalDeliveryFee + multiStoreFee) % numStores;
-
-    const createdOrders = [];
-
-    for (const storeId of storeIds) {
-      const items = storeGroups[storeId];
-      const subtotal = items.reduce(
-        (sum, item) => sum + item.sale_price * (item.quantity || item.cartQty || 1),
-        0
-      );
-      const savings = items.reduce(
-        (sum, item) => sum + ((item.mrp || item.sale_price) - item.sale_price) * (item.quantity || item.cartQty || 1),
-        0
-      );
-
-      const deliveryFee = baseDeliveryPerStore + (remainderFee > 0 ? 1 : 0);
-      if (remainderFee > 0) remainderFee--;
-
-      const total = subtotal + deliveryFee;
-
-      // Insert order
-      const { data: order, error: orderError } = await supabase
-        .from('orders')
-        .insert([
-          {
-            customer_id: customerId,
-            store_id: storeId,
-            address_id: addressId,
-            status: 'placed',
-            subtotal,
-            delivery_fee: deliveryFee,
-            total,
-            savings,
-            payment_status: 'pending',
-            payment_id: null,
-          },
-        ])
-        .select()
-        .single();
-
-      if (orderError) throw orderError;
-      createdOrders.push(order);
-
-      // Insert order items
-      const orderItems = items.map((item) => ({
-        order_id: order.id,
-        product_id: item.id,
-        product_name: item.name,
-        quantity: item.quantity || item.cartQty || 1,
-        unit_price: item.sale_price,
-        total_price: item.sale_price * (item.quantity || item.cartQty || 1),
-      }));
-
-      const { error: itemsError } = await supabase
-        .from('order_items')
-        .insert(orderItems);
-
-      if (itemsError) throw itemsError;
-
-      // Decrement stock for each item
-      for (const item of items) {
-        const { data: success, error: stockError } = await supabase.rpc(
-          'decrement_stock',
-          { p_product_id: item.id, p_quantity: item.quantity || item.cartQty || 1 }
-        );
-        if (stockError) {
-          console.warn('Stock decrement failed for product:', item.id, stockError);
-        }
-        if (success === false) {
-          console.warn('Insufficient stock for product:', item.id);
-        }
-      }
+    if (error) {
+      // Propagate the server error message (e.g. out-of-stock product name)
+      throw new Error(error.message || 'Failed to place order');
     }
 
     return createdOrders;
