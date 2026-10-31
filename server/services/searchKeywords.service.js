@@ -29,50 +29,73 @@ export const extractKeywords = async (query) => {
     throw err;
   }
 
-    const geminiResponse = await fetch(`${GEMINI_API_URL}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        system_instruction: { parts: [{ text: KEYWORD_PROMPT }] },
-        contents: [{ parts: [{ text: query }] }],
-        generationConfig: { temperature: 0.2, maxOutputTokens: 512 },
-      }),
-    });
+  const candidateModels = ['gemini-3.8-flash', 'gemini-3.5-flash-lite'];
+  let geminiData = null;
 
-    if(!geminiResponse.ok) {
-      const err = new Error(`Gemini API error: ${geminiResponse.statusText}`);
-  err.status = geminiResponse.status;
-  logger.error('Gemini API error:', geminiResponse.status, geminiResponse.statusText);
-  throw err;
-}
+  for (const model of candidateModels) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: KEYWORD_PROMPT }] },
+          contents: [{ parts: [{ text: query }] }],
+          generationConfig: { temperature: 0.2, maxOutputTokens: 512 },
+        }),
+      });
 
-const geminiData = await geminiResponse.json();
-let jsonText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '{}';
+      if (response.ok) {
+        geminiData = await response.json();
+        break;
+      }
+      logger.warn(`Gemini (${model}) returned status ${response.status}`);
+    } catch (err) {
+      logger.warn(`Fetch to Gemini (${model}) failed:`, err);
+    }
+  }
 
-// Strip markdown code fences if present
-jsonText = jsonText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
+  // Graceful fallback if models are busy or overloaded (503)
+  if (!geminiData) {
+    logger.warn('All Gemini models unavailable. Using local fallback keyword extraction.');
+    const stopWords = new Set(['for', 'the', 'and', 'with', 'in', 'of', 'items', 'item', 'food', 'good', 'some', 'any', 'under', 'rupees', 'rs']);
+    const extractedWords = query
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '')
+      .split(/\s+/)
+      .filter(w => w.length > 2 && !stopWords.has(w));
 
-let result;
-try {
-  result = JSON.parse(jsonText);
-} catch {
-  logger.warn('Failed to parse Gemini keyword output, falling back.', jsonText);
-  result = { keywords: [], maxPrice: null };
-}
+    return {
+      keywords: extractedWords.length > 0 ? extractedWords : [query.toLowerCase()],
+      maxPrice: null
+    };
+  }
+  let jsonText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '{}';
 
-// Validate and sanitize
-const keywords = Array.isArray(result.keywords)
-  ? result.keywords
-    .filter(k => typeof k === 'string' && k.trim().length > 0)
-    .map(k => k.trim().toLowerCase().slice(0, 30))
-    .slice(0, 10)
-  : [];
+  // Strip markdown code fences if present
+  jsonText = jsonText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
 
-const maxPrice = typeof result.maxPrice === 'number' && result.maxPrice > 0
-  ? result.maxPrice
-  : null;
+  let result;
+  try {
+    result = JSON.parse(jsonText);
+  } catch {
+    logger.warn('Failed to parse Gemini keyword output, falling back.', jsonText);
+    result = { keywords: [], maxPrice: null };
+  }
 
-return { keywords, maxPrice };
+  // Validate and sanitize
+  const keywords = Array.isArray(result.keywords)
+    ? result.keywords
+      .filter(k => typeof k === 'string' && k.trim().length > 0)
+      .map(k => k.trim().toLowerCase().slice(0, 30))
+      .slice(0, 10)
+    : [];
+
+  const maxPrice = typeof result.maxPrice === 'number' && result.maxPrice > 0
+    ? result.maxPrice
+    : null;
+
+  return { keywords, maxPrice };
 };
