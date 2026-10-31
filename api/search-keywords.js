@@ -58,8 +58,8 @@ export default async function handler(req, res) {
 
   // --- Rate limiting ---
   const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim()
-           || req.socket?.remoteAddress
-           || 'unknown';
+    || req.socket?.remoteAddress
+    || 'unknown';
   if (isRateLimited(ip)) {
     return res.status(429).json({ error: 'Too many requests. Please wait a moment.' });
   }
@@ -99,7 +99,7 @@ Example input:  "healthy snacks under 100 rupees"
 Example output: {"keywords":["healthy","snacks","granola","nuts","muesli","protein","oats","bar"],"maxPrice":100}`;
 
   try {
-    const geminiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+    const geminiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
     const geminiResponse = await fetch(geminiUrl, {
       method: 'POST',
@@ -142,9 +142,9 @@ Example output: {"keywords":["healthy","snacks","granola","nuts","muesli","prote
     // Validate and sanitize
     const keywords = Array.isArray(result.keywords)
       ? result.keywords
-          .filter(k => typeof k === 'string' && k.trim().length > 0)
-          .map(k => k.trim().toLowerCase().slice(0, 30))
-          .slice(0, 10)
+        .filter(k => typeof k === 'string' && k.trim().length > 0)
+        .map(k => k.trim().toLowerCase().slice(0, 30))
+        .slice(0, 10)
       : [];
 
     const maxPrice = typeof result.maxPrice === 'number' && result.maxPrice > 0
