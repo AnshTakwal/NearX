@@ -6,23 +6,23 @@ import { supabase } from '../../lib/supabase';
 // Authentic Google Gemini 4-point star SVG icon
 function GeminiIcon({ size = 20, className = '' }) {
   return (
-    <svg 
-      width={size} 
-      height={size} 
-      viewBox="0 0 24 24" 
-      fill="none" 
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      <path 
-        d="M21.5 12C16.25 12 12 7.75 12 2.5C12 7.75 7.75 12 2.5 12C7.75 12 12 16.25 12 21.5C12 16.25 16.25 12 21.5 12Z" 
+      <path
+        d="M21.5 12C16.25 12 12 7.75 12 2.5C12 7.75 7.75 12 2.5 12C7.75 12 12 16.25 12 21.5C12 16.25 16.25 12 21.5 12Z"
         fill="url(#geminiGradient)"
       />
       <defs>
         <linearGradient id="geminiGradient" x1="2.5" y1="2.5" x2="21.5" y2="21.5" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#4285F4"/>
-          <stop offset="0.5" stopColor="#D96570"/>
-          <stop offset="1" stopColor="#F4B400"/>
+          <stop stopColor="#4285F4" />
+          <stop offset="0.5" stopColor="#D96570" />
+          <stop offset="1" stopColor="#F4B400" />
         </linearGradient>
       </defs>
     </svg>
@@ -67,10 +67,8 @@ export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete,
         if (response.status === 429) {
           throw new Error('Too many requests. Please wait a moment and try again.');
         }
-        if (response.status === 503) {
-          throw new Error('AI search is temporarily unavailable. Please try normal search.');
-        }
-        throw new Error(`Search failed (${response.status})`);
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || `Search failed (${response.status})`);
       }
 
       const { keywords, maxPrice } = await response.json();
@@ -173,90 +171,89 @@ export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete,
         {/* Search Bar */}
         <form onSubmit={handleSearch} className="flex items-center gap-3 w-full relative z-40">
           {/* Gemini Toggle Button */}
-        <button
-          type="button"
-          onClick={toggleAiMode}
-          title={isAiMode ? 'Exit AI Search' : 'Search with Gemini AI'}
-          className="flex-shrink-0 p-2 transition-transform duration-300 active:scale-95 cursor-pointer bg-transparent border-none outline-none"
-        >
-          <GeminiIcon size={28} className={isAiMode ? "" : "opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all"} />
-        </button>
+          <button
+            type="button"
+            onClick={toggleAiMode}
+            title={isAiMode ? 'Exit AI Search' : 'Search with Gemini AI'}
+            className="flex-shrink-0 p-2 transition-transform duration-300 active:scale-95 cursor-pointer bg-transparent border-none outline-none"
+          >
+            <GeminiIcon size={28} className={isAiMode ? "" : "opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all"} />
+          </button>
 
-        {/* Input Field */}
-        <div className="relative flex-1">
-          <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-          <input
-            type="text"
-            value={query}
-            onChange={handleInputChange}
-            onFocus={() => isAiMode && setShowSuggestions(true)}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 250)}
-            placeholder={isAiMode ? 'Ask Gemini: "breakfast items for kids"...' : 'Search products...'}
-            style={{ paddingLeft: '2.75rem', paddingRight: query ? '10rem' : '5.5rem' }}
-            className={`input-premium py-3.5 text-[15px] w-full transition-all duration-300 relative z-20 ${
-              isAiMode ? 'border-purple-200 bg-purple-50/30 focus:border-purple-400 focus:ring-purple-100' : ''
-            }`}
-          />
+          {/* Input Field */}
+          <div className="relative flex-1">
+            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+            <input
+              type="text"
+              value={query}
+              onChange={handleInputChange}
+              onFocus={() => isAiMode && setShowSuggestions(true)}
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 250)}
+              placeholder={isAiMode ? 'Ask Gemini: "breakfast items for kids"...' : 'Search products...'}
+              style={{ paddingLeft: '2.75rem', paddingRight: query ? '10rem' : '5.5rem' }}
+              className={`input-premium py-3.5 text-[15px] w-full transition-all duration-300 relative z-20 ${isAiMode ? 'border-purple-200 bg-purple-50/30 focus:border-purple-400 focus:ring-purple-100' : ''
+                }`}
+            />
 
-          <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5 z-30">
-            {query && (
-              <button
-                type="button"
-                onClick={handleClearSearch}
-                className="p-1.5 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
-              >
-                <X size={16} />
-              </button>
-            )}
-            {isAiMode ? (
-              <button
-                type="submit"
-                disabled={loading || !query.trim()}
-                className="bg-primary text-white hover:bg-primary-dark px-8 py-3.5 rounded-[12px] font-semibold flex items-center gap-2 transition-all shadow-md active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
-              >
-                {loading ? <Loader2 size={14} className="animate-spin" /> : <GeminiIcon size={14} />}
-                <span className="hidden sm:inline">{loading ? 'Thinking...' : 'Ask AI'}</span>
-              </button>
-            ) : (
-              <button
-                type="submit"
-                disabled={!query.trim()}
-                className="bg-primary text-white hover:bg-primary-dark px-6 py-3.5 rounded-[12px] font-semibold flex items-center gap-2 transition-all shadow-md active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
-              >
-                <Search size={16} />
-                <span className="hidden sm:inline">Search</span>
-              </button>
-            )}
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5 z-30">
+              {query && (
+                <button
+                  type="button"
+                  onClick={handleClearSearch}
+                  className="p-1.5 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                >
+                  <X size={16} />
+                </button>
+              )}
+              {isAiMode ? (
+                <button
+                  type="submit"
+                  disabled={loading || !query.trim()}
+                  className="bg-primary text-white hover:bg-primary-dark px-8 py-3.5 rounded-[12px] font-semibold flex items-center gap-2 transition-all shadow-md active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {loading ? <Loader2 size={14} className="animate-spin" /> : <GeminiIcon size={14} />}
+                  <span className="hidden sm:inline">{loading ? 'Thinking...' : 'Ask AI'}</span>
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  disabled={!query.trim()}
+                  className="bg-primary text-white hover:bg-primary-dark px-6 py-3.5 rounded-[12px] font-semibold flex items-center gap-2 transition-all shadow-md active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  <Search size={16} />
+                  <span className="hidden sm:inline">Search</span>
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
 
-      {/* Suggestion Chips */}
-      {isAiMode && showSuggestions && !loading && (
-        <div className="w-[calc(100%-48px)] sm:w-[calc(100%-60px)] ml-[48px] sm:ml-[60px] bg-white border border-gray-100 rounded-2xl p-5 shadow-sm mt-4 transition-all">
-          <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-3">Try asking</p>
-          <div className="flex flex-wrap gap-2.5">
-            {prompts.map((p, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onMouseDown={() => handleSuggestionClick(p)}
-                className="text-[13px] font-semibold px-6 py-3 bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200 hover:border-gray-300 rounded-full transition-all duration-200 cursor-pointer active:scale-95 text-left"
-              >
-                {p}
-              </button>
-            ))}
+        {/* Suggestion Chips */}
+        {isAiMode && showSuggestions && !loading && (
+          <div className="w-[calc(100%-48px)] sm:w-[calc(100%-60px)] ml-[48px] sm:ml-[60px] bg-white border border-gray-100 rounded-2xl p-5 shadow-sm mt-4 transition-all">
+            <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-3">Try asking</p>
+            <div className="flex flex-wrap gap-2.5">
+              {prompts.map((p, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onMouseDown={() => handleSuggestionClick(p)}
+                  className="text-[13px] font-semibold px-6 py-3 bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200 hover:border-gray-300 rounded-full transition-all duration-200 cursor-pointer active:scale-95 text-left"
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* AI Mode indicator */}
-      {isAiMode && !loading && !hasSearched && (
-        <p className="mt-4 text-xs text-primary font-medium flex items-center gap-1.5 ml-[48px] sm:ml-[60px]">
-          <GeminiIcon size={10} />
-          Powered by Google Gemini — describe what you need in plain English
-        </p>
-      )}
+        {/* AI Mode indicator */}
+        {isAiMode && !loading && !hasSearched && (
+          <p className="mt-4 text-xs text-primary font-medium flex items-center gap-1.5 ml-[48px] sm:ml-[60px]">
+            <GeminiIcon size={10} />
+            Powered by Google Gemini — describe what you need in plain English
+          </p>
+        )}
       </div>
 
       {/* Error Message */}
@@ -278,7 +275,7 @@ export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete,
               {results.length > 0 ? `Found ${results.length} matching products` : 'No matches found'}
             </h3>
           </div>
-          
+
           {results.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {results.map((product) => (

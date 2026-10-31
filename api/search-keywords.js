@@ -99,13 +99,12 @@ Example input:  "healthy snacks under 100 rupees"
 Example output: {"keywords":["healthy","snacks","granola","nuts","muesli","protein","oats","bar"],"maxPrice":100}`;
 
   try {
-    const geminiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
+    const geminiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' + GEMINI_API_KEY;
 
     const geminiResponse = await fetch(geminiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-goog-api-key': GEMINI_API_KEY,
       },
       body: JSON.stringify({
         system_instruction: { parts: [{ text: systemPrompt }] },
@@ -116,13 +115,12 @@ Example output: {"keywords":["healthy","snacks","granola","nuts","muesli","prote
 
     if (!geminiResponse.ok) {
       const status = geminiResponse.status;
+      const errBody = await geminiResponse.text();
+      console.error('Gemini API error:', status, errBody);
       if (status === 429) {
         return res.status(429).json({ error: 'AI service is busy. Please try again shortly.' });
       }
-      if (status === 403) {
-        return res.status(503).json({ error: 'AI service configuration error.' });
-      }
-      return res.status(503).json({ error: 'AI service is temporarily unavailable.' });
+      return res.status(503).json({ error: `Gemini error (${status}): ${errBody.slice(0, 200)}` });
     }
 
     const geminiData = await geminiResponse.json();

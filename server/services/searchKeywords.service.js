@@ -29,51 +29,50 @@ export const extractKeywords = async (query) => {
     throw err;
   }
 
-  const geminiResponse = await fetch(GEMINI_API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-goog-api-key': GEMINI_API_KEY,
-    },
-    body: JSON.stringify({
-      system_instruction: { parts: [{ text: KEYWORD_PROMPT }] },
-      contents: [{ parts: [{ text: query }] }],
-      generationConfig: { temperature: 0.2, maxOutputTokens: 512 },
-    }),
-  });
+    const geminiResponse = await fetch(`${GEMINI_API_URL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: KEYWORD_PROMPT }] },
+        contents: [{ parts: [{ text: query }] }],
+        generationConfig: { temperature: 0.2, maxOutputTokens: 512 },
+      }),
+    });
 
-  if (!geminiResponse.ok) {
-    const err = new Error(`Gemini API error: ${geminiResponse.statusText}`);
-    err.status = geminiResponse.status;
-    logger.error('Gemini API error:', geminiResponse.status, geminiResponse.statusText);
-    throw err;
-  }
+    if(!geminiResponse.ok) {
+      const err = new Error(`Gemini API error: ${geminiResponse.statusText}`);
+  err.status = geminiResponse.status;
+  logger.error('Gemini API error:', geminiResponse.status, geminiResponse.statusText);
+  throw err;
+}
 
-  const geminiData = await geminiResponse.json();
-  let jsonText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '{}';
+const geminiData = await geminiResponse.json();
+let jsonText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '{}';
 
-  // Strip markdown code fences if present
-  jsonText = jsonText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
+// Strip markdown code fences if present
+jsonText = jsonText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
 
-  let result;
-  try {
-    result = JSON.parse(jsonText);
-  } catch {
-    logger.warn('Failed to parse Gemini keyword output, falling back.', jsonText);
-    result = { keywords: [], maxPrice: null };
-  }
+let result;
+try {
+  result = JSON.parse(jsonText);
+} catch {
+  logger.warn('Failed to parse Gemini keyword output, falling back.', jsonText);
+  result = { keywords: [], maxPrice: null };
+}
 
-  // Validate and sanitize
-  const keywords = Array.isArray(result.keywords)
-    ? result.keywords
-        .filter(k => typeof k === 'string' && k.trim().length > 0)
-        .map(k => k.trim().toLowerCase().slice(0, 30))
-        .slice(0, 10)
-    : [];
+// Validate and sanitize
+const keywords = Array.isArray(result.keywords)
+  ? result.keywords
+    .filter(k => typeof k === 'string' && k.trim().length > 0)
+    .map(k => k.trim().toLowerCase().slice(0, 30))
+    .slice(0, 10)
+  : [];
 
-  const maxPrice = typeof result.maxPrice === 'number' && result.maxPrice > 0
-    ? result.maxPrice
-    : null;
+const maxPrice = typeof result.maxPrice === 'number' && result.maxPrice > 0
+  ? result.maxPrice
+  : null;
 
-  return { keywords, maxPrice };
+return { keywords, maxPrice };
 };
