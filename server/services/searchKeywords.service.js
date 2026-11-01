@@ -29,7 +29,12 @@ export const extractKeywords = async (query) => {
     throw err;
   }
 
-  const candidateModels = ['gemini-3.8-flash', 'gemini-3.5-flash-lite'];
+  const candidateModels = [
+    'gemini-3.1-flash-lite',
+    'gemini-flash-lite-latest',
+    'gemini-3.5-flash-lite',
+    'gemini-3.8-flash'
+  ];
   let geminiData = null;
 
   for (const model of candidateModels) {
@@ -41,10 +46,10 @@ export const extractKeywords = async (query) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          system_instruction: { parts: [{ text: KEYWORD_PROMPT }] },
-          contents: [{ parts: [{ text: query }] }],
-          generationConfig: { temperature: 0.2, maxOutputTokens: 512 },
+          contents: [{ parts: [{ text: `${KEYWORD_PROMPT}\n\nUser Query: "${query}"` }] }],
+          generationConfig: { temperature: 0.1, maxOutputTokens: 256 },
         }),
+        signal: AbortSignal.timeout(3500)
       });
 
       if (response.ok) {
@@ -53,7 +58,7 @@ export const extractKeywords = async (query) => {
       }
       logger.warn(`Gemini (${model}) returned status ${response.status}`);
     } catch (err) {
-      logger.warn(`Fetch to Gemini (${model}) failed:`, err);
+      logger.warn(`Fetch to Gemini (${model}) failed or timed out:`, err.message);
     }
   }
 

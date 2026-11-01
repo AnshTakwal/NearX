@@ -60,7 +60,8 @@ export default function NaturalLanguageSearch({ onSearchStart, onSearchComplete,
       const response = await fetch('/api/search-keywords', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: searchQuery })
+        body: JSON.stringify({ query: searchQuery }),
+        signal: AbortSignal.timeout(8000)
       });
 
       if (!response.ok) {

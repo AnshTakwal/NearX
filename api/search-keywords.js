@@ -10,17 +10,11 @@
  * Response: { keywords: string[], maxPrice: number|null }
  */
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-
 const MAX_QUERY_LENGTH = 200;
 
-// Simple in-memory rate limiter (per-IP, Vercel cold-starts reset this)
-// NOTE: On Vercel serverless each invocation may be a fresh container, so this
-// only limits bursts within a single warm container. For production, use
-// Vercel's built-in rate limiting or an external store (Redis / Upstash).
 const rateMap = new Map();
-const RATE_WINDOW_MS = 60_000; // 1 minute
-const RATE_MAX_REQUESTS = 20;  // max requests per IP per window
+const RATE_WINDOW_MS = 60_000;
+const RATE_MAX_REQUESTS = 20;
 
 function isRateLimited(ip) {
   const now = Date.now();
@@ -41,6 +35,7 @@ const corsHeaders = {
 };
 
 export default async function handler(req, res) {
+  const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
   // CORS preflight
   if (req.method === 'OPTIONS') {
     res.writeHead(204, corsHeaders);
@@ -99,7 +94,13 @@ Example input:  "healthy snacks under 100 rupees"
 Example output: {"keywords":["healthy","snacks","granola","nuts","muesli","protein","oats","bar"],"maxPrice":100}`;
 
   try {
-    const candidateModels = ['gemini-3.8-flash', 'gemini-3.5-flash-lite'];
+    // Fast, lightweight models with lower latency and less demand throttling
+    const candidateModels = [
+      'gemini-3.1-flash-lite',
+      'gemini-flash-lite-latest',
+      'gemini-3.5-flash-lite',
+      'gemini-3.8-flash'
+    ];
     let geminiData = null;
     let lastError = null;
 
@@ -112,31 +113,32 @@ Example output: {"keywords":["healthy","snacks","granola","nuts","muesli","prote
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            system_instruction: { parts: [{ text: systemPrompt }] },
-            contents: [{ parts: [{ text: query }] }],
-            generationConfig: { temperature: 0.2, maxOutputTokens: 512 },
+            contents: [{ parts: [{ text: `${systemPrompt}\n\nUser Query: "${query}"` }] }],
+            generationConfig: { temperature: 0.1, maxOutputTokens: 256 },
           }),
+          // Strict 3.5-second timeout so search never hangs when Google API has traffic spikes
+          signal: AbortSignal.timeout(3500)
         });
 
-            if (geminiResponse.ok) {
-              geminiData = await geminiResponse.json();
-              break; // successfully received response!
-            }
-
-            const status = geminiResponse.status;
-            const errBody = await geminiResponse.text();
-            console.warn(`Gemini (${model}) returned status ${status}:`, errBody);
-            lastError = { status, errBody };
-
-            // If it's a transient error (503 overloaded, 429 rate limit, 404 not available), try next model
-            if (![503, 429, 404].includes(status)) {
-              break; // Don't retry client bad requests (e.g., auth 401/403)
-            }
-          } catch (err) {
-            console.warn(`Fetch to Gemini (${model}) failed:`, err);
-            lastError = { status: 500, errBody: err.message };
-          }
+        if (geminiResponse.ok) {
+          geminiData = await geminiResponse.json();
+          break; // successfully received response!
         }
+
+        const status = geminiResponse.status;
+        const errBody = await geminiResponse.text();
+        console.warn(`Gemini (${model}) returned status ${status}:`, errBody);
+        lastError = { status, errBody };
+
+        // If it's a transient error (503 overloaded, 429 rate limit, 404 not available), try next model
+        if (![503, 429, 404].includes(status)) {
+          break; // Don't retry client bad requests (e.g., auth 401/403)
+        }
+      } catch (err) {
+        console.warn(`Fetch to Gemini (${model}) failed or timed out:`, err.message);
+        lastError = { status: 408, errBody: err.message };
+      }
+    }
 
         // If all models failed, fall back gracefully to basic keyword extraction instead of breaking search
         if (!geminiData) {
