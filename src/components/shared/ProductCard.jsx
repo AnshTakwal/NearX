@@ -46,7 +46,7 @@ export default function ProductCard({ product }) {
 
   // Dynamically resolve image URL if it's an emoji or missing
   const getImageUrl = (url, name, cat) => {
-    if (url && url.includes('supabase.co')) return url;
+    if (url && (url.startsWith('http') || url.includes('supabase.co'))) return url;
     return 'https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/placeholder-1784974879709.png';
   };
 

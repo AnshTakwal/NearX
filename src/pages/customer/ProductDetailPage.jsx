@@ -89,7 +89,7 @@ export default function ProductDetailPage() {
                   <DiscountBadge discount={discount} />
                 </div>
                 <img 
-                  src={product.image_url && product.image_url.includes('supabase.co') ? product.image_url : "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/placeholder-1784974879709.png"} 
+                  src={product.image_url && (product.image_url.startsWith('http') || product.image_url.includes('supabase.co')) ? product.image_url : "https://ebhjyczbjldqufvxoeqm.supabase.co/storage/v1/object/public/product-images/products/placeholder-1784974879709.png"} 
                   alt={product.name} 
                   className="w-full max-w-sm h-auto object-cover rounded-xl" 
                 />
